@@ -794,12 +794,25 @@ function openModal(title,bodyHTML,footHTML,opts={}){
 function closeModal(){document.getElementById('modal-ov').classList.add('gone')}
 document.getElementById('modal-ov').addEventListener('click',e=>{if(e.target===document.getElementById('modal-ov'))closeModal()});
 
-function confirmDel(msg,fn){
-  openModal('Confirm Delete',
+let deleteCallback = null;
+
+function confirmDel(msg, fn){
+  deleteCallback = fn;
+
+  openModal(
+    'Confirm Delete',
     `<p style="font-size:14px;color:var(--text1)">${msg}</p>`,
     `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-     <button class="btn btn-danger" onclick="(${fn.toString()})();closeModal()">🗑️ Delete</button>`
+     <button class="btn btn-danger" onclick="runDelete()">🗑️ Delete</button>`
   );
+}
+
+function runDelete(){
+  if(deleteCallback){
+    deleteCallback();
+    deleteCallback = null;
+  }
+  closeModal();
 }
 
 // ── NOTIFICATIONS ─────────────────────────────────────────────
