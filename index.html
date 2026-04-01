@@ -662,15 +662,15 @@ function launchApp(){
   document.getElementById('app').classList.remove('gone');
   buildSidebar();
   updateSbUser();
-  const startPage = if(CU.role === 'engineer'){
-  if(!selectedEngineerId){
+  const startPage = if (CU.role === 'engineer') {
+  if (!selectedEngineerId) {
     renderEngineerSelection();
     return;
   } else {
     navigate('dash-eng');
   }
 } else {
-  const startPage = CU.role==='admin'?'dash-admin':'dash-viewer';
+  const startPage = CU.role === 'admin' ? 'dash-admin' : 'dash-viewer';
   navigate(startPage);
 }
   checkLowStock();
@@ -2356,4 +2356,44 @@ function selectEngineer(id){
   selectedEngineerId = id;
   localStorage.setItem('selectedEngineerId', id);
   navigate('dash-eng');
+}
+function logout(){
+  localStorage.removeItem('CU');
+  localStorage.removeItem('selectedEngineerId');
+  location.reload();
+}
+if (CU.role === 'engineer') {
+  const selected = localStorage.getItem('selectedEngineerId');
+
+  if (!selected) {
+    renderEngineerSelection();
+    return;
+  } else {
+    navigate('dash-eng');
+  }
+} else if (CU.role === 'admin') {
+  navigate('dash-admin');
+} else {
+  navigate('dash-viewer');
+}
+function selectEngineer(id){
+  localStorage.setItem('selectedEngineerId', id);
+  navigate('dash-eng');
+}
+function renderEngineerSelection(){
+  const engs = D.engineers();
+  const ca = document.getElementById('content-area');
+
+  ca.innerHTML = `
+    <div class="pg on">
+      <h2>Select Your Name</h2>
+      <div class="grid">
+        ${engs.map(e => `
+          <div class="card" onclick="selectEngineer('${e.id}')">
+            <h3>${e.name}</h3>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
 }
