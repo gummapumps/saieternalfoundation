@@ -1,153 +1,946 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sai Eternal Foundation - Pipe Management</title>
-  <style>
-    body {margin:0;font-family:Arial;background:#0f172a;color:#fff}
-    .container{display:flex;height:100vh}
-    .sidebar{width:250px;background:#111827;padding:20px}
-    .sidebar h2{color:#38bdf8}
-    .sidebar button{display:block;width:100%;margin:10px 0;padding:10px;border:none;background:#1f2937;color:#fff;cursor:pointer}
-    .main{flex:1;padding:20px;overflow:auto}
-    .card{background:#1e293b;padding:20px;border-radius:10px;margin-bottom:20px}
-    input,select{padding:8px;margin:5px;width:200px}
-    table{width:100%;border-collapse:collapse}
-    th,td{border:1px solid #334155;padding:8px;text-align:left}
-    .login{display:flex;justify-content:center;align-items:center;height:100vh}
-    .login-box{background:#1e293b;padding:30px;border-radius:10px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sai Eternal Foundation – Pipe Data Management System</title>
+<meta name="description" content="Enterprise pipe data management system for Sai Eternal Foundation. Manage inventory, assignments, DPR submissions, targets and reports.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0e1a;--bg2:#111827;--card:rgba(255,255,255,0.06);--card-border:rgba(255,255,255,0.1);
+  --text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
+  --primary:#6366f1;--primary-glow:#818cf8;--primary-dark:#4f46e5;
+  --success:#22c55e;--warning:#f59e0b;--danger:#ef4444;
+  --glass:rgba(255,255,255,0.05);--glass-border:rgba(255,255,255,0.08);
+  --radius:16px;--radius-sm:10px;--radius-xs:6px;
+  --shadow:0 8px 32px rgba(0,0,0,0.4);
+  --font-display:'Space Grotesk',sans-serif;--font-body:'Inter',sans-serif;
+}
+.light{
+  --bg:#f1f5f9;--bg2:#ffffff;--card:rgba(255,255,255,0.8);--card-border:rgba(0,0,0,0.08);
+  --text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  --glass:rgba(255,255,255,0.6);--glass-border:rgba(0,0,0,0.06);
+  --shadow:0 8px 32px rgba(0,0,0,0.08);
+}
+html{font-size:14px}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700}
+a{color:var(--primary-glow);text-decoration:none}
+input,select,textarea,button{font-family:var(--font-body);font-size:.9rem}
+/* Glassmorphism */
+.glass{background:var(--card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--card-border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.glass-sm{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:var(--radius-sm)}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:none;border-radius:var(--radius-sm);font-weight:600;cursor:pointer;transition:all .2s;font-size:.85rem}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.1)}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-glow));color:#fff;box-shadow:0 4px 20px rgba(99,102,241,.3)}
+.btn-danger{background:linear-gradient(135deg,var(--danger),#f87171);color:#fff}
+.btn-success{background:linear-gradient(135deg,var(--success),#4ade80);color:#fff}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--card-border)}
+.btn-ghost:hover{background:var(--glass);color:var(--text)}
+.btn-sm{padding:6px 14px;font-size:.8rem;border-radius:var(--radius-xs)}
+/* Inputs */
+.input{width:100%;padding:10px 14px;background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text);outline:none;transition:border .2s}
+.input:focus{border-color:var(--primary)}
+select.input{cursor:pointer}
+label{display:block;font-size:.8rem;font-weight:500;color:var(--text2);margin-bottom:4px}
+/* Layout */
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.login-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0a0e1a 0%,#1e1b4b 40%,#312e81 70%,#0a0e1a 100%);z-index:0}
+.login-bg::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.3),transparent 70%);top:-100px;right:-100px;animation:pulse 6s ease-in-out infinite}
+.login-bg::after{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(139,92,246,.2),transparent 70%);bottom:-50px;left:-50px;animation:pulse 8s ease-in-out infinite reverse}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.2);opacity:1}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+.animate-in{animation:fadeIn .5s ease forwards}
+.login-card{position:relative;z-index:1;width:100%;max-width:420px;padding:40px;animation:fadeIn .6s ease}
+.login-card h1{font-size:1.6rem;text-align:center;margin-bottom:4px;background:linear-gradient(135deg,#fff,var(--primary-glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.login-card .subtitle{text-align:center;color:var(--text3);margin-bottom:28px;font-size:.85rem}
+.login-card .field{margin-bottom:16px}
+.login-card .btn{width:100%;justify-content:center;padding:12px;font-size:.95rem;margin-top:8px}
+/* App Layout */
+.app{display:flex;min-height:100vh}
+.sidebar{width:260px;background:var(--card);border-right:1px solid var(--card-border);padding:20px 0;display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:50;transition:transform .3s}
+.sidebar .logo{padding:0 20px 20px;border-bottom:1px solid var(--card-border);margin-bottom:12px}
+.sidebar .logo h2{font-size:1.1rem;background:linear-gradient(135deg,var(--primary-glow),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sidebar .logo p{font-size:.7rem;color:var(--text3);margin-top:2px}
+.sidebar nav{flex:1;padding:0 10px}
+.sidebar nav button{width:100%;text-align:left;padding:10px 16px;border:none;background:transparent;color:var(--text2);font-size:.85rem;font-weight:500;border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:10px;margin-bottom:2px}
+.sidebar nav button:hover{background:var(--glass);color:var(--text)}
+.sidebar nav button.active{background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(139,92,246,.1));color:var(--primary-glow);font-weight:600}
+.sidebar .bottom{padding:10px;border-top:1px solid var(--card-border);margin-top:auto}
+.main{margin-left:260px;flex:1;padding:24px;min-height:100vh}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.topbar h1{font-size:1.5rem}
+.topbar-actions{display:flex;gap:8px;align-items:center}
+/* Cards & Grid */
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{padding:20px;position:relative;overflow:hidden}
+.stat-card .stat-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:12px}
+.stat-card .stat-value{font-size:1.8rem;font-weight:800;font-family:var(--font-display)}
+.stat-card .stat-label{font-size:.75rem;color:var(--text3);margin-top:2px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+/* Table */
+.table-wrap{overflow-x:auto;border-radius:var(--radius)}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:12px 16px;font-size:.75rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--card-border);white-space:nowrap}
+td{padding:12px 16px;font-size:.85rem;border-bottom:1px solid var(--glass-border);white-space:nowrap}
+tr:hover td{background:var(--glass)}
+/* Badge */
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:600}
+.badge-primary{background:rgba(99,102,241,.15);color:var(--primary-glow)}
+.badge-success{background:rgba(34,197,94,.15);color:var(--success)}
+.badge-warning{background:rgba(245,158,11,.15);color:var(--warning)}
+.badge-danger{background:rgba(239,68,68,.15);color:var(--danger)}
+/* Toast */
+.toast-container{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{padding:14px 20px;border-radius:var(--radius-sm);color:#fff;font-size:.85rem;font-weight:500;animation:slideIn .3s ease;min-width:280px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.toast-success{background:linear-gradient(135deg,#16a34a,#22c55e)}
+.toast-error{background:linear-gradient(135deg,#dc2626,#ef4444)}
+.toast-warning{background:linear-gradient(135deg,#d97706,#f59e0b)}
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;animation:fadeIn .2s ease}
+.modal{width:90%;max-width:520px;max-height:90vh;overflow-y:auto;padding:28px;animation:fadeIn .3s ease}
+.modal h2{margin-bottom:20px;font-size:1.2rem}
+.modal .field{margin-bottom:14px}
+.modal .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:8px 18px;border:none;background:transparent;color:var(--text3);font-weight:500;font-size:.85rem;cursor:pointer;border-radius:var(--radius-xs);transition:all .15s}
+.tab:hover{color:var(--text);background:var(--glass)}
+.tab.active{background:linear-gradient(135deg,var(--primary),var(--primary-glow));color:#fff}
+/* Form grid */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid .full{grid-column:1/-1}
+/* Fitting pills */
+.fitting-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.fitting-pill{padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;cursor:pointer;border:1px solid var(--card-border);background:var(--glass);color:var(--text2);transition:all .15s}
+.fitting-pill.selected{background:linear-gradient(135deg,var(--primary),var(--primary-glow));color:#fff;border-color:transparent}
+.fitting-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--glass);border-radius:var(--radius-xs);margin-bottom:6px}
+.fitting-row span{flex:1;font-size:.85rem;font-weight:500}
+.fitting-row input{width:70px;text-align:center}
+.fitting-row .remove-btn{background:none;border:none;color:var(--danger);cursor:pointer;font-size:1.1rem;padding:4px}
+/* Chart placeholder */
+.chart-bar{display:flex;align-items:flex-end;gap:8px;height:200px;padding:20px 0}
+.chart-bar .bar{flex:1;border-radius:6px 6px 0 0;min-width:30px;position:relative;transition:height .5s ease}
+.chart-bar .bar-label{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:.65rem;color:var(--text3);white-space:nowrap}
+.chart-bar .bar-value{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:.7rem;font-weight:600;color:var(--text)}
+/* Responsive */
+.mobile-toggle{display:none;position:fixed;top:12px;left:12px;z-index:60;background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius-xs);padding:8px 12px;cursor:pointer;color:var(--text);font-size:1.2rem}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .mobile-toggle{display:block}
+  .grid-2,.grid-3,.form-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr}
+  .main{padding:16px}
+}
+/* Theme toggle */
+.theme-toggle{background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text2);padding:4px}
+/* Scrollbar */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--glass-border);border-radius:3px}
+.section-card{padding:24px;margin-bottom:20px}
+.section-card h3{font-size:1rem;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.empty{text-align:center;padding:40px;color:var(--text3);font-size:.9rem}
+.search-bar{position:relative;margin-bottom:16px}
+.search-bar input{padding-left:36px}
+.search-bar::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.85rem}
+.download-btn{background:linear-gradient(135deg,var(--primary),var(--primary-glow));color:#fff;border:none;padding:8px 16px;border-radius:var(--radius-xs);font-size:.8rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+</style>
 </head>
 <body>
 <div id="app"></div>
+<div class="toast-container" id="toasts"></div>
 
 <script>
-let user = JSON.parse(localStorage.getItem('user'));
-let data = JSON.parse(localStorage.getItem('data')) || {pipes:[], engineers:[], issues:[]};
+// ─── DATA LAYER ───
+const DEFAULT_DATA = {
+  engineers: [],
+  inventory: { sai: [], suez: [] },
+  assignments: [],
+  dpr: [],
+  targets: [],
+  messages: []
+};
 
-function save(){localStorage.setItem('data',JSON.stringify(data));}
+const CREDENTIALS = [
+  { id: 'saiadmin', password: 'SaiAdmin@12', role: 'admin' },
+  { id: 'saiuser', password: 'user@saiEF', role: 'engineer' },
+  { id: 'viewer', password: 'Sai@viewer', role: 'viewer' },
+];
 
-function loginUI(){
-  document.getElementById('app').innerHTML=`
-  <div class='login'>
-    <div class='login-box'>
-      <h2>Login</h2>
-      <input id='id' placeholder='ID'><br>
-      <input id='pass' type='password' placeholder='Password'><br>
-      <button onclick='login()'>Login</button>
+function loadData() {
+  try { return JSON.parse(localStorage.getItem('sef_data')) || JSON.parse(JSON.stringify(DEFAULT_DATA)); }
+  catch { return JSON.parse(JSON.stringify(DEFAULT_DATA)); }
+}
+function saveData(d) { localStorage.setItem('sef_data', JSON.stringify(d)); }
+function getUser() { try { return JSON.parse(localStorage.getItem('sef_user')); } catch { return null; } }
+function setUser(u) { localStorage.setItem('sef_user', JSON.stringify(u)); }
+function clearUser() { localStorage.removeItem('sef_user'); }
+function getTheme() { return localStorage.getItem('sef_theme') || 'dark'; }
+function setTheme(t) { localStorage.setItem('sef_theme', t); document.body.classList.toggle('light', t === 'light'); }
+
+let data = loadData();
+let currentUser = getUser();
+let currentPage = '';
+let sidebarOpen = false;
+let selectedEngineerId = localStorage.getItem('sef_selected_engineer') || '';
+
+// ─── UTILS ───
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+function toast(msg, type = 'success') {
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.innerHTML = `${type === 'success' ? '✓' : type === 'error' ? '✕' : '⚠'} ${msg}`;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+function formatDate(d) {
+  if (!d) return '';
+  const dt = new Date(d);
+  return dt.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+// ─── RENDER ENGINE ───
+const app = document.getElementById('app');
+
+function render() {
+  setTheme(getTheme());
+  if (!currentUser) { renderLogin(); return; }
+  if (currentUser.role === 'engineer' && !selectedEngineerId) { renderEngineerSelect(); return; }
+  renderApp();
+}
+
+// ─── LOGIN ───
+function renderLogin() {
+  app.innerHTML = `
+    <div class="login-page">
+      <div class="login-bg"></div>
+      <div class="login-card glass animate-in">
+        <div style="text-align:center;margin-bottom:8px;font-size:2rem">🏗️</div>
+        <h1>Sai Eternal Foundation</h1>
+        <p class="subtitle">Pipe Data Management System</p>
+        <div class="field">
+          <label>User ID</label>
+          <input class="input" id="login-id" placeholder="Enter your ID" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input class="input" id="login-pw" type="password" placeholder="Enter password">
+        </div>
+        <button class="btn btn-primary" onclick="doLogin()">Sign In →</button>
+      </div>
+    </div>`;
+  setTimeout(() => document.getElementById('login-id')?.focus(), 100);
+}
+
+function doLogin() {
+  const id = document.getElementById('login-id').value.trim();
+  const pw = document.getElementById('login-pw').value;
+  const cred = CREDENTIALS.find(c => c.id === id && c.password === pw);
+  if (!cred) { toast('Invalid credentials', 'error'); return; }
+  currentUser = { id: cred.id, role: cred.role };
+  setUser(currentUser);
+  if (cred.role === 'engineer') { selectedEngineerId = ''; localStorage.removeItem('sef_selected_engineer'); }
+  currentPage = '';
+  render();
+  toast(`Welcome, ${cred.role.charAt(0).toUpperCase() + cred.role.slice(1)}!`);
+}
+
+function logout() {
+  clearUser();
+  currentUser = null;
+  selectedEngineerId = '';
+  localStorage.removeItem('sef_selected_engineer');
+  render();
+}
+
+// ─── ENGINEER SELECT ───
+function renderEngineerSelect() {
+  const engineers = data.engineers;
+  if (engineers.length === 0) {
+    app.innerHTML = `<div class="login-page"><div class="login-bg"></div><div class="login-card glass animate-in">
+      <h1>No Engineers</h1><p class="subtitle">Admin hasn't added engineers yet.</p>
+      <button class="btn btn-ghost" onclick="logout()">← Logout</button></div></div>`;
+    return;
+  }
+  app.innerHTML = `<div class="login-page"><div class="login-bg"></div><div class="login-card glass animate-in" style="max-width:480px">
+    <h1>Select Your Profile</h1><p class="subtitle">Choose your name to continue</p>
+    <div style="max-height:400px;overflow-y:auto">${engineers.map(e => `
+      <button onclick="selectEngineer('${e.id}')" style="width:100%;text-align:left;padding:14px 16px;border:none;background:var(--glass);border-radius:var(--radius-sm);cursor:pointer;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:14px;border:1px solid var(--glass-border);transition:all .15s" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--glass-border)'">
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-glow));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.1rem">${e.name.charAt(0)}</div>
+        <div><div style="font-weight:600;font-size:.9rem">${e.name}</div><div style="font-size:.75rem;color:var(--text3)">Field Engineer</div></div>
+      </button>`).join('')}</div>
+    <button class="btn btn-ghost" onclick="logout()" style="width:100%;justify-content:center;margin-top:12px">← Back to Login</button>
+  </div></div>`;
+}
+
+function selectEngineer(id) {
+  selectedEngineerId = id;
+  localStorage.setItem('sef_selected_engineer', id);
+  currentPage = '';
+  render();
+}
+
+// ─── APP SHELL ───
+function renderApp() {
+  const role = currentUser.role;
+  const pages = getPages(role);
+  if (!currentPage || !pages.find(p => p.id === currentPage)) currentPage = pages[0].id;
+
+  app.innerHTML = `
+    <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="app">
+      <aside class="sidebar${sidebarOpen ? ' open' : ''}" id="sidebar">
+        <div class="logo">
+          <h2>🏗️ SEF PMS</h2>
+          <p>Pipe Management System</p>
+        </div>
+        <nav>${pages.map(p => `<button class="${currentPage === p.id ? 'active' : ''}" onclick="navigateTo('${p.id}')">${p.icon} ${p.label}</button>`).join('')}</nav>
+        <div class="bottom">
+          <div style="padding:8px 16px;display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--primary-glow));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.8rem">${currentUser.id.charAt(0).toUpperCase()}</div>
+            <div><div style="font-weight:600;font-size:.8rem">${currentUser.id}</div><div style="font-size:.7rem;color:var(--text3)">${role}</div></div>
+          </div>
+          <div style="display:flex;gap:6px;padding:0 10px">
+            <button class="btn btn-ghost btn-sm" style="flex:1" onclick="logout()">Logout</button>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">${getTheme() === 'dark' ? '☀️' : '🌙'}</button>
+          </div>
+        </div>
+      </aside>
+      <main class="main" id="main-content"></main>
+    </div>`;
+  renderPage();
+}
+
+function getPages(role) {
+  if (role === 'admin') return [
+    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+    { id: 'engineers', label: 'Engineers', icon: '👷' },
+    { id: 'inventory', label: 'Inventory', icon: '📦' },
+    { id: 'assignments', label: 'Assignments', icon: '📋' },
+    { id: 'dpr', label: 'DPR Records', icon: '📝' },
+    { id: 'targets', label: 'Targets', icon: '🎯' },
+    { id: 'reports', label: 'Reports', icon: '📈' },
+    { id: 'notifications', label: 'Notifications', icon: '🔔' },
+  ];
+  if (role === 'engineer') return [
+    { id: 'dashboard', label: 'Overview', icon: '📊' },
+    { id: 'mypipes', label: 'My Pipes', icon: '🔧' },
+    { id: 'submitdpr', label: 'Submit DPR', icon: '📝' },
+    { id: 'mytarget', label: 'Targets', icon: '🎯' },
+    { id: 'reports', label: 'Reports', icon: '📈' },
+  ];
+  return [
+    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+    { id: 'reports', label: 'Reports', icon: '📈' },
+  ];
+}
+
+function navigateTo(page) {
+  currentPage = page;
+  sidebarOpen = false;
+  renderPage();
+  document.getElementById('sidebar')?.classList.remove('open');
+}
+
+function toggleSidebar() {
+  sidebarOpen = !sidebarOpen;
+  document.getElementById('sidebar')?.classList.toggle('open', sidebarOpen);
+}
+
+function toggleTheme() {
+  const t = getTheme() === 'dark' ? 'light' : 'dark';
+  setTheme(t);
+  render();
+}
+
+function renderPage() {
+  const mc = document.getElementById('main-content');
+  if (!mc) return;
+  data = loadData();
+  const role = currentUser.role;
+  const pageMap = {
+    admin: { dashboard: renderAdminDashboard, engineers: renderEngineers, inventory: renderInventory, assignments: renderAssignments, dpr: renderDPRPage, targets: renderTargets, reports: renderReports, notifications: renderNotifications },
+    engineer: { dashboard: renderEngineerDashboard, mypipes: renderMyPipes, submitdpr: renderSubmitDPR, mytarget: renderMyTarget, reports: renderReports },
+    viewer: { dashboard: renderViewerDashboard, reports: renderReports },
+  };
+  const fn = pageMap[role]?.[currentPage];
+  if (fn) fn(mc); else mc.innerHTML = '<div class="empty">Page not found</div>';
+}
+
+// ─── ADMIN DASHBOARD ───
+function renderAdminDashboard(el) {
+  const totalEngineers = data.engineers.length;
+  const totalSaiStock = data.inventory.sai.reduce((s, i) => s + i.quantity, 0);
+  const totalSuezStock = data.inventory.suez.reduce((s, i) => s + i.quantity, 0);
+  const totalDPR = data.dpr.length;
+  const totalMeter = data.dpr.reduce((s, d) => s + (d.meterLaid || 0), 0);
+  const totalAssigned = data.assignments.reduce((s, a) => s + a.quantity, 0);
+  const lowStock = [...data.inventory.sai, ...data.inventory.suez].filter(i => i.quantity < 10);
+
+  el.innerHTML = `
+    <div class="topbar"><h1>Admin Dashboard</h1></div>
+    <div class="stats">
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(99,102,241,.15);color:var(--primary-glow)">👷</div><div class="stat-value">${totalEngineers}</div><div class="stat-label">Engineers</div></div>
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(34,197,94,.15);color:var(--success)">📦</div><div class="stat-value">${totalSaiStock + totalSuezStock}</div><div class="stat-label">Total Stock</div></div>
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(245,158,11,.15);color:var(--warning)">📋</div><div class="stat-value">${totalAssigned}</div><div class="stat-label">Pipes Assigned</div></div>
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(139,92,246,.15);color:#a78bfa">📝</div><div class="stat-value">${totalDPR}</div><div class="stat-label">DPR Entries</div></div>
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(14,165,233,.15);color:#38bdf8">📏</div><div class="stat-value">${totalMeter.toFixed(1)}m</div><div class="stat-label">Total Laid</div></div>
     </div>
-  </div>`;
+    ${lowStock.length > 0 ? `<div class="glass section-card" style="border-left:3px solid var(--warning)"><h3>⚠️ Low Stock Alerts</h3>${lowStock.map(i => `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--glass-border)"><span>${i.diameter} ${i.type || ''}</span><span class="badge badge-danger">${i.quantity} left</span></div>`).join('')}</div>` : ''}
+    <div class="glass section-card"><h3>📊 Recent DPR Entries</h3>
+      ${data.dpr.length === 0 ? '<div class="empty">No DPR entries yet</div>' : `<div class="table-wrap"><table><thead><tr><th>Date</th><th>Engineer</th><th>Type</th><th>Diameter</th><th>Pipes</th><th>Meter</th></tr></thead><tbody>${data.dpr.slice(-10).reverse().map(d => {
+        const eng = data.engineers.find(e => e.id === d.engineerId);
+        return `<tr><td>${formatDate(d.date)}</td><td>${eng?.name || d.engineerId}</td><td>${d.pipeType || ''}</td><td>${d.diameter || ''}</td><td>${d.pipesUsed}</td><td>${d.meterLaid}m</td></tr>`;
+      }).join('')}</tbody></table></div>`}
+    </div>`;
 }
 
-function login(){
-  let id=document.getElementById('id').value;
-  let pass=document.getElementById('pass').value;
-  if(id==='saiadmin' && pass==='SaiAdmin@12'){user={role:'admin'};}
-  else if(id==='saiuser' && pass==='user@saiEF'){user={role:'user'};}
-  else{alert('Invalid');return;}
-  localStorage.setItem('user',JSON.stringify(user));
-  dashboard();
+// ─── ENGINEERS ───
+function renderEngineers(el) {
+  el.innerHTML = `
+    <div class="topbar"><h1>Engineers</h1><div class="topbar-actions"><button class="btn btn-primary btn-sm" onclick="showAddEngineerModal()">+ Add Engineer</button></div></div>
+    ${data.engineers.length === 0 ? '<div class="glass section-card empty">No engineers added yet</div>' : `
+    <div class="glass section-card"><div class="table-wrap"><table><thead><tr><th>Name</th><th>Assignments</th><th>DPRs</th><th>Actions</th></tr></thead><tbody>${data.engineers.map(e => {
+      const aCount = data.assignments.filter(a => a.engineerId === e.id).length;
+      const dCount = data.dpr.filter(d => d.engineerId === e.id).length;
+      return `<tr><td><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--primary-glow));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.8rem">${e.name.charAt(0)}</div>${e.name}</div></td><td>${aCount}</td><td>${dCount}</td><td><button class="btn btn-ghost btn-sm" onclick="showEditEngineerModal('${e.id}')">Edit</button> <button class="btn btn-danger btn-sm" onclick="deleteEngineer('${e.id}')">Delete</button></td></tr>`;
+    }).join('')}</tbody></table></div></div>`}`;
 }
 
-function logout(){localStorage.removeItem('user');location.reload();}
+function showAddEngineerModal() {
+  showModal('Add Engineer', `<div class="field"><label>Engineer Name</label><input class="input" id="eng-name" placeholder="Full name"></div>`, () => {
+    const name = document.getElementById('eng-name').value.trim();
+    if (!name) { toast('Name is required', 'error'); return false; }
+    data.engineers.push({ id: uid(), name });
+    saveData(data);
+    toast('Engineer added');
+    renderPage();
+  });
+}
 
-function dashboard(){
-  document.getElementById('app').innerHTML=`
-  <div class='container'>
-    <div class='sidebar'>
-      <h2>Sai Foundation</h2>
-      <button onclick='showHome()'>Home</button>
-      ${user.role==='admin'?`<button onclick='pipesUI()'>Pipes</button>
-      <button onclick='engineerUI()'>Engineers</button>
-      <button onclick='issueUI()'>Issue Pipes</button>`:''}
-      <button onclick='reportUI()'>Reports</button>
-      <button onclick='logout()'>Logout</button>
+function showEditEngineerModal(id) {
+  const eng = data.engineers.find(e => e.id === id);
+  if (!eng) return;
+  showModal('Edit Engineer', `<div class="field"><label>Engineer Name</label><input class="input" id="eng-name" value="${eng.name}"></div>`, () => {
+    const name = document.getElementById('eng-name').value.trim();
+    if (!name) { toast('Name is required', 'error'); return false; }
+    eng.name = name;
+    saveData(data);
+    toast('Engineer updated');
+    renderPage();
+  });
+}
+
+function deleteEngineer(id) {
+  if (!confirm('Delete this engineer? All their assignments and DPR records will remain.')) return;
+  data.engineers = data.engineers.filter(e => e.id !== id);
+  saveData(data);
+  toast('Engineer deleted');
+  renderPage();
+}
+
+// ─── INVENTORY ───
+function renderInventory(el) {
+  el.innerHTML = `
+    <div class="topbar"><h1>Inventory</h1><div class="topbar-actions"><button class="btn btn-primary btn-sm" onclick="showAddStockModal()">+ Add Stock</button></div></div>
+    <div class="tabs"><button class="tab active" onclick="switchInvTab(this,'sai')">SAI Pipes</button><button class="tab" onclick="switchInvTab(this,'suez')">SUEZ Pipes</button></div>
+    <div id="inv-content"></div>`;
+  renderInvTab('sai');
+}
+
+function switchInvTab(btn, type) {
+  document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderInvTab(type);
+}
+
+function renderInvTab(type) {
+  const items = data.inventory[type] || [];
+  const el = document.getElementById('inv-content');
+  if (!el) return;
+  el.innerHTML = items.length === 0 ? '<div class="glass section-card empty">No stock added</div>' : `
+    <div class="glass section-card"><div class="table-wrap"><table><thead><tr><th>Diameter</th><th>Type</th><th>Quantity</th><th>Status</th><th>Actions</th></tr></thead><tbody>${items.map((item, i) => `
+      <tr><td>${item.diameter}</td><td>${item.type || type.toUpperCase()}</td><td>${item.quantity}</td><td>${item.quantity < 10 ? '<span class="badge badge-danger">Low</span>' : '<span class="badge badge-success">OK</span>'}</td><td><button class="btn btn-ghost btn-sm" onclick="showEditStockModal('${type}',${i})">Edit</button> <button class="btn btn-danger btn-sm" onclick="deleteStock('${type}',${i})">Delete</button></td></tr>`).join('')}</tbody></table></div></div>`;
+}
+
+function showAddStockModal() {
+  showModal('Add Stock', `
+    <div class="form-grid">
+      <div class="field"><label>Pipe Brand</label><select class="input" id="stock-brand"><option value="sai">SAI</option><option value="suez">SUEZ</option></select></div>
+      <div class="field"><label>Diameter</label><input class="input" id="stock-dia" placeholder="e.g., 110mm"></div>
+      <div class="field"><label>Type/Grade</label><input class="input" id="stock-type" placeholder="e.g., PE100"></div>
+      <div class="field"><label>Quantity</label><input class="input" id="stock-qty" type="number" min="0" value="0"></div>
+    </div>`, () => {
+    const brand = document.getElementById('stock-brand').value;
+    const diameter = document.getElementById('stock-dia').value.trim();
+    const type = document.getElementById('stock-type').value.trim();
+    const quantity = parseInt(document.getElementById('stock-qty').value) || 0;
+    if (!diameter || quantity < 0) { toast('Fill required fields', 'error'); return false; }
+    data.inventory[brand].push({ id: uid(), diameter, type, quantity });
+    saveData(data);
+    toast('Stock added');
+    renderPage();
+  });
+}
+
+function showEditStockModal(brand, index) {
+  const item = data.inventory[brand][index];
+  if (!item) return;
+  showModal('Edit Stock', `
+    <div class="form-grid">
+      <div class="field"><label>Diameter</label><input class="input" id="stock-dia" value="${item.diameter}"></div>
+      <div class="field"><label>Type/Grade</label><input class="input" id="stock-type" value="${item.type || ''}"></div>
+      <div class="field"><label>Quantity</label><input class="input" id="stock-qty" type="number" min="0" value="${item.quantity}"></div>
+    </div>`, () => {
+    item.diameter = document.getElementById('stock-dia').value.trim();
+    item.type = document.getElementById('stock-type').value.trim();
+    item.quantity = parseInt(document.getElementById('stock-qty').value) || 0;
+    saveData(data);
+    toast('Stock updated');
+    renderPage();
+  });
+}
+
+function deleteStock(brand, index) {
+  if (!confirm('Delete this stock entry?')) return;
+  data.inventory[brand].splice(index, 1);
+  saveData(data);
+  toast('Stock deleted');
+  renderPage();
+}
+
+// ─── ASSIGNMENTS ───
+function renderAssignments(el) {
+  el.innerHTML = `
+    <div class="topbar"><h1>Pipe Assignments</h1><div class="topbar-actions"><button class="btn btn-primary btn-sm" onclick="showAssignModal()">+ Assign Pipes</button></div></div>
+    ${data.assignments.length === 0 ? '<div class="glass section-card empty">No assignments yet</div>' : `
+    <div class="glass section-card"><div class="table-wrap"><table><thead><tr><th>Engineer</th><th>Brand</th><th>Diameter</th><th>Assigned</th><th>Remaining</th><th>Actions</th></tr></thead><tbody>${data.assignments.map(a => {
+      const eng = data.engineers.find(e => e.id === a.engineerId);
+      return `<tr><td>${eng?.name || 'Unknown'}</td><td>${a.pipeType}</td><td>${a.diameter}</td><td>${a.quantity}</td><td><span class="badge ${a.remaining <= 0 ? 'badge-danger' : a.remaining < 5 ? 'badge-warning' : 'badge-success'}">${a.remaining}</span></td><td><button class="btn btn-ghost btn-sm" onclick="showEditAssignModal('${a.id}')">Edit</button> <button class="btn btn-danger btn-sm" onclick="deleteAssignment('${a.id}')">Delete</button></td></tr>`;
+    }).join('')}</tbody></table></div></div>`}`;
+}
+
+function showAssignModal() {
+  const allStock = [...data.inventory.sai.map(s => ({...s, brand:'SAI'})), ...data.inventory.suez.map(s => ({...s, brand:'SUEZ'}))];
+  showModal('Assign Pipes', `
+    <div class="form-grid">
+      <div class="field"><label>Engineer</label><select class="input" id="asgn-eng"><option value="">Select</option>${data.engineers.map(e => `<option value="${e.id}">${e.name}</option>`).join('')}</select></div>
+      <div class="field"><label>Stock Item</label><select class="input" id="asgn-stock"><option value="">Select</option>${allStock.map((s, i) => `<option value="${i}">${s.brand} - ${s.diameter} ${s.type || ''} (${s.quantity} available)</option>`).join('')}</select></div>
+      <div class="field"><label>Quantity</label><input class="input" id="asgn-qty" type="number" min="1" value="1"></div>
+    </div>`, () => {
+    const engId = document.getElementById('asgn-eng').value;
+    const stockIdx = parseInt(document.getElementById('asgn-stock').value);
+    const qty = parseInt(document.getElementById('asgn-qty').value) || 0;
+    if (!engId || isNaN(stockIdx) || qty <= 0) { toast('Fill all fields', 'error'); return false; }
+    const stockItem = allStock[stockIdx];
+    if (!stockItem) { toast('Invalid stock', 'error'); return false; }
+    if (qty > stockItem.quantity) { toast('Not enough stock', 'error'); return false; }
+    // Deduct from inventory
+    const brand = stockItem.brand.toLowerCase();
+    const invItem = data.inventory[brand].find(i => i.id === stockItem.id);
+    if (invItem) invItem.quantity -= qty;
+    data.assignments.push({ id: uid(), engineerId: engId, pipeType: stockItem.brand, diameter: stockItem.diameter, type: stockItem.type, quantity: qty, remaining: qty });
+    saveData(data);
+    toast('Pipes assigned');
+    renderPage();
+  });
+}
+
+function showEditAssignModal(id) {
+  const a = data.assignments.find(x => x.id === id);
+  if (!a) return;
+  showModal('Edit Assignment', `
+    <div class="form-grid">
+      <div class="field"><label>Quantity Assigned</label><input class="input" id="asgn-qty" type="number" min="0" value="${a.quantity}"></div>
+      <div class="field"><label>Remaining</label><input class="input" id="asgn-rem" type="number" min="0" value="${a.remaining}"></div>
+    </div>`, () => {
+    a.quantity = parseInt(document.getElementById('asgn-qty').value) || 0;
+    a.remaining = parseInt(document.getElementById('asgn-rem').value) || 0;
+    saveData(data);
+    toast('Assignment updated');
+    renderPage();
+  });
+}
+
+function deleteAssignment(id) {
+  if (!confirm('Delete this assignment?')) return;
+  data.assignments = data.assignments.filter(a => a.id !== id);
+  saveData(data);
+  toast('Assignment deleted');
+  renderPage();
+}
+
+// ─── DPR PAGE (Admin) ───
+function renderDPRPage(el) {
+  el.innerHTML = `
+    <div class="topbar"><h1>DPR Records</h1></div>
+    ${data.dpr.length === 0 ? '<div class="glass section-card empty">No DPR records</div>' : `
+    <div class="glass section-card"><div class="table-wrap"><table><thead><tr><th>Date</th><th>Engineer</th><th>Brand</th><th>Diameter</th><th>Pipes Used</th><th>Pipes Left</th><th>Meter</th><th>Joints</th><th>Start</th><th>End</th><th>Fittings</th></tr></thead><tbody>${data.dpr.slice().reverse().map(d => {
+      const eng = data.engineers.find(e => e.id === d.engineerId);
+      const fStr = (d.fittings || []).map(f => `${f.type}:${f.quantity}`).join(', ');
+      return `<tr><td>${formatDate(d.date)}</td><td>${eng?.name || 'Unknown'}</td><td>${d.pipeType || ''}</td><td>${d.diameter || ''}</td><td>${d.pipesUsed}</td><td>${d.pipesLeft ?? ''}</td><td>${d.meterLaid}m</td><td>${d.totalJoints || 0}</td><td>${d.startJunction || ''}</td><td>${d.endJunction || ''}</td><td>${fStr || '-'}</td></tr>`;
+    }).join('')}</tbody></table></div></div>`}`;
+}
+
+// ─── TARGETS ───
+function renderTargets(el) {
+  el.innerHTML = `
+    <div class="topbar"><h1>Targets</h1><div class="topbar-actions"><button class="btn btn-primary btn-sm" onclick="showAddTargetModal()">+ Set Target</button></div></div>
+    ${data.targets.length === 0 ? '<div class="glass section-card empty">No targets set</div>' : `
+    <div class="glass section-card"><div class="table-wrap"><table><thead><tr><th>Engineer</th><th>Month</th><th>Target (m)</th><th>Achieved (m)</th><th>Progress</th><th>Actions</th></tr></thead><tbody>${data.targets.map(t => {
+      const eng = data.engineers.find(e => e.id === t.engineerId);
+      const achieved = data.dpr.filter(d => d.engineerId === t.engineerId && d.date?.startsWith(t.month)).reduce((s, d) => s + (d.meterLaid || 0), 0);
+      const pct = t.target > 0 ? Math.min(100, (achieved / t.target * 100)).toFixed(0) : 0;
+      return `<tr><td>${eng?.name || 'Unknown'}</td><td>${t.month}</td><td>${t.target}m</td><td>${achieved.toFixed(1)}m</td><td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--glass);border-radius:3px;overflow:hidden"><div style="width:${pct}%;height:100%;background:linear-gradient(90deg,var(--primary),var(--success));border-radius:3px"></div></div><span style="font-size:.75rem;font-weight:600">${pct}%</span></div></td><td><button class="btn btn-danger btn-sm" onclick="deleteTarget('${t.id}')">Delete</button></td></tr>`;
+    }).join('')}</tbody></table></div></div>`}`;
+}
+
+function showAddTargetModal() {
+  const month = new Date().toISOString().slice(0, 7);
+  showModal('Set Target', `
+    <div class="form-grid">
+      <div class="field"><label>Engineer</label><select class="input" id="tgt-eng"><option value="">Select</option>${data.engineers.map(e => `<option value="${e.id}">${e.name}</option>`).join('')}</select></div>
+      <div class="field"><label>Month</label><input class="input" id="tgt-month" type="month" value="${month}"></div>
+      <div class="field"><label>Target (meters)</label><input class="input" id="tgt-val" type="number" min="1" value="100"></div>
+    </div>`, () => {
+    const engineerId = document.getElementById('tgt-eng').value;
+    const m = document.getElementById('tgt-month').value;
+    const target = parseFloat(document.getElementById('tgt-val').value) || 0;
+    if (!engineerId || !m || target <= 0) { toast('Fill all fields', 'error'); return false; }
+    data.targets.push({ id: uid(), engineerId, month: m, target });
+    saveData(data);
+    toast('Target set');
+    renderPage();
+  });
+}
+
+function deleteTarget(id) {
+  data.targets = data.targets.filter(t => t.id !== id);
+  saveData(data);
+  toast('Target deleted');
+  renderPage();
+}
+
+// ─── NOTIFICATIONS ───
+function renderNotifications(el) {
+  const lowStock = [...data.inventory.sai.map(i => ({...i, brand:'SAI'})), ...data.inventory.suez.map(i => ({...i, brand:'SUEZ'}))].filter(i => i.quantity < 10);
+  const recentDPR = data.dpr.slice(-5).reverse();
+  el.innerHTML = `
+    <div class="topbar"><h1>Notifications</h1></div>
+    ${lowStock.length > 0 ? `<div class="glass section-card" style="border-left:3px solid var(--warning)"><h3>⚠️ Low Stock Alerts</h3>${lowStock.map(i => `<div style="padding:8px 0;border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between"><span>${i.brand} - ${i.diameter} ${i.type || ''}</span><span class="badge badge-danger">${i.quantity} remaining</span></div>`).join('')}</div>` : '<div class="glass section-card"><h3>✅ No Alerts</h3><p style="color:var(--text3)">All stock levels are healthy.</p></div>'}
+    <div class="glass section-card"><h3>📝 Recent Activity</h3>${recentDPR.length === 0 ? '<p style="color:var(--text3)">No recent activity</p>' : recentDPR.map(d => {
+      const eng = data.engineers.find(e => e.id === d.engineerId);
+      return `<div style="padding:8px 0;border-bottom:1px solid var(--glass-border)"><span class="badge badge-primary">DPR</span> ${eng?.name || 'Unknown'} submitted ${d.pipesUsed} pipes (${d.meterLaid}m) on ${formatDate(d.date)}</div>`;
+    }).join('')}</div>`;
+}
+
+// ─── ENGINEER DASHBOARD ───
+function renderEngineerDashboard(el) {
+  const myAssignments = data.assignments.filter(a => a.engineerId === selectedEngineerId);
+  const myDPR = data.dpr.filter(d => d.engineerId === selectedEngineerId);
+  const totalPipes = myAssignments.reduce((s, a) => s + a.quantity, 0);
+  const remaining = myAssignments.reduce((s, a) => s + a.remaining, 0);
+  const totalMeter = myDPR.reduce((s, d) => s + (d.meterLaid || 0), 0);
+  const eng = data.engineers.find(e => e.id === selectedEngineerId);
+
+  el.innerHTML = `
+    <div class="topbar"><h1>Welcome, ${eng?.name || 'Engineer'}</h1></div>
+    <div class="stats">
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(99,102,241,.15);color:var(--primary-glow)">🔧</div><div class="stat-value">${totalPipes}</div><div class="stat-label">Total Assigned</div></div>
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(34,197,94,.15);color:var(--success)">📦</div><div class="stat-value">${remaining}</div><div class="stat-label">Remaining</div></div>
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(245,158,11,.15);color:var(--warning)">📝</div><div class="stat-value">${myDPR.length}</div><div class="stat-label">DPR Entries</div></div>
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(14,165,233,.15);color:#38bdf8">📏</div><div class="stat-value">${totalMeter.toFixed(1)}m</div><div class="stat-label">Meter Laid</div></div>
     </div>
-    <div class='main' id='main'></div>
-  </div>`;
-  showHome();
+    <div class="glass section-card"><h3>📋 Recent DPR</h3>
+      ${myDPR.length === 0 ? '<div class="empty">No entries yet</div>' : `<div class="table-wrap"><table><thead><tr><th>Date</th><th>Brand</th><th>Diameter</th><th>Pipes</th><th>Meter</th></tr></thead><tbody>${myDPR.slice(-5).reverse().map(d => `<tr><td>${formatDate(d.date)}</td><td>${d.pipeType || ''}</td><td>${d.diameter || ''}</td><td>${d.pipesUsed}</td><td>${d.meterLaid}m</td></tr>`).join('')}</tbody></table></div>`}
+    </div>`;
 }
 
-function showHome(){
-  document.getElementById('main').innerHTML=`
-  <div class='card'>
-    <h2>Dashboard</h2>
-    <p>Total Pipes: ${data.pipes.reduce((a,b)=>a+b.qty,0)}</p>
-    <p>Total Engineers: ${data.engineers.length}</p>
-  </div>`;
+// ─── MY PIPES ───
+function renderMyPipes(el) {
+  const myAssignments = data.assignments.filter(a => a.engineerId === selectedEngineerId);
+  el.innerHTML = `
+    <div class="topbar"><h1>My Pipes</h1></div>
+    ${myAssignments.length === 0 ? '<div class="glass section-card empty">No pipes assigned to you</div>' : `
+    <div class="glass section-card"><div class="table-wrap"><table><thead><tr><th>Brand</th><th>Diameter</th><th>Assigned</th><th>Remaining</th><th>Used</th></tr></thead><tbody>${myAssignments.map(a => `<tr><td><span class="badge badge-primary">${a.pipeType}</span></td><td>${a.diameter}</td><td>${a.quantity}</td><td><span class="badge ${a.remaining <= 0 ? 'badge-danger' : 'badge-success'}">${a.remaining}</span></td><td>${a.quantity - a.remaining}</td></tr>`).join('')}</tbody></table></div></div>`}`;
 }
 
-function pipesUI(){
-  let html=`<div class='card'><h2>Pipes</h2>
-  <input id='dia' placeholder='Diameter'>
-  <input id='mat' placeholder='Material'>
-  <input id='qty' type='number' placeholder='Quantity'>
-  <button onclick='addPipe()'>Add</button>
-  <table><tr><th>Dia</th><th>Material</th><th>Qty</th></tr>`;
-  data.pipes.forEach(p=>{html+=`<tr><td>${p.dia}</td><td>${p.mat}</td><td>${p.qty}</td></tr>`});
-  html+=`</table></div>`;
-  document.getElementById('main').innerHTML=html;
+// ─── SUBMIT DPR ───
+function renderSubmitDPR(el) {
+  const myAssignments = data.assignments.filter(a => a.engineerId === selectedEngineerId && a.remaining > 0);
+  const today = new Date().toISOString().split('T')[0];
+  el.innerHTML = `
+    <div class="topbar"><h1>Submit DPR</h1></div>
+    <div class="glass section-card">
+      <form id="dpr-form" class="form-grid">
+        <div class="field"><label>Assignment *</label><select class="input" id="dpr-asgn" required><option value="">Select</option>${myAssignments.map(a => `<option value="${a.id}" data-remaining="${a.remaining}" data-diameter="${a.diameter}" data-type="${a.pipeType}">${a.pipeType} - ${a.diameter} (${a.remaining} remaining)</option>`).join('')}</select></div>
+        <div class="field"><label>Date *</label><input class="input" id="dpr-date" type="date" value="${today}" required></div>
+        <div class="field"><label>Pipes Used *</label><input class="input" id="dpr-pipes" type="number" min="1" value="" required></div>
+        <div class="field"><label>Meter Laid *</label><input class="input" id="dpr-meter" type="number" min="0.1" step="0.1" value="" required></div>
+        <div class="field"><label>Total Joints</label><input class="input" id="dpr-joints" type="number" min="0" value="0"></div>
+        <div class="field"><label>Start Junction *</label><input class="input" id="dpr-start" placeholder="e.g., J-101" required></div>
+        <div class="field full"><label>End Junction *</label><input class="input" id="dpr-end" placeholder="e.g., J-102" required></div>
+        <div class="field full">
+          <label>Fittings</label>
+          <div class="fitting-pills" id="fitting-pills">
+            <span class="fitting-pill" onclick="toggleFitting(this,'Bend')">Bend</span>
+            <span class="fitting-pill" onclick="toggleFitting(this,'Tee')">Tee</span>
+            <span class="fitting-pill" onclick="toggleFitting(this,'Valve')">Valve</span>
+            <span class="fitting-pill" onclick="toggleFitting(this,'Reducer')">Reducer</span>
+          </div>
+          <div id="fitting-rows"></div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <input class="input" id="custom-fit-name" placeholder="Custom fitting" style="flex:1">
+            <input class="input" id="custom-fit-qty" type="number" min="1" placeholder="Qty" style="width:80px">
+            <button type="button" class="btn btn-ghost btn-sm" onclick="addCustomFitting()">+ Add</button>
+          </div>
+        </div>
+        <div class="full" style="padding-top:8px"><button type="submit" class="btn btn-primary">📤 Submit DPR</button></div>
+      </form>
+    </div>`;
+
+  window._dprFittings = [];
+  document.getElementById('dpr-form').addEventListener('submit', handleDPRSubmit);
 }
 
-function addPipe(){
-  data.pipes.push({dia:dia.value,mat:mat.value,qty:+qty.value});
-  save();pipesUI();
+function toggleFitting(pill, type) {
+  const idx = window._dprFittings.findIndex(f => f.type === type);
+  if (idx >= 0) {
+    window._dprFittings.splice(idx, 1);
+    pill.classList.remove('selected');
+  } else {
+    window._dprFittings.push({ type, quantity: 1 });
+    pill.classList.add('selected');
+  }
+  renderFittingRows();
 }
 
-function engineerUI(){
-  let html=`<div class='card'><h2>Engineers</h2>
-  <input id='eng' placeholder='Name'>
-  <button onclick='addEng()'>Add</button>
-  <ul>`;
-  data.engineers.forEach(e=>{html+=`<li>${e}</li>`});
-  html+=`</ul></div>`;
-  document.getElementById('main').innerHTML=html;
+function renderFittingRows() {
+  const el = document.getElementById('fitting-rows');
+  if (!el) return;
+  el.innerHTML = window._dprFittings.map((f, i) => `
+    <div class="fitting-row"><span>${f.type}</span><input class="input" type="number" min="0" value="${f.quantity}" onchange="window._dprFittings[${i}].quantity=parseInt(this.value)||0" style="width:70px;text-align:center"><button type="button" class="remove-btn" onclick="removeFitting(${i})">✕</button></div>`).join('');
 }
 
-function addEng(){data.engineers.push(eng.value);save();engineerUI();}
-
-function issueUI(){
-  let html=`<div class='card'><h2>Issue Pipes</h2>
-  <input id='date' type='date'>
-  <select id='engSel'>${data.engineers.map(e=>`<option>${e}</option>`)}</select>
-  <select id='pipeSel'>${data.pipes.map((p,i)=>`<option value='${i}'>${p.dia}</option>`)}</select>
-  <input id='iqty' type='number' placeholder='Qty'>
-  <button onclick='issuePipe()'>Issue</button>
-  </div>`;
-  document.getElementById('main').innerHTML=html;
+function removeFitting(i) {
+  const type = window._dprFittings[i].type;
+  window._dprFittings.splice(i, 1);
+  document.querySelectorAll('.fitting-pill').forEach(p => { if (p.textContent === type) p.classList.remove('selected'); });
+  renderFittingRows();
 }
 
-function issuePipe(){
-  let i=pipeSel.value;
-  let q=+iqty.value;
-  if(data.pipes[i].qty<q){alert('Not enough');return;}
-  data.pipes[i].qty-=q;
-  data.issues.push({date:date.value,eng:engSel.value,dia:data.pipes[i].dia,qty:q});
-  save();alert('Issued');
+function addCustomFitting() {
+  const name = document.getElementById('custom-fit-name').value.trim();
+  const qty = parseInt(document.getElementById('custom-fit-qty').value) || 0;
+  if (!name || qty <= 0) { toast('Enter fitting name and quantity', 'error'); return; }
+  window._dprFittings.push({ type: name, quantity: qty });
+  document.getElementById('custom-fit-name').value = '';
+  document.getElementById('custom-fit-qty').value = '';
+  renderFittingRows();
 }
 
-function reportUI(){
-  let html=`<div class='card'><h2>Reports</h2>
-  <table><tr><th>Date</th><th>Engineer</th><th>Dia</th><th>Qty</th></tr>`;
-  data.issues.forEach(r=>{html+=`<tr><td>${r.date}</td><td>${r.eng}</td><td>${r.dia}</td><td>${r.qty}</td></tr>`});
-  html+=`</table>
-  <button onclick='downloadCSV()'>Download CSV</button>
-  </div>`;
-  document.getElementById('main').innerHTML=html;
+function handleDPRSubmit(e) {
+  e.preventDefault();
+  const asgnId = document.getElementById('dpr-asgn').value;
+  const date = document.getElementById('dpr-date').value;
+  const pipesUsed = parseInt(document.getElementById('dpr-pipes').value) || 0;
+  const meterLaid = parseFloat(document.getElementById('dpr-meter').value) || 0;
+  const totalJoints = parseInt(document.getElementById('dpr-joints').value) || 0;
+  const startJunction = document.getElementById('dpr-start').value.trim();
+  const endJunction = document.getElementById('dpr-end').value.trim();
+
+  if (!asgnId || !date || pipesUsed <= 0 || meterLaid <= 0 || !startJunction || !endJunction) {
+    toast('Fill all required fields', 'error'); return;
+  }
+
+  const assignment = data.assignments.find(a => a.id === asgnId);
+  if (!assignment) { toast('Invalid assignment', 'error'); return; }
+
+  if (pipesUsed > assignment.remaining) { toast(`Only ${assignment.remaining} pipes remaining`, 'error'); return; }
+
+  // Duplicate check: same date + diameter + pipeType
+  const dup = data.dpr.find(d =>
+    d.engineerId === selectedEngineerId &&
+    d.date === date &&
+    d.diameter === assignment.diameter &&
+    d.pipeType === assignment.pipeType
+  );
+  if (dup) { toast('DPR already exists for this date + diameter + pipe type', 'error'); return; }
+
+  // Deduct from assignment remaining
+  assignment.remaining -= pipesUsed;
+
+  data.dpr.push({
+    id: uid(),
+    engineerId: selectedEngineerId,
+    assignmentId: asgnId,
+    date, pipeType: assignment.pipeType, diameter: assignment.diameter,
+    pipesUsed, pipesLeft: assignment.remaining,
+    meterLaid, totalJoints,
+    startJunction, endJunction,
+    fittings: window._dprFittings.filter(f => f.quantity > 0),
+  });
+
+  saveData(data);
+  toast('DPR submitted successfully');
+  renderPage();
 }
 
-function downloadCSV(){
-  let csv='Date,Engineer,Dia,Qty\n';
-  data.issues.forEach(r=>{csv+=`${r.date},${r.eng},${r.dia},${r.qty}\n`});
-  let blob=new Blob([csv]);
-  let a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='report.csv';
-  a.click();
+// ─── MY TARGET ───
+function renderMyTarget(el) {
+  const month = new Date().toISOString().slice(0, 7);
+  const myTargets = data.targets.filter(t => t.engineerId === selectedEngineerId);
+  el.innerHTML = `
+    <div class="topbar"><h1>My Targets</h1></div>
+    ${myTargets.length === 0 ? '<div class="glass section-card empty">No targets set for you</div>' : `
+    <div class="glass section-card">${myTargets.map(t => {
+      const achieved = data.dpr.filter(d => d.engineerId === selectedEngineerId && d.date?.startsWith(t.month)).reduce((s, d) => s + (d.meterLaid || 0), 0);
+      const pct = t.target > 0 ? Math.min(100, (achieved / t.target * 100)).toFixed(0) : 0;
+      return `<div style="margin-bottom:20px;padding:16px;background:var(--glass);border-radius:var(--radius-sm)">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-weight:600">${t.month}</span><span class="badge ${pct >= 100 ? 'badge-success' : pct >= 50 ? 'badge-warning' : 'badge-danger'}">${pct}%</span></div>
+        <div style="height:8px;background:var(--glass-border);border-radius:4px;overflow:hidden;margin-bottom:8px"><div style="width:${pct}%;height:100%;background:linear-gradient(90deg,var(--primary),var(--success));border-radius:4px;transition:width .5s"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;color:var(--text3)"><span>Achieved: ${achieved.toFixed(1)}m</span><span>Target: ${t.target}m</span></div>
+      </div>`;
+    }).join('')}</div>`}`;
 }
 
-if(user) dashboard(); else loginUI();
+// ─── VIEWER DASHBOARD ───
+function renderViewerDashboard(el) {
+  const month = new Date().toISOString().slice(0, 7);
+  el.innerHTML = `
+    <div class="topbar"><h1>Viewer Dashboard</h1><div class="topbar-actions"><input class="input" type="month" id="viewer-month" value="${month}" onchange="renderPage()" style="width:auto"></div></div>`;
+
+  const selMonth = document.getElementById('viewer-month')?.value || month;
+  const monthDPR = data.dpr.filter(d => d.date?.startsWith(selMonth));
+  const totalMeter = monthDPR.reduce((s, d) => s + (d.meterLaid || 0), 0);
+  const totalPipes = monthDPR.reduce((s, d) => s + (d.pipesUsed || 0), 0);
+
+  // Per-engineer stats
+  const engStats = {};
+  monthDPR.forEach(d => {
+    if (!engStats[d.engineerId]) engStats[d.engineerId] = { meter: 0, pipes: 0, count: 0 };
+    engStats[d.engineerId].meter += d.meterLaid || 0;
+    engStats[d.engineerId].pipes += d.pipesUsed || 0;
+    engStats[d.engineerId].count++;
+  });
+
+  const maxMeter = Math.max(1, ...Object.values(engStats).map(s => s.meter));
+
+  el.innerHTML += `
+    <div class="stats">
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(99,102,241,.15);color:var(--primary-glow)">📝</div><div class="stat-value">${monthDPR.length}</div><div class="stat-label">DPR Entries</div></div>
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(34,197,94,.15);color:var(--success)">📏</div><div class="stat-value">${totalMeter.toFixed(1)}m</div><div class="stat-label">Meter Laid</div></div>
+      <div class="glass stat-card"><div class="stat-icon" style="background:rgba(245,158,11,.15);color:var(--warning)">🔧</div><div class="stat-value">${totalPipes}</div><div class="stat-label">Pipes Used</div></div>
+    </div>
+    <div class="glass section-card"><h3>📊 Performance by Engineer</h3>
+      <div class="chart-bar">${Object.entries(engStats).map(([eid, s]) => {
+        const eng = data.engineers.find(e => e.id === eid);
+        const h = (s.meter / maxMeter * 160);
+        return `<div class="bar" style="height:${h}px;background:linear-gradient(180deg,var(--primary-glow),var(--primary))"><span class="bar-value">${s.meter.toFixed(0)}m</span><span class="bar-label">${eng?.name?.split(' ')[0] || 'N/A'}</span></div>`;
+      }).join('') || '<div class="empty" style="width:100%">No data</div>'}</div>
+    </div>
+    <div class="glass section-card"><h3>📋 Monthly Data</h3>
+      ${monthDPR.length === 0 ? '<div class="empty">No entries for this month</div>' : `<div class="table-wrap"><table><thead><tr><th>Date</th><th>Engineer</th><th>Brand</th><th>Diameter</th><th>Pipes</th><th>Meter</th><th>Joints</th></tr></thead><tbody>${monthDPR.map(d => {
+        const eng = data.engineers.find(e => e.id === d.engineerId);
+        return `<tr><td>${formatDate(d.date)}</td><td>${eng?.name || 'Unknown'}</td><td>${d.pipeType || ''}</td><td>${d.diameter || ''}</td><td>${d.pipesUsed}</td><td>${d.meterLaid}m</td><td>${d.totalJoints || 0}</td></tr>`;
+      }).join('')}</tbody></table></div>`}
+    </div>`;
+}
+
+// ─── REPORTS ───
+function renderReports(el) {
+  const month = new Date().toISOString().slice(0, 7);
+  const isEngineer = currentUser.role === 'engineer';
+
+  el.innerHTML = `
+    <div class="topbar"><h1>Reports</h1></div>
+    <div class="glass section-card">
+      <div class="form-grid" style="margin-bottom:16px">
+        <div class="field"><label>Month</label><input class="input" type="month" id="rpt-month" value="${month}"></div>
+        ${!isEngineer ? `<div class="field"><label>Engineer</label><select class="input" id="rpt-eng"><option value="">All Engineers</option>${data.engineers.map(e => `<option value="${e.id}">${e.name}</option>`).join('')}</select></div>` : ''}
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="generateReport()">📊 Generate Report</button>
+      <div id="report-output" style="margin-top:20px"></div>
+    </div>`;
+}
+
+function generateReport() {
+  const month = document.getElementById('rpt-month')?.value;
+  const engFilter = document.getElementById('rpt-eng')?.value || (currentUser.role === 'engineer' ? selectedEngineerId : '');
+  let filtered = data.dpr.filter(d => d.date?.startsWith(month));
+  if (engFilter) filtered = filtered.filter(d => d.engineerId === engFilter);
+
+  const totalMeter = filtered.reduce((s, d) => s + (d.meterLaid || 0), 0);
+  const totalPipes = filtered.reduce((s, d) => s + (d.pipesUsed || 0), 0);
+  const totalJoints = filtered.reduce((s, d) => s + (d.totalJoints || 0), 0);
+
+  const el = document.getElementById('report-output');
+  el.innerHTML = `
+    <div class="stats" style="margin-bottom:16px">
+      <div class="glass-sm" style="padding:14px"><div style="font-size:1.3rem;font-weight:800;font-family:var(--font-display)">${filtered.length}</div><div style="font-size:.7rem;color:var(--text3)">Entries</div></div>
+      <div class="glass-sm" style="padding:14px"><div style="font-size:1.3rem;font-weight:800;font-family:var(--font-display)">${totalPipes}</div><div style="font-size:.7rem;color:var(--text3)">Pipes</div></div>
+      <div class="glass-sm" style="padding:14px"><div style="font-size:1.3rem;font-weight:800;font-family:var(--font-display)">${totalMeter.toFixed(1)}m</div><div style="font-size:.7rem;color:var(--text3)">Meter Laid</div></div>
+      <div class="glass-sm" style="padding:14px"><div style="font-size:1.3rem;font-weight:800;font-family:var(--font-display)">${totalJoints}</div><div style="font-size:.7rem;color:var(--text3)">Joints</div></div>
+    </div>
+    ${filtered.length === 0 ? '<div class="empty">No data for selected filters</div>' : `
+    <div class="table-wrap"><table><thead><tr><th>Date</th><th>Engineer</th><th>Brand</th><th>Diameter</th><th>Pipes</th><th>Meter</th><th>Joints</th><th>Start</th><th>End</th></tr></thead><tbody>${filtered.map(d => {
+      const eng = data.engineers.find(e => e.id === d.engineerId);
+      return `<tr><td>${formatDate(d.date)}</td><td>${eng?.name || 'Unknown'}</td><td>${d.pipeType || ''}</td><td>${d.diameter || ''}</td><td>${d.pipesUsed}</td><td>${d.meterLaid}m</td><td>${d.totalJoints || 0}</td><td>${d.startJunction || ''}</td><td>${d.endJunction || ''}</td></tr>`;
+    }).join('')}</tbody></table></div>`}
+    <div style="margin-top:12px"><button class="download-btn" onclick="downloadCSV()">⬇ Download CSV</button></div>`;
+
+  window._reportData = filtered;
+}
+
+function downloadCSV() {
+  const rows = window._reportData || [];
+  if (rows.length === 0) { toast('No data to download', 'error'); return; }
+  let csv = 'Date,Engineer,Brand,Diameter,Pipes Used,Pipes Left,Meter Laid,Joints,Start Junction,End Junction,Fittings\n';
+  rows.forEach(d => {
+    const eng = data.engineers.find(e => e.id === d.engineerId);
+    const fStr = (d.fittings || []).map(f => `${f.type}:${f.quantity}`).join('; ');
+    csv += `${d.date},"${eng?.name || 'Unknown'}",${d.pipeType || ''},${d.diameter || ''},${d.pipesUsed},${d.pipesLeft ?? ''},${d.meterLaid},${d.totalJoints || 0},${d.startJunction || ''},${d.endJunction || ''},"${fStr}"\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `SEF_Report_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+  toast('Report downloaded');
+}
+
+// ─── MODAL SYSTEM ───
+function showModal(title, bodyHTML, onSave) {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `<div class="glass modal"><h2>${title}</h2>${bodyHTML}<div class="modal-actions"><button class="btn btn-ghost" id="modal-cancel">Cancel</button><button class="btn btn-primary" id="modal-save">Save</button></div></div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelector('#modal-cancel').onclick = () => overlay.remove();
+  overlay.querySelector('#modal-save').onclick = () => { const result = onSave(); if (result !== false) overlay.remove(); };
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  setTimeout(() => overlay.querySelector('input,select')?.focus(), 100);
+}
+
+// ─── INIT ───
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('login-pw')) doLogin();
+});
+
+render();
 </script>
 </body>
 </html>
