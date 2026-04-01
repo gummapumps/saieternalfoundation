@@ -523,6 +523,7 @@ const CREDS = {
 
 // ── STATE ───────────────────────────────────────────────────────
 let CU = null; // current user
+let selectedEngineerId = localStorage.getItem('selectedEngineerId') || null;
 let CI = {}; // chart instances
 let sidebarOpen = window.innerWidth > 768;
 
@@ -661,8 +662,17 @@ function launchApp(){
   document.getElementById('app').classList.remove('gone');
   buildSidebar();
   updateSbUser();
-  const startPage = CU.role==='admin'?'dash-admin':CU.role==='engineer'?'dash-eng':'dash-viewer';
+  const startPage = if(CU.role === 'engineer'){
+  if(!selectedEngineerId){
+    renderEngineerSelection();
+    return;
+  } else {
+    navigate('dash-eng');
+  }
+} else {
+  const startPage = CU.role==='admin'?'dash-admin':'dash-viewer';
   navigate(startPage);
+}
   checkLowStock();
   if(window.innerWidth<=768){sidebarOpen=false;document.getElementById('sidebar').classList.remove('open')}
   else{document.getElementById('sidebar').classList.remove('closed');document.getElementById('main-wrap').classList.remove('full')}
@@ -2325,3 +2335,25 @@ checkSession();
 </script>
 </body>
 </html>
+function renderEngineerSelection(){
+  const ca = document.getElementById('content-area');
+  const engineers = D.engineers();
+
+  ca.innerHTML = `
+    <div class="pg on">
+      <h2 style="margin-bottom:20px">👷 Select Your Name</h2>
+      <div class="g-auto">
+        ${engineers.map(e => `
+          <div class="card" onclick="selectEngineer('${e.id}')" style="cursor:pointer;text-align:center">
+            <h3>${e.name}</h3>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+function selectEngineer(id){
+  selectedEngineerId = id;
+  localStorage.setItem('selectedEngineerId', id);
+  navigate('dash-eng');
+}
