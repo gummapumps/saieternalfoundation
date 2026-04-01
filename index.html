@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sai Eternal Foundation - Pipe Management</title>
+  <style>
+    body {margin:0;font-family:Arial;background:#0f172a;color:#fff}
+    .container{display:flex;height:100vh}
+    .sidebar{width:250px;background:#111827;padding:20px}
+    .sidebar h2{color:#38bdf8}
+    .sidebar button{display:block;width:100%;margin:10px 0;padding:10px;border:none;background:#1f2937;color:#fff;cursor:pointer}
+    .main{flex:1;padding:20px;overflow:auto}
+    .card{background:#1e293b;padding:20px;border-radius:10px;margin-bottom:20px}
+    input,select{padding:8px;margin:5px;width:200px}
+    table{width:100%;border-collapse:collapse}
+    th,td{border:1px solid #334155;padding:8px;text-align:left}
+    .login{display:flex;justify-content:center;align-items:center;height:100vh}
+    .login-box{background:#1e293b;padding:30px;border-radius:10px}
+  </style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+let user = JSON.parse(localStorage.getItem('user'));
+let data = JSON.parse(localStorage.getItem('data')) || {pipes:[], engineers:[], issues:[]};
+
+function save(){localStorage.setItem('data',JSON.stringify(data));}
+
+function loginUI(){
+  document.getElementById('app').innerHTML=`
+  <div class='login'>
+    <div class='login-box'>
+      <h2>Login</h2>
+      <input id='id' placeholder='ID'><br>
+      <input id='pass' type='password' placeholder='Password'><br>
+      <button onclick='login()'>Login</button>
+    </div>
+  </div>`;
+}
+
+function login(){
+  let id=document.getElementById('id').value;
+  let pass=document.getElementById('pass').value;
+  if(id==='saiadmin' && pass==='SaiAdmin@12'){user={role:'admin'};}
+  else if(id==='saiuser' && pass==='user@saiEF'){user={role:'user'};}
+  else{alert('Invalid');return;}
+  localStorage.setItem('user',JSON.stringify(user));
+  dashboard();
+}
+
+function logout(){localStorage.removeItem('user');location.reload();}
+
+function dashboard(){
+  document.getElementById('app').innerHTML=`
+  <div class='container'>
+    <div class='sidebar'>
+      <h2>Sai Foundation</h2>
+      <button onclick='showHome()'>Home</button>
+      ${user.role==='admin'?`<button onclick='pipesUI()'>Pipes</button>
+      <button onclick='engineerUI()'>Engineers</button>
+      <button onclick='issueUI()'>Issue Pipes</button>`:''}
+      <button onclick='reportUI()'>Reports</button>
+      <button onclick='logout()'>Logout</button>
+    </div>
+    <div class='main' id='main'></div>
+  </div>`;
+  showHome();
+}
+
+function showHome(){
+  document.getElementById('main').innerHTML=`
+  <div class='card'>
+    <h2>Dashboard</h2>
+    <p>Total Pipes: ${data.pipes.reduce((a,b)=>a+b.qty,0)}</p>
+    <p>Total Engineers: ${data.engineers.length}</p>
+  </div>`;
+}
+
+function pipesUI(){
+  let html=`<div class='card'><h2>Pipes</h2>
+  <input id='dia' placeholder='Diameter'>
+  <input id='mat' placeholder='Material'>
+  <input id='qty' type='number' placeholder='Quantity'>
+  <button onclick='addPipe()'>Add</button>
+  <table><tr><th>Dia</th><th>Material</th><th>Qty</th></tr>`;
+  data.pipes.forEach(p=>{html+=`<tr><td>${p.dia}</td><td>${p.mat}</td><td>${p.qty}</td></tr>`});
+  html+=`</table></div>`;
+  document.getElementById('main').innerHTML=html;
+}
+
+function addPipe(){
+  data.pipes.push({dia:dia.value,mat:mat.value,qty:+qty.value});
+  save();pipesUI();
+}
+
+function engineerUI(){
+  let html=`<div class='card'><h2>Engineers</h2>
+  <input id='eng' placeholder='Name'>
+  <button onclick='addEng()'>Add</button>
+  <ul>`;
+  data.engineers.forEach(e=>{html+=`<li>${e}</li>`});
+  html+=`</ul></div>`;
+  document.getElementById('main').innerHTML=html;
+}
+
+function addEng(){data.engineers.push(eng.value);save();engineerUI();}
+
+function issueUI(){
+  let html=`<div class='card'><h2>Issue Pipes</h2>
+  <input id='date' type='date'>
+  <select id='engSel'>${data.engineers.map(e=>`<option>${e}</option>`)}</select>
+  <select id='pipeSel'>${data.pipes.map((p,i)=>`<option value='${i}'>${p.dia}</option>`)}</select>
+  <input id='iqty' type='number' placeholder='Qty'>
+  <button onclick='issuePipe()'>Issue</button>
+  </div>`;
+  document.getElementById('main').innerHTML=html;
+}
+
+function issuePipe(){
+  let i=pipeSel.value;
+  let q=+iqty.value;
+  if(data.pipes[i].qty<q){alert('Not enough');return;}
+  data.pipes[i].qty-=q;
+  data.issues.push({date:date.value,eng:engSel.value,dia:data.pipes[i].dia,qty:q});
+  save();alert('Issued');
+}
+
+function reportUI(){
+  let html=`<div class='card'><h2>Reports</h2>
+  <table><tr><th>Date</th><th>Engineer</th><th>Dia</th><th>Qty</th></tr>`;
+  data.issues.forEach(r=>{html+=`<tr><td>${r.date}</td><td>${r.eng}</td><td>${r.dia}</td><td>${r.qty}</td></tr>`});
+  html+=`</table>
+  <button onclick='downloadCSV()'>Download CSV</button>
+  </div>`;
+  document.getElementById('main').innerHTML=html;
+}
+
+function downloadCSV(){
+  let csv='Date,Engineer,Dia,Qty\n';
+  data.issues.forEach(r=>{csv+=`${r.date},${r.eng},${r.dia},${r.qty}\n`});
+  let blob=new Blob([csv]);
+  let a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='report.csv';
+  a.click();
+}
+
+if(user) dashboard(); else loginUI();
+</script>
+</body>
+</html>
