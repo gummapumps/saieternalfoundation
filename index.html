@@ -6,13 +6,7 @@
 <title>Sai Eternal Foundation – Pipe Data Management</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
 <style>
-/* ╔══════════════════════════════════════════════════════╗
-   ║  SAI ETERNAL FOUNDATION – DESIGN SYSTEM              ║
-   ║  Theme: Deep Indigo Industrial + Amber Accents       ║
-   ╚══════════════════════════════════════════════════════╝ */
-
 :root{
   --bg0:#07080f;--bg1:#0c0e1a;--bg2:#111428;--bg3:#181b32;
   --surface:#1c2038;--surface2:#212540;--surface3:#272b48;
@@ -30,11 +24,16 @@
   --glass:rgba(24,27,50,.72);
   --shadow-card:0 4px 24px rgba(0,0,0,.45),0 1px 4px rgba(0,0,0,.3);
   --shadow-xl:0 20px 60px rgba(0,0,0,.6),0 4px 16px rgba(0,0,0,.4);
-  --font-h:'Syne',sans-serif;
-  --font-b:'DM Sans',sans-serif;
-  --font-m:'JetBrains Mono',monospace;
+  --font-h:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;--font-m:'JetBrains Mono',monospace;
 }
-
+[data-theme="light"]{
+  --bg0:#eef0f8;--bg1:#f5f6fc;--bg2:#fff;--bg3:#f0f1f8;
+  --surface:#fff;--surface2:#f4f5fb;--surface3:#e8eaf5;
+  --border:rgba(100,110,210,.14);--border2:rgba(100,110,210,.28);--border3:rgba(100,110,210,.5);
+  --text0:#181a2e;--text1:#3a3f6a;--text2:#6b70a0;--text3:#9da3cc;
+  --glass:rgba(240,242,255,.9);
+  --shadow-card:0 2px 14px rgba(80,90,200,.1);--shadow-xl:0 12px 40px rgba(80,90,200,.15);
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:15px;scroll-behavior:smooth}
 body{font-family:var(--font-b);background:var(--bg0);color:var(--text0);min-height:100vh;overflow-x:hidden;line-height:1.6}
@@ -45,8 +44,6 @@ a{color:inherit;text-decoration:none}
 ::-webkit-scrollbar-track{background:var(--bg1)}
 ::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:3px}
 ::selection{background:rgba(108,126,248,.35)}
-
-/* ── ANIMATED MESH BG ─────────────────────────────── */
 .mesh-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .mesh-bg::before{content:'';position:absolute;inset:0;
   background:radial-gradient(ellipse 80% 60% at 15% 40%,rgba(108,126,248,.06) 0%,transparent 60%),
@@ -61,143 +58,103 @@ a{color:inherit;text-decoration:none}
 .mesh-orb:nth-child(3){width:350px;height:350px;background:rgba(29,233,182,.03);bottom:-100px;left:30%;animation-delay:-13s}
 @keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.05)}66%{transform:translate(-20px,30px) scale(.97)}}
 
-/* ── LOGIN ────────────────────────────────────────── */
-#login-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;
-  background:var(--bg0);transition:opacity .5s,visibility .5s}
+/* ── LOGIN ── */
+#login-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:var(--bg0);transition:opacity .5s,visibility .5s}
 #login-screen.gone{opacity:0;visibility:hidden;pointer-events:none}
-
 .login-shell{position:relative;width:460px;max-width:95vw}
-.login-glow{position:absolute;inset:-60px;border-radius:50%;
-  background:radial-gradient(ellipse,rgba(108,126,248,.15) 0%,transparent 70%);pointer-events:none;
-  animation:loginGlow 4s ease-in-out infinite alternate}
+.login-glow{position:absolute;inset:-60px;border-radius:50%;background:radial-gradient(ellipse,rgba(108,126,248,.15) 0%,transparent 70%);pointer-events:none;animation:loginGlow 4s ease-in-out infinite alternate}
 @keyframes loginGlow{from{opacity:.5}to{opacity:1}}
-
-.login-card{position:relative;background:var(--glass);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
-  border:1px solid var(--border2);border-radius:var(--r28);padding:48px 44px;
-  box-shadow:var(--shadow-xl),inset 0 1px 0 rgba(255,255,255,.06)}
-.login-badge{display:inline-flex;align-items:center;gap:8px;
-  background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);
-  color:var(--amber);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
-  padding:5px 14px;border-radius:20px;margin-bottom:28px}
+.login-card{position:relative;background:var(--glass);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid var(--border2);border-radius:var(--r28);padding:48px 44px;box-shadow:var(--shadow-xl),inset 0 1px 0 rgba(255,255,255,.06)}
+.login-badge{display:inline-flex;align-items:center;gap:8px;background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);color:var(--amber);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:28px}
 .login-title{font-family:var(--font-h);font-size:26px;font-weight:800;line-height:1.2;margin-bottom:6px}
 .login-title span{background:linear-gradient(135deg,var(--indigo2),var(--amber2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .login-sub{font-size:13px;color:var(--text2);margin-bottom:36px}
 .login-tagline{font-size:12px;color:var(--text3);text-align:center;margin-top:24px;font-style:italic}
-
 .lf-group{margin-bottom:18px}
 .lf-label{font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--text2);display:block;margin-bottom:7px}
 .lf-wrap{position:relative}
 .lf-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:16px;pointer-events:none}
-.lf-wrap input{width:100%;padding:12px 14px 12px 42px;background:rgba(255,255,255,.04);
-  border:1px solid var(--border2);border-radius:var(--r10);color:var(--text0);font-size:14px;
-  transition:var(--tr)}
+.lf-wrap input{width:100%;padding:12px 14px 12px 42px;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);color:var(--text0);font-size:14px;transition:var(--tr)}
 .lf-wrap input:focus{border-color:var(--indigo);background:rgba(108,126,248,.07);box-shadow:var(--indigo-glow)}
 .lf-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;color:var(--text3);font-size:14px;transition:color .2s}
 .lf-toggle:hover{color:var(--indigo2)}
-.btn-login{width:100%;padding:14px;margin-top:8px;
-  background:linear-gradient(135deg,var(--indigo),rgba(108,126,248,.7));
-  color:#fff;font-family:var(--font-h);font-size:15px;font-weight:700;letter-spacing:1px;
-  border-radius:var(--r10);transition:var(--tr);position:relative;overflow:hidden}
+.btn-login{width:100%;padding:14px;margin-top:8px;background:linear-gradient(135deg,var(--indigo),rgba(108,126,248,.7));color:#fff;font-family:var(--font-h);font-size:15px;font-weight:700;letter-spacing:1px;border-radius:var(--r10);transition:var(--tr);position:relative;overflow:hidden}
 .btn-login::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);opacity:0;transition:.3s}
 .btn-login:hover{transform:translateY(-2px);box-shadow:var(--indigo-glow),var(--shadow-xl)}
 .btn-login:hover::before{opacity:1}
 .login-err{color:var(--rose);font-size:13px;text-align:center;margin-top:12px;min-height:16px}
 
-/* ── APP SHELL ────────────────────────────────────── */
+/* ── ENGINEER SELECTION OVERLAY ── */
+#eng-select-screen{position:fixed;inset:0;z-index:9998;display:none;align-items:center;justify-content:center;background:var(--bg0)}
+#eng-select-screen.show{display:flex}
+.eng-sel-card{background:var(--glass);backdrop-filter:blur(28px);border:1px solid var(--border2);border-radius:var(--r28);padding:40px 44px;width:520px;max-width:95vw;box-shadow:var(--shadow-xl)}
+.eng-sel-card h2{font-family:var(--font-h);font-size:22px;font-weight:800;margin-bottom:6px}
+.eng-sel-card p{font-size:13px;color:var(--text2);margin-bottom:28px}
+.eng-sel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;max-height:320px;overflow-y:auto}
+.eng-sel-btn{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r14);padding:18px;cursor:pointer;transition:var(--tr);text-align:left}
+.eng-sel-btn:hover{border-color:var(--indigo);background:var(--indigo-dim);transform:translateY(-2px);box-shadow:var(--indigo-glow)}
+.eng-sel-btn .esb-name{font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:3px}
+.eng-sel-btn .esb-id{font-size:11px;color:var(--text3);font-family:var(--font-m)}
+
+/* ── APP SHELL ── */
 #app{display:flex;min-height:100vh;position:relative;z-index:1}
 #app.gone{display:none}
-
-/* ── SIDEBAR ──────────────────────────────────────── */
-.sidebar{width:var(--fw);min-height:100vh;background:var(--bg1);border-right:1px solid var(--border);
-  position:fixed;left:0;top:0;bottom:0;z-index:200;display:flex;flex-direction:column;
-  transition:transform .32s cubic-bezier(.4,0,.2,1);overflow:hidden}
+.sidebar{width:var(--fw);min-height:100vh;background:var(--bg1);border-right:1px solid var(--border);position:fixed;left:0;top:0;bottom:0;z-index:200;display:flex;flex-direction:column;transition:transform .32s cubic-bezier(.4,0,.2,1);overflow:hidden}
 .sidebar.closed{transform:translateX(-100%)}
 .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:199}
-
 .sb-head{padding:18px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
-.sb-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--indigo),var(--amber));
-  border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
-  box-shadow:var(--indigo-glow)}
+.sb-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--indigo),var(--amber));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:var(--indigo-glow)}
 .sb-brand h2{font-family:var(--font-h);font-size:14px;font-weight:700;letter-spacing:.5px;line-height:1.2;white-space:nowrap}
 .sb-brand p{font-size:10px;color:var(--text3);letter-spacing:1px;text-transform:uppercase}
-
 .sb-nav{flex:1;padding:12px 10px;overflow-y:auto}
-.sb-sec-label{font-size:9.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  color:var(--text3);padding:10px 12px 5px;white-space:nowrap}
-.sb-item{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:var(--r10);
-  cursor:pointer;transition:var(--tr);margin-bottom:1px;position:relative;white-space:nowrap}
+.sb-sec-label{font-size:9.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3);padding:10px 12px 5px;white-space:nowrap}
+.sb-item{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:var(--r10);cursor:pointer;transition:var(--tr);margin-bottom:1px;position:relative;white-space:nowrap}
 .sb-item:hover{background:var(--surface)}
-.sb-item.active{background:linear-gradient(135deg,rgba(108,126,248,.2),rgba(108,126,248,.08));
-  border:1px solid rgba(108,126,248,.25);box-shadow:var(--indigo-glow)}
+.sb-item.active{background:linear-gradient(135deg,rgba(108,126,248,.2),rgba(108,126,248,.08));border:1px solid rgba(108,126,248,.25);box-shadow:var(--indigo-glow)}
 .sb-item.active .sb-icon{color:var(--indigo2)}
 .sb-item.active .sb-lbl{color:var(--text0);font-weight:600}
 .sb-icon{font-size:17px;width:22px;text-align:center;flex-shrink:0;color:var(--text2)}
 .sb-lbl{font-size:13.5px;color:var(--text1)}
-.sb-badge{margin-left:auto;background:var(--rose);color:#fff;font-size:9px;font-weight:700;
-  padding:2px 6px;border-radius:10px}
-
+.sb-badge{margin-left:auto;background:var(--rose);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px}
 .sb-foot{padding:14px 10px;border-top:1px solid var(--border)}
-.sb-user{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r10);
-  background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:var(--tr)}
+.sb-user{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r10);background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:var(--tr)}
 .sb-user:hover{border-color:var(--border2)}
-.sb-avatar{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-h);font-weight:700;font-size:14px;flex-shrink:0}
+.sb-avatar{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-weight:700;font-size:14px;flex-shrink:0}
 .sb-uinfo .sb-uname{font-size:12.5px;font-weight:600}
 .sb-uinfo .sb-urole{font-size:10px;color:var(--text3);letter-spacing:.5px;text-transform:uppercase}
 .btn-logout{margin-left:auto;background:none;color:var(--rose);font-size:16px;opacity:.7;transition:.2s}
 .btn-logout:hover{opacity:1}
-
-/* ── TOPBAR ───────────────────────────────────────── */
-.topbar{height:var(--th);background:rgba(12,14,26,.85);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:14px;padding:0 24px;
-  position:sticky;top:0;z-index:100}
+.topbar{height:var(--th);background:rgba(12,14,26,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:0 24px;position:sticky;top:0;z-index:100}
+[data-theme="light"] .topbar{background:rgba(255,255,255,.9)}
 .tb-toggle{background:none;color:var(--text1);font-size:20px;padding:6px;border-radius:var(--r6);transition:var(--tr)}
 .tb-toggle:hover{background:var(--surface);color:var(--indigo2)}
 .tb-title{font-family:var(--font-h);font-size:18px;font-weight:700;flex:1}
-.tb-search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r10);padding:7px 14px;max-width:260px;flex:1;transition:var(--tr)}
+.tb-search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r10);padding:7px 14px;max-width:260px;flex:1;transition:var(--tr)}
 .tb-search:focus-within{border-color:var(--indigo);box-shadow:var(--indigo-glow)}
 .tb-search input{background:none;color:var(--text0);font-size:13px;width:100%}
 .tb-search input::placeholder{color:var(--text3)}
 .tb-actions{display:flex;align-items:center;gap:8px}
-.tb-btn{width:36px;height:36px;background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r10);display:flex;align-items:center;justify-content:center;
-  color:var(--text1);font-size:15px;transition:var(--tr);position:relative}
+.tb-btn{width:36px;height:36px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r10);display:flex;align-items:center;justify-content:center;color:var(--text1);font-size:15px;transition:var(--tr);position:relative}
 .tb-btn:hover{border-color:var(--indigo);color:var(--indigo2)}
-.notif-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;
-  background:var(--rose);border-radius:50%;animation:blinkDot 2s infinite}
+.notif-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;background:var(--rose);border-radius:50%;animation:blinkDot 2s infinite}
 @keyframes blinkDot{0%,100%{opacity:1}50%{opacity:.2}}
-
-/* ── MAIN ─────────────────────────────────────────── */
-.main-wrap{margin-left:var(--fw);flex:1;display:flex;flex-direction:column;min-height:100vh;
-  transition:margin-left .32s cubic-bezier(.4,0,.2,1)}
+.main-wrap{margin-left:var(--fw);flex:1;display:flex;flex-direction:column;min-height:100vh;transition:margin-left .32s cubic-bezier(.4,0,.2,1)}
 .main-wrap.full{margin-left:0}
 .content{flex:1;padding:26px 28px;overflow-y:auto}
-
-/* ── PAGE SECTIONS ────────────────────────────────── */
 .pg{display:none;animation:pgIn .35s ease}
 .pg.on{display:block}
 @keyframes pgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
 .pg-head{margin-bottom:24px}
 .pg-head h2{font-family:var(--font-h);font-size:26px;font-weight:800;letter-spacing:-.3px}
 .pg-head p{color:var(--text2);font-size:13px;margin-top:3px}
 .pg-head-row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px}
-
-/* ── CARDS ────────────────────────────────────────── */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r14);
-  box-shadow:var(--shadow-card);transition:var(--tr);overflow:hidden}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r14);box-shadow:var(--shadow-card);transition:var(--tr);overflow:hidden}
 .card:hover{border-color:var(--border2);box-shadow:0 8px 32px rgba(0,0,0,.5)}
-.card-h{padding:16px 20px 14px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between}
+.card-h{padding:16px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .card-h h3{font-family:var(--font-h);font-size:15px;font-weight:700}
 .card-b{padding:20px}
-
-/* STAT CARDS */
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:22px}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r14);
-  padding:18px 20px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r14);padding:18px 20px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
 .stat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px 2px 0 0}
 .stat-card.c-indigo::after{background:linear-gradient(90deg,var(--indigo),transparent)}
 .stat-card.c-amber::after{background:linear-gradient(90deg,var(--amber),transparent)}
@@ -210,47 +167,27 @@ a{color:inherit;text-decoration:none}
 .stat-card:hover.c-amber{box-shadow:var(--amber-glow)}
 .stat-card:hover.c-teal{box-shadow:var(--teal-glow)}
 .sc-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px}
-.c-indigo .sc-icon{background:var(--indigo-dim)}
-.c-amber .sc-icon{background:var(--amber-dim)}
-.c-teal .sc-icon{background:var(--teal-dim)}
-.c-rose .sc-icon{background:var(--rose-dim)}
-.c-sky .sc-icon{background:var(--sky-dim)}
-.c-green .sc-icon{background:var(--green-dim)}
+.c-indigo .sc-icon{background:var(--indigo-dim)}.c-amber .sc-icon{background:var(--amber-dim)}.c-teal .sc-icon{background:var(--teal-dim)}.c-rose .sc-icon{background:var(--rose-dim)}.c-sky .sc-icon{background:var(--sky-dim)}.c-green .sc-icon{background:var(--green-dim)}
 .sc-val{font-family:var(--font-h);font-size:30px;font-weight:800;line-height:1;margin-bottom:4px}
-.c-indigo .sc-val{color:var(--indigo2)}
-.c-amber .sc-val{color:var(--amber2)}
-.c-teal .sc-val{color:var(--teal)}
-.c-rose .sc-val{color:var(--rose)}
-.c-sky .sc-val{color:var(--sky)}
-.c-green .sc-val{color:var(--green)}
-.sc-label{font-size:12px;color:var(--text2);font-weight:500}
-.sc-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.c-indigo .sc-val{color:var(--indigo2)}.c-amber .sc-val{color:var(--amber2)}.c-teal .sc-val{color:var(--teal)}.c-rose .sc-val{color:var(--rose)}.c-sky .sc-val{color:var(--sky)}.c-green .sc-val{color:var(--green)}
+.sc-label{font-size:12px;color:var(--text2);font-weight:500}.sc-sub{font-size:11px;color:var(--text3);margin-top:2px}
 .sc-bg{position:absolute;right:-8px;bottom:-8px;font-size:72px;opacity:.04;pointer-events:none}
 .sc-arrow{position:absolute;top:16px;right:16px;color:var(--text3);font-size:16px;transition:var(--tr)}
 .stat-card:hover .sc-arrow{color:var(--indigo2);transform:translate(2px,-2px)}
-
-/* ── GRID HELPERS ─────────────────────────────────── */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 .g-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.mb16{margin-bottom:16px}
-.mb22{margin-bottom:22px}
-
-/* ── TABLE ────────────────────────────────────────── */
+.mb16{margin-bottom:16px}.mb22{margin-bottom:22px}
 .t-wrap{overflow-x:auto;border-radius:var(--r10)}
 table{width:100%;border-collapse:collapse;font-size:13px}
 thead tr{border-bottom:1px solid var(--border2)}
-th{padding:11px 14px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:1.2px;
-  text-transform:uppercase;color:var(--text2);white-space:nowrap}
+th{padding:11px 14px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text2);white-space:nowrap}
 tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
 tbody tr:hover{background:var(--surface2)}
 td{padding:12px 14px;color:var(--text0)}
 .t-actions{display:flex;gap:6px}
 td:first-child{font-weight:500}
-
-/* ── BUTTONS ──────────────────────────────────────── */
-.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:var(--r10);
-  font-size:13px;font-weight:600;letter-spacing:.3px;transition:var(--tr);cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:var(--r10);font-size:13px;font-weight:600;letter-spacing:.3px;transition:var(--tr);cursor:pointer}
 .btn-pri{background:linear-gradient(135deg,var(--indigo),rgba(108,126,248,.75));color:#fff}
 .btn-pri:hover{box-shadow:var(--indigo-glow);transform:translateY(-1px)}
 .btn-amber{background:linear-gradient(135deg,var(--amber),rgba(245,166,35,.7));color:#0a0800}
@@ -263,46 +200,27 @@ td:first-child{font-weight:500}
 .btn-success:hover{background:rgba(34,213,122,.25)}
 .btn-sm{padding:5px 10px;font-size:11.5px;border-radius:var(--r6)}
 .btn-icon{padding:7px;border-radius:var(--r6)}
-
-/* ── FORMS ────────────────────────────────────────── */
 .fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
 .fg label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text2)}
-.fg input,.fg select,.fg textarea{
-  background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);
-  padding:10px 13px;color:var(--text0);font-size:13.5px;transition:var(--tr);width:100%}
+.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);padding:10px 13px;color:var(--text0);font-size:13.5px;transition:var(--tr);width:100%}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--indigo);background:rgba(108,126,248,.07);box-shadow:var(--indigo-glow)}
 .fg select option{background:var(--bg2)}
 .fg textarea{resize:vertical;min-height:70px}
 .fg-row{display:grid;gap:12px}
-.fg-row.c2{grid-template-columns:1fr 1fr}
-.fg-row.c3{grid-template-columns:1fr 1fr 1fr}
-.fg-row.c4{grid-template-columns:1fr 1fr 1fr 1fr}
+.fg-row.c2{grid-template-columns:1fr 1fr}.fg-row.c3{grid-template-columns:1fr 1fr 1fr}.fg-row.c4{grid-template-columns:1fr 1fr 1fr 1fr}
 .form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:10px;padding-top:14px;border-top:1px solid var(--border)}
-
-/* ── MODAL ────────────────────────────────────────── */
-.modal-ov{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;padding:20px;
-  transition:opacity .25s,visibility .25s}
+.modal-ov{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;transition:opacity .25s,visibility .25s}
 .modal-ov.gone{opacity:0;visibility:hidden;pointer-events:none}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r20);
-  box-shadow:var(--shadow-xl);width:100%;max-width:620px;max-height:92vh;
-  display:flex;flex-direction:column;
-  animation:modalIn .3s cubic-bezier(.34,1.4,.64,1)}
-.modal.wide{max-width:820px}
-.modal.xwide{max-width:1000px}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r20);box-shadow:var(--shadow-xl);width:100%;max-width:620px;max-height:92vh;display:flex;flex-direction:column;animation:modalIn .3s cubic-bezier(.34,1.4,.64,1)}
+.modal.wide{max-width:820px}.modal.xwide{max-width:1000px}
 @keyframes modalIn{from{opacity:0;transform:scale(.92) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.modal-head{padding:18px 22px 16px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-head{padding:18px 22px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .modal-head h3{font-family:var(--font-h);font-size:17px;font-weight:700}
 .modal-x{background:none;color:var(--text2);font-size:20px;transition:color .2s;line-height:1}
 .modal-x:hover{color:var(--rose)}
 .modal-body{padding:22px;overflow-y:auto;flex:1}
-.modal-foot{padding:14px 22px;border-top:1px solid var(--border);
-  display:flex;gap:10px;justify-content:flex-end;flex-shrink:0}
-
-/* ── BADGE / TAG ──────────────────────────────────── */
-.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:20px;
-  font-size:10.5px;font-weight:700;letter-spacing:.4px}
+.modal-foot{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;flex-shrink:0}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.4px}
 .b-indigo{background:var(--indigo-dim);color:var(--indigo2);border:1px solid rgba(108,126,248,.25)}
 .b-amber{background:var(--amber-dim);color:var(--amber2);border:1px solid rgba(245,166,35,.25)}
 .b-teal{background:var(--teal-dim);color:var(--teal);border:1px solid rgba(29,233,182,.2)}
@@ -310,19 +228,13 @@ td:first-child{font-weight:500}
 .b-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(34,213,122,.25)}
 .b-sky{background:var(--sky-dim);color:var(--sky);border:1px solid rgba(56,182,255,.2)}
 .b-gray{background:rgba(255,255,255,.06);color:var(--text2);border:1px solid var(--border)}
-
-/* ── TOAST ────────────────────────────────────────── */
 .toast-wrap{position:fixed;bottom:22px;right:22px;z-index:9000;display:flex;flex-direction:column;gap:9px}
-.toast{padding:13px 18px;border-radius:var(--r10);display:flex;align-items:center;gap:10px;
-  box-shadow:var(--shadow-xl);animation:toastIn .4s cubic-bezier(.34,1.4,.64,1);
-  font-size:13.5px;font-weight:500;min-width:270px;max-width:360px;backdrop-filter:blur(20px)}
+.toast{padding:13px 18px;border-radius:var(--r10);display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-xl);animation:toastIn .4s cubic-bezier(.34,1.4,.64,1);font-size:13.5px;font-weight:500;min-width:270px;max-width:360px;backdrop-filter:blur(20px)}
 @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
 .toast.ok{background:rgba(34,213,122,.15);border:1px solid rgba(34,213,122,.35);color:var(--green)}
 .toast.err{background:var(--rose-dim);border:1px solid rgba(255,79,123,.35);color:var(--rose)}
 .toast.warn{background:var(--amber-dim);border:1px solid rgba(245,166,35,.35);color:var(--amber2)}
 .toast.info{background:var(--indigo-dim);border:1px solid rgba(108,126,248,.35);color:var(--indigo2)}
-
-/* ── PROGRESS BAR ─────────────────────────────────── */
 .prog-wrap{background:rgba(255,255,255,.06);border-radius:20px;height:7px;overflow:hidden}
 .prog-bar{height:100%;border-radius:20px;transition:width .6s ease}
 .prog-indigo{background:linear-gradient(90deg,var(--indigo),rgba(108,126,248,.5))}
@@ -330,90 +242,43 @@ td:first-child{font-weight:500}
 .prog-teal{background:linear-gradient(90deg,var(--teal),rgba(29,233,182,.5))}
 .prog-rose{background:linear-gradient(90deg,var(--rose),rgba(255,79,123,.5))}
 .prog-green{background:linear-gradient(90deg,var(--green),rgba(34,213,122,.5))}
-
-/* ── TABS ─────────────────────────────────────────── */
-.tab-bar{display:flex;gap:3px;background:var(--surface2);border:1px solid var(--border);
-  border-radius:var(--r10);padding:4px;margin-bottom:18px;overflow-x:auto}
-.tab-btn{padding:7px 16px;border-radius:var(--r6);font-size:12.5px;font-weight:600;
-  background:none;color:var(--text2);transition:var(--tr);white-space:nowrap}
+.tab-bar{display:flex;gap:3px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r10);padding:4px;margin-bottom:18px;overflow-x:auto}
+.tab-btn{padding:7px 16px;border-radius:var(--r6);font-size:12.5px;font-weight:600;background:none;color:var(--text2);transition:var(--tr);white-space:nowrap}
 .tab-btn.on{background:linear-gradient(135deg,var(--indigo),rgba(108,126,248,.65));color:#fff}
 .tab-btn:hover:not(.on){background:var(--surface3);color:var(--text0)}
-.tab-pane{display:none}
-.tab-pane.on{display:block;animation:pgIn .3s ease}
-
-/* ── FILTER BAR ───────────────────────────────────── */
+.tab-pane{display:none}.tab-pane.on{display:block;animation:pgIn .3s ease}
 .filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
-.filter-bar input,.filter-bar select{
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--r10);
-  padding:8px 13px;color:var(--text0);font-size:13px;transition:var(--tr)}
+.filter-bar input,.filter-bar select{background:var(--surface);border:1px solid var(--border);border-radius:var(--r10);padding:8px 13px;color:var(--text0);font-size:13px;transition:var(--tr)}
 .filter-bar input:focus,.filter-bar select:focus{border-color:var(--indigo)}
 .filter-bar input{flex:1;min-width:160px}
-
-/* ── CHART AREA ───────────────────────────────────── */
-.chart-box{position:relative;width:100%}
-.chart-box canvas{max-height:280px}
-
-/* ── ENGINEER CARD ────────────────────────────────── */
-.eng-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r14);
-  padding:18px 20px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
+.chart-box{position:relative;width:100%}.chart-box canvas{max-height:280px}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r14);padding:20px}
+.chart-card h3{font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:16px;color:var(--text1)}
+.eng-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r14);padding:18px 20px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
 .eng-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
 .eng-card.ac::before{background:linear-gradient(90deg,var(--teal),transparent)}
 .eng-card.in::before{background:linear-gradient(90deg,var(--rose),transparent)}
 .eng-card:hover{transform:translateY(-3px);border-color:var(--border3);box-shadow:0 12px 36px rgba(0,0,0,.5)}
-
-/* ── EMPTY STATE ──────────────────────────────────── */
 .empty{text-align:center;padding:50px 20px;color:var(--text3)}
 .empty .ei{font-size:56px;margin-bottom:12px;opacity:.4}
-.empty h3{font-size:16px;color:var(--text2);margin-bottom:6px}
-.empty p{font-size:13px}
-
-/* ── DPR FORM EXTRAS ──────────────────────────────── */
+.empty h3{font-size:16px;color:var(--text2);margin-bottom:6px}.empty p{font-size:13px}
 .fitting-row{display:grid;grid-template-columns:1fr 80px 32px;gap:8px;align-items:center;margin-bottom:8px}
 .fitting-row input{margin:0}
 .custom-field-row{display:grid;grid-template-columns:1fr 100px 80px 32px;gap:8px;align-items:center;margin-bottom:8px}
-.del-row-btn{width:28px;height:28px;background:var(--rose-dim);border:1px solid rgba(255,79,123,.25);
-  color:var(--rose);border-radius:6px;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:14px;transition:.2s;flex-shrink:0}
+.del-row-btn{width:28px;height:28px;background:var(--rose-dim);border:1px solid rgba(255,79,123,.25);color:var(--rose);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:.2s;flex-shrink:0}
 .del-row-btn:hover{background:rgba(255,79,123,.3)}
-
-/* ── VIEWER CHARTS ────────────────────────────────── */
-.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r14);padding:20px}
-.chart-card h3{font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:16px;color:var(--text1)}
-
-/* ── STOCK INDICATOR ──────────────────────────────── */
 .si-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .si-high .si-dot{background:var(--teal);box-shadow:0 0 6px rgba(29,233,182,.6)}
 .si-med .si-dot{background:var(--amber);box-shadow:0 0 6px rgba(245,166,35,.5)}
 .si-low .si-dot{background:var(--rose);box-shadow:0 0 6px rgba(255,79,123,.6);animation:blinkDot 1.4s infinite}
 .si-row{display:flex;align-items:center;gap:8px}
-
-/* ── RESPONSIVE ───────────────────────────────────── */
-@media(max-width:1024px){.g3{grid-template-columns:1fr 1fr}.fg-row.c3{grid-template-columns:1fr 1fr}.fg-row.c4{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){
-  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.sb-overlay{display:block}
-  .main-wrap,.main-wrap.full{margin-left:0}
-  .content{padding:14px}
-  .g2,.g3{grid-template-columns:1fr}
-  .stat-grid{grid-template-columns:1fr 1fr}
-  .tb-search{display:none}
-  .fg-row.c2,.fg-row.c3,.fg-row.c4{grid-template-columns:1fr}
-}
-@media(max-width:480px){.stat-grid{grid-template-columns:1fr}}
-
-/* ── NOTIFICATION PANEL ───────────────────────────── */
-.notif-panel{position:fixed;top:var(--th);right:0;width:320px;max-height:calc(100vh - var(--th));
-  background:var(--bg1);border-left:1px solid var(--border);border-bottom:1px solid var(--border);
-  z-index:300;overflow-y:auto;box-shadow:var(--shadow-xl);
-  transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .3s}
+.notif-panel{position:fixed;top:var(--th);right:0;width:320px;max-height:calc(100vh - var(--th));background:var(--bg1);border-left:1px solid var(--border);border-bottom:1px solid var(--border);z-index:300;overflow-y:auto;box-shadow:var(--shadow-xl);transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .3s}
 .notif-panel.gone{transform:translateX(320px);opacity:0;pointer-events:none}
 .np-head{padding:14px 18px;border-bottom:1px solid var(--border);font-family:var(--font-h);font-size:14px;font-weight:700}
 .np-item{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;gap:10px;cursor:default;transition:.15s}
 .np-item:hover{background:var(--surface)}
 .np-icon{font-size:17px;flex-shrink:0;margin-top:1px}
-.np-text{font-size:12.5px;line-height:1.5}
-.np-time{font-size:10.5px;color:var(--text3);margin-top:3px}
-
-/* Utility */
+.np-text{font-size:12.5px;line-height:1.5}.np-time{font-size:10.5px;color:var(--text3);margin-top:3px}
 .flex{display:flex}.items-center{align-items:center}.gap8{gap:8px}.gap12{gap:12px}.gap16{gap:16px}
 .justify-between{justify-content:space-between}.fw-wrap{flex-wrap:wrap}
 .mono{font-family:var(--font-m)}.fw7{font-weight:700}.fs12{font-size:12px}.fs11{font-size:11px}
@@ -424,12 +289,21 @@ td:first-child{font-weight:500}
 .mb8{margin-bottom:8px}.mb12{margin-bottom:12px}
 .section-divider{border:none;border-top:1px solid var(--border);margin:18px 0}
 .highlight-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r10);padding:14px 16px;margin-bottom:14px}
+@media(max-width:1024px){.g3{grid-template-columns:1fr 1fr}.fg-row.c3{grid-template-columns:1fr 1fr}.fg-row.c4{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.sb-overlay{display:block}
+  .main-wrap,.main-wrap.full{margin-left:0}
+  .content{padding:14px}.g2,.g3{grid-template-columns:1fr}
+  .stat-grid{grid-template-columns:1fr 1fr}.tb-search{display:none}
+  .fg-row.c2,.fg-row.c3,.fg-row.c4{grid-template-columns:1fr}
+}
+@media(max-width:480px){.stat-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="mesh-bg"><div class="mesh-grid"></div><div class="mesh-orb"></div><div class="mesh-orb"></div><div class="mesh-orb"></div></div>
 
-<!-- ╔══════════ LOGIN ══════════╗ -->
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-shell">
     <div class="login-glow"></div>
@@ -456,7 +330,18 @@ td:first-child{font-weight:500}
   </div>
 </div>
 
-<!-- ╔══════════ APP ══════════╗ -->
+<!-- ENGINEER SELECTION SCREEN -->
+<div id="eng-select-screen">
+  <div class="eng-sel-card">
+    <div style="font-size:36px;margin-bottom:14px">👷</div>
+    <h2>Who Are You?</h2>
+    <p>Select your name to continue to your portal</p>
+    <div class="eng-sel-grid" id="eng-sel-grid"><!-- filled dynamically --></div>
+    <button class="btn btn-ghost w-full" onclick="doLogout()">← Back to Login</button>
+  </div>
+</div>
+
+<!-- APP -->
 <div id="app" class="gone">
   <div class="sb-overlay" id="sb-ov" onclick="closeSidebar()"></div>
   <aside class="sidebar" id="sidebar">
@@ -473,7 +358,6 @@ td:first-child{font-weight:500}
       </div>
     </div>
   </aside>
-
   <div class="main-wrap" id="main-wrap">
     <header class="topbar">
       <button class="tb-toggle" onclick="toggleSidebar()">☰</button>
@@ -484,22 +368,17 @@ td:first-child{font-weight:500}
         <button class="tb-btn" onclick="toggleNotif()" title="Notifications"><span>🔔</span><span class="notif-dot" id="n-dot" style="display:none"></span></button>
       </div>
     </header>
-    <main class="content" id="content-area">
-      <!-- Pages injected here -->
-    </main>
+    <main class="content" id="content-area"></main>
   </div>
 </div>
 
-<!-- Notification Panel -->
 <div class="notif-panel gone" id="notif-panel">
   <div class="np-head">🔔 Notifications</div>
   <div id="np-list"></div>
 </div>
-
-<!-- Toast Container -->
 <div class="toast-wrap" id="toast-wrap"></div>
 
-<!-- Modals -->
+<!-- GLOBAL MODAL -->
 <div class="modal-ov gone" id="modal-ov">
   <div class="modal" id="modal-box">
     <div class="modal-head"><h3 id="modal-title">Modal</h3><button class="modal-x" onclick="closeModal()">✕</button></div>
@@ -509,93 +388,75 @@ td:first-child{font-weight:500}
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   SAI ETERNAL FOUNDATION — PDMS  v3.0
-   Full featured: Admin | Engineer | Viewer
-═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   SEF PDMS v4.0 – FULLY FIXED
+═══════════════════════════════════════════════ */
 
-// ── CREDENTIALS ────────────────────────────────────────────────
+// ── CREDENTIALS ───────────────────────────────
 const CREDS = {
-  saiadmin:{ pass:'SaiAdmin@12', role:'admin',    name:'Administrator',   color:'#6c7ef8' },
-  saiuser: { pass:'user@saiEF',  role:'engineer', name:'Site Engineer',   color:'#1de9b6' },
-  viewer:  { pass:'Sai@viewer',  role:'viewer',   name:'Viewer',          color:'#f5a623' }
+  saiadmin:{ pass:'SaiAdmin@12',  role:'admin',   name:'Administrator', color:'#6c7ef8' },
+  saiuser: { pass:'user@saiEF',   role:'engineer',name:'Site Engineer',  color:'#1de9b6' },
+  viewer:  { pass:'Sai@viewer',   role:'viewer',  name:'Viewer',         color:'#f5a623' }
 };
 
-// ── STATE ───────────────────────────────────────────────────────
-let CU = null; // current user
-let selectedEngineerId = localStorage.getItem('selectedEngineerId') || null;
-let CI = {}; // chart instances
+// ── STATE ──────────────────────────────────────
+let CU = null;
+let selectedEngineerId = null; // set after selection screen
+let CI = {};
 let sidebarOpen = window.innerWidth > 768;
+let deleteCallback = null;
+let fitRowCount = 4;
+let cfRowCount = 0;
+let currentPage = '';
 
-// ── LS HELPERS ──────────────────────────────────────────────────
-const LS={
-  g:(k)=>{try{return JSON.parse(localStorage.getItem(k))}catch{return null}},
+// ── LS HELPERS ─────────────────────────────────
+const LS = {
+  g:(k)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch{return null}},
   s:(k,v)=>localStorage.setItem(k,JSON.stringify(v)),
   d:(k)=>localStorage.removeItem(k)
 };
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const uid = ()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 
-// ── SEED DATA ───────────────────────────────────────────────────
+// ── SEED DATA ──────────────────────────────────
 function seedData(){
-  if(!LS.g('sef_seeded')){
-    LS.s('sef_engineers',[
-      {id:'e1',name:'Akhil Kumar',empId:'ENG-001',phone:'+91 98765 43210',location:'Sector 5, Baddi',status:'active',joinDate:'2025-01-10',notes:'Lead engineer Site A'},
-      {id:'e2',name:'Ravi Sharma',empId:'ENG-002',phone:'+91 91234 56789',location:'Phase 2, Baddi',status:'active',joinDate:'2025-03-15',notes:''},
-      {id:'e3',name:'Suresh Verma',empId:'ENG-003',phone:'+91 87654 32109',location:'Industrial Area',status:'active',joinDate:'2025-06-01',notes:''},
-      {id:'e4',name:'Mohan Singh',empId:'ENG-004',phone:'+91 76543 21098',location:'Main Road',status:'inactive',joinDate:'2024-11-20',notes:'On leave'}
-    ]);
-    LS.s('sef_inventory',[
-      {id:'p1',pipeType:'SAI',diameter:'80mm',material:'PVC',quantity:500,dateAdded:'2026-03-01',notes:'Main batch'},
-      {id:'p2',pipeType:'SUEZ',diameter:'100mm',material:'HDPE',quantity:300,dateAdded:'2026-03-05',notes:''},
-      {id:'p3',pipeType:'SAI',diameter:'150mm',material:'GI',quantity:200,dateAdded:'2026-03-10',notes:''},
-      {id:'p4',pipeType:'SAI',diameter:'80mm',material:'HDPE',quantity:400,dateAdded:'2026-03-12',notes:'Second batch'},
-      {id:'p5',pipeType:'SUEZ',diameter:'100mm',material:'PVC',quantity:250,dateAdded:'2026-03-15',notes:''}
-    ]);
-    LS.s('sef_assignments',[
-      {id:'a1',engineerId:'e1',pipeId:'p1',quantity:120,dateAssigned:'2026-04-01',notes:'Phase 1 work'},
-      {id:'a2',engineerId:'e2',pipeId:'p2',quantity:80,dateAssigned:'2026-04-01',notes:''},
-      {id:'a3',engineerId:'e1',pipeId:'p3',quantity:50,dateAssigned:'2026-03-20',notes:'Secondary line'},
-      {id:'a4',engineerId:'e3',pipeId:'p4',quantity:200,dateAssigned:'2026-04-02',notes:''},
-      {id:'a5',engineerId:'e2',pipeId:'p5',quantity:30,dateAssigned:'2026-03-28',notes:''}
-    ]);
-    LS.s('sef_dprs',[
-      {id:'d1',engineerId:'e1',date:'2026-04-01',pipeType:'SAI',diameter:'80mm',
-       pipesUsed:10,pipesLeft:110,meterLaid:80,totalJoints:9,
-       startJunction:'A1',endJunction:'A2',
-       fittings:[{name:'Bend',qty:2},{name:'Tee',qty:1}],
-       customFields:[{fieldName:'Soil Type',fieldType:'text',value:'Rocky'}],
-       notes:'Completed section A1-A2'},
-      {id:'d2',engineerId:'e2',date:'2026-04-01',pipeType:'SUEZ',diameter:'100mm',
-       pipesUsed:8,pipesLeft:72,meterLaid:64,totalJoints:7,
-       startJunction:'B1',endJunction:'B2',
-       fittings:[{name:'Valve',qty:1}],
-       customFields:[],notes:''},
-      {id:'d3',engineerId:'e1',date:'2026-04-02',pipeType:'SAI',diameter:'80mm',
-       pipesUsed:15,pipesLeft:95,meterLaid:120,totalJoints:14,
-       startJunction:'A2',endJunction:'A4',
-       fittings:[{name:'Bend',qty:3},{name:'Reducer',qty:1}],
-       customFields:[{fieldName:'Weather',fieldType:'text',value:'Sunny'}],
-       notes:'Good progress'},
-      {id:'d4',engineerId:'e3',date:'2026-04-02',pipeType:'SAI',diameter:'80mm',
-       pipesUsed:20,pipesLeft:180,meterLaid:160,totalJoints:18,
-       startJunction:'C1',endJunction:'C3',
-       fittings:[],customFields:[],notes:'New trench opened'},
-      {id:'d5',engineerId:'e1',date:'2026-04-03',pipeType:'SAI',diameter:'150mm',
-       pipesUsed:5,pipesLeft:45,meterLaid:30,totalJoints:4,
-       startJunction:'A4',endJunction:'A5',
-       fittings:[{name:'Tee',qty:2}],customFields:[],notes:''}
-    ]);
-    LS.s('sef_targets',[
-      {id:'t1',engineerId:'e1',month:'2026-04',targetMeters:500,targetPipes:80},
-      {id:'t2',engineerId:'e2',month:'2026-04',targetMeters:400,targetPipes:60},
-      {id:'t3',engineerId:'e3',month:'2026-04',targetMeters:600,targetPipes:100}
-    ]);
-    LS.s('sef_seeded',true);
-  }
+  if(LS.g('sef_seeded')) return;
+  LS.s('sef_engineers',[
+    {id:'e1',name:'Akhil Kumar',  empId:'ENG-001',phone:'+91 98765 43210',location:'Sector 5, Baddi',status:'active',joinDate:'2025-01-10',notes:'Lead engineer Site A'},
+    {id:'e2',name:'Ravi Sharma',  empId:'ENG-002',phone:'+91 91234 56789',location:'Phase 2, Baddi',status:'active',joinDate:'2025-03-15',notes:''},
+    {id:'e3',name:'Suresh Verma', empId:'ENG-003',phone:'+91 87654 32109',location:'Industrial Area', status:'active',joinDate:'2025-06-01',notes:''},
+    {id:'e4',name:'Mohan Singh',  empId:'ENG-004',phone:'+91 76543 21098',location:'Main Road',      status:'inactive',joinDate:'2024-11-20',notes:'On leave'}
+  ]);
+  LS.s('sef_inventory',[
+    {id:'p1',pipeType:'SAI', diameter:'80mm', material:'PVC', quantity:500,dateAdded:'2026-03-01',notes:'Main batch'},
+    {id:'p2',pipeType:'SUEZ',diameter:'100mm',material:'HDPE',quantity:300,dateAdded:'2026-03-05',notes:''},
+    {id:'p3',pipeType:'SAI', diameter:'150mm',material:'GI',  quantity:200,dateAdded:'2026-03-10',notes:''},
+    {id:'p4',pipeType:'SAI', diameter:'80mm', material:'HDPE',quantity:400,dateAdded:'2026-03-12',notes:'Second batch'},
+    {id:'p5',pipeType:'SUEZ',diameter:'100mm',material:'PVC', quantity:250,dateAdded:'2026-03-15',notes:''}
+  ]);
+  LS.s('sef_assignments',[
+    {id:'a1',engineerId:'e1',pipeId:'p1',quantity:120,dateAssigned:'2026-04-01',notes:'Phase 1 work'},
+    {id:'a2',engineerId:'e2',pipeId:'p2',quantity:80, dateAssigned:'2026-04-01',notes:''},
+    {id:'a3',engineerId:'e1',pipeId:'p3',quantity:50, dateAssigned:'2026-03-20',notes:'Secondary line'},
+    {id:'a4',engineerId:'e3',pipeId:'p4',quantity:200,dateAssigned:'2026-04-02',notes:''},
+    {id:'a5',engineerId:'e2',pipeId:'p5',quantity:30, dateAssigned:'2026-03-28',notes:''}
+  ]);
+  LS.s('sef_dprs',[
+    {id:'d1',engineerId:'e1',date:'2026-04-01',pipeType:'SAI', diameter:'80mm', pipesUsed:10,pipesLeft:110,meterLaid:80, totalJoints:9, startJunction:'A1',endJunction:'A2',fittings:[{name:'Bend',qty:2},{name:'Tee',qty:1}],customFields:[{fieldName:'Soil Type',fieldType:'text',value:'Rocky'}],notes:'Completed section A1-A2'},
+    {id:'d2',engineerId:'e2',date:'2026-04-01',pipeType:'SUEZ',diameter:'100mm',pipesUsed:8, pipesLeft:72, meterLaid:64, totalJoints:7, startJunction:'B1',endJunction:'B2',fittings:[{name:'Valve',qty:1}],customFields:[],notes:''},
+    {id:'d3',engineerId:'e1',date:'2026-04-02',pipeType:'SAI', diameter:'80mm', pipesUsed:15,pipesLeft:95, meterLaid:120,totalJoints:14,startJunction:'A2',endJunction:'A4',fittings:[{name:'Bend',qty:3},{name:'Reducer',qty:1}],customFields:[{fieldName:'Weather',fieldType:'text',value:'Sunny'}],notes:'Good progress'},
+    {id:'d4',engineerId:'e3',date:'2026-04-02',pipeType:'SAI', diameter:'80mm', pipesUsed:20,pipesLeft:180,meterLaid:160,totalJoints:18,startJunction:'C1',endJunction:'C3',fittings:[],customFields:[],notes:'New trench opened'},
+    {id:'d5',engineerId:'e1',date:'2026-04-03',pipeType:'SAI', diameter:'150mm',pipesUsed:5, pipesLeft:45, meterLaid:30, totalJoints:4, startJunction:'A4',endJunction:'A5',fittings:[{name:'Tee',qty:2}],customFields:[],notes:''}
+  ]);
+  LS.s('sef_targets',[
+    {id:'t1',engineerId:'e1',month:'2026-04',targetMeters:500,targetPipes:80},
+    {id:'t2',engineerId:'e2',month:'2026-04',targetMeters:400,targetPipes:60},
+    {id:'t3',engineerId:'e3',month:'2026-04',targetMeters:600,targetPipes:100}
+  ]);
+  LS.s('sef_seeded',true);
 }
 
-// ── DATA ACCESSORS ──────────────────────────────────────────────
-const D={
+// ── DATA ACCESSORS ─────────────────────────────
+const D = {
   engineers:()=>LS.g('sef_engineers')||[],
   inventory:()=>LS.g('sef_inventory')||[],
   assignments:()=>LS.g('sef_assignments')||[],
@@ -606,88 +467,139 @@ const D={
   saveAssignments:v=>LS.s('sef_assignments',v),
   saveDprs:v=>LS.s('sef_dprs',v),
   saveTargets:v=>LS.s('sef_targets',v),
-  engineer:(id)=>D.engineers().find(e=>e.id===id),
-  pipe:(id)=>D.inventory().find(p=>p.id===id),
-  // calc assigned qty per pipe
+  engineer:(id)=>D.engineers().find(e=>e.id===id)||null,
+  pipe:(id)=>D.inventory().find(p=>p.id===id)||null,
   assignedQty:(pipeId)=>D.assignments().filter(a=>a.pipeId===pipeId).reduce((s,a)=>s+a.quantity,0),
   availQty:(pipeId)=>{const p=D.pipe(pipeId);return p?p.quantity-D.assignedQty(pipeId):0},
-  // engineer's assigned stock
   engAssignments:(engId)=>D.assignments().filter(a=>a.engineerId===engId),
-  // engineer's DPRs
   engDprs:(engId)=>D.dprs().filter(d=>d.engineerId===engId),
-  // total pipes used by engineer
   engUsed:(engId)=>D.engDprs(engId).reduce((s,d)=>s+d.pipesUsed,0),
-  engMeters:(engId)=>D.engDprs(engId).reduce((s,d)=>s+d.meterLaid,0),
+  engMeters:(engId)=>D.engDprs(engId).reduce((s,d)=>s+d.meterLaid,0)
 };
 
-// ── AUTH ────────────────────────────────────────────────────────
+// ── AUTH ───────────────────────────────────────
 function doLogin(){
-  const id=document.getElementById('li-id').value.trim();
-  const pass=document.getElementById('li-pass').value;
-  const err=document.getElementById('li-err');
-  const cr=CREDS[id];
-  if(cr&&cr.pass===pass){
-    CU={id,role:cr.role,name:cr.name,color:cr.color};
-    LS.s('sef_session',CU);
-    err.textContent='';
-    launchApp();
-  }else{
-    err.textContent='⚠️  Invalid credentials. Please try again.';
-    document.getElementById('li-pass').value='';
+  const id = document.getElementById('li-id').value.trim();
+  const pass = document.getElementById('li-pass').value;
+  const err = document.getElementById('li-err');
+  const cr = CREDS[id];
+  if(cr && cr.pass === pass){
+    CU = {id, role:cr.role, name:cr.name, color:cr.color};
+    LS.s('sef_session', CU);
+    err.textContent = '';
+    seedData();
+    if(cr.role === 'engineer'){
+      // Show engineer selection screen
+      document.getElementById('login-screen').classList.add('gone');
+      showEngineerSelectScreen();
+    } else {
+      launchApp();
+    }
+  } else {
+    err.textContent = '⚠️  Invalid credentials. Please try again.';
+    document.getElementById('li-pass').value = '';
   }
 }
-function toggleLoginPass(){
-  const i=document.getElementById('li-pass');
-  i.type=i.type==='password'?'text':'password';
-}
-function doLogout(){
-  LS.d('sef_session');CU=null;
-  document.getElementById('app').classList.add('gone');
-  document.getElementById('login-screen').classList.remove('gone');
-  document.getElementById('li-id').value='';
-  document.getElementById('li-pass').value='';
-  Object.values(CI).forEach(c=>{try{c.destroy()}catch{}});CI={};
-}
-function checkSession(){
-  const s=LS.g('sef_session');
-  if(s&&CREDS[s.id]){CU=s;launchApp();}
-}
-document.getElementById('li-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
-document.getElementById('li-id').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('li-pass').focus()});
 
-// ── APP LAUNCH ──────────────────────────────────────────────────
+function showEngineerSelectScreen(){
+  const engs = D.engineers().filter(e=>e.status==='active');
+  const grid = document.getElementById('eng-sel-grid');
+  if(engs.length === 0){
+    grid.innerHTML = '<div class="empty"><div class="ei">👷</div><h3>No active engineers found</h3><p>Ask admin to add engineers first</p></div>';
+  } else {
+    grid.innerHTML = engs.map(e=>`
+      <button class="eng-sel-btn" onclick="selectEngineerAndLaunch('${e.id}')">
+        <div class="esb-name">${e.name}</div>
+        <div class="esb-id">${e.empId} · ${e.location}</div>
+      </button>`).join('');
+  }
+  document.getElementById('eng-select-screen').classList.add('show');
+}
+
+function selectEngineerAndLaunch(engId){
+  selectedEngineerId = engId;
+  LS.s('sef_sel_eng', engId);
+  document.getElementById('eng-select-screen').classList.remove('show');
+  launchApp();
+}
+
+function toggleLoginPass(){
+  const i = document.getElementById('li-pass');
+  i.type = i.type === 'password' ? 'text' : 'password';
+}
+
+function doLogout(){
+  LS.d('sef_session');
+  LS.d('sef_sel_eng');
+  CU = null;
+  selectedEngineerId = null;
+  Object.values(CI).forEach(c=>{try{c.destroy()}catch{}});
+  CI = {};
+  document.getElementById('app').classList.add('gone');
+  document.getElementById('eng-select-screen').classList.remove('show');
+  document.getElementById('login-screen').classList.remove('gone');
+  document.getElementById('li-id').value = '';
+  document.getElementById('li-pass').value = '';
+  document.getElementById('li-err').textContent = '';
+}
+
+function checkSession(){
+  const s = LS.g('sef_session');
+  if(s && CREDS[s.id]){
+    CU = s;
+    seedData();
+    if(s.role === 'engineer'){
+      const stored = LS.g('sef_sel_eng');
+      if(stored && D.engineer(stored)){
+        selectedEngineerId = stored;
+        launchApp();
+      } else {
+        // Need to select engineer again
+        document.getElementById('login-screen').classList.add('gone');
+        showEngineerSelectScreen();
+      }
+    } else {
+      launchApp();
+    }
+  }
+}
+
+// ── APP LAUNCH ─────────────────────────────────
 function launchApp(){
-  seedData();
   document.getElementById('login-screen').classList.add('gone');
   document.getElementById('app').classList.remove('gone');
   buildSidebar();
   updateSbUser();
-  const startPage = if (CU.role === 'engineer') {
-  if (!selectedEngineerId) {
-    renderEngineerSelection();
-    return;
+  applyTheme();
+  checkLowStock();
+  if(CU.role === 'admin'){
+    navigate('dash-admin');
+  } else if(CU.role === 'viewer'){
+    navigate('dash-viewer');
   } else {
     navigate('dash-eng');
   }
-} else {
-  const startPage = CU.role === 'admin' ? 'dash-admin' : 'dash-viewer';
-  navigate(startPage);
-}
-  checkLowStock();
-  if(window.innerWidth<=768){sidebarOpen=false;document.getElementById('sidebar').classList.remove('open')}
-  else{document.getElementById('sidebar').classList.remove('closed');document.getElementById('main-wrap').classList.remove('full')}
+  if(window.innerWidth <= 768){
+    sidebarOpen = false;
+    document.getElementById('sidebar').classList.add('closed');
+    document.getElementById('main-wrap').classList.add('full');
+  } else {
+    document.getElementById('sidebar').classList.remove('closed');
+    document.getElementById('main-wrap').classList.remove('full');
+  }
 }
 
 function updateSbUser(){
-  document.getElementById('sb-av').textContent=CU.name[0].toUpperCase();
-  document.getElementById('sb-av').style.background=`linear-gradient(135deg,${CU.color},rgba(108,126,248,.5))`;
-  document.getElementById('sb-av').style.color='#fff';
-  document.getElementById('sb-uname').textContent=CU.name;
-  document.getElementById('sb-urole').textContent=CU.role.toUpperCase();
+  const engName = CU.role==='engineer' ? (D.engineer(selectedEngineerId)?.name || CU.name) : CU.name;
+  document.getElementById('sb-av').textContent = engName[0].toUpperCase();
+  document.getElementById('sb-av').style.background = `linear-gradient(135deg,${CU.color},rgba(108,126,248,.5))`;
+  document.getElementById('sb-av').style.color = '#fff';
+  document.getElementById('sb-uname').textContent = engName;
+  document.getElementById('sb-urole').textContent = CU.role.toUpperCase();
 }
 
-// ── SIDEBAR BUILD ───────────────────────────────────────────────
-const NAV_ADMIN=[
+// ── SIDEBAR BUILD ──────────────────────────────
+const NAV_ADMIN = [
   {sec:'OVERVIEW'},{id:'dash-admin',icon:'⬡',label:'Dashboard'},
   {sec:'MANAGEMENT'},{id:'pg-inventory',icon:'📦',label:'Inventory'},
   {id:'pg-engineers',icon:'👷',label:'Engineers'},
@@ -696,14 +608,14 @@ const NAV_ADMIN=[
   {id:'pg-targets',icon:'🎯',label:'Targets'},
   {sec:'REPORTS'},{id:'pg-reports',icon:'📊',label:'Reports'},
 ];
-const NAV_ENG=[
+const NAV_ENG = [
   {sec:'MY PORTAL'},{id:'dash-eng',icon:'⬡',label:'Overview'},
   {id:'eng-pipes',icon:'🔧',label:'My Pipes'},
   {id:'eng-dpr',icon:'📝',label:'Submit DPR'},
   {id:'eng-targets',icon:'🎯',label:'My Targets'},
   {id:'eng-reports',icon:'📊',label:'My Reports'},
 ];
-const NAV_VIEWER=[
+const NAV_VIEWER = [
   {sec:'ANALYTICS'},{id:'dash-viewer',icon:'⬡',label:'Overview'},
   {id:'view-engineers',icon:'👷',label:'Engineers'},
   {id:'view-dprs',icon:'📋',label:'DPR Records'},
@@ -712,56 +624,57 @@ const NAV_VIEWER=[
 ];
 
 function buildSidebar(){
-  const map={admin:NAV_ADMIN,engineer:NAV_ENG,viewer:NAV_VIEWER};
-  const items=map[CU.role]||[];
-  const nav=document.getElementById('sb-nav');
-  nav.innerHTML=items.map(item=>{
+  const map = {admin:NAV_ADMIN,engineer:NAV_ENG,viewer:NAV_VIEWER};
+  const items = map[CU.role] || [];
+  document.getElementById('sb-nav').innerHTML = items.map(item=>{
     if(item.sec) return `<div class="sb-sec-label">${item.sec}</div>`;
-    return `<div class="sb-item" id="nav-${item.id}" onclick="navigate('${item.id}')">
-      <span class="sb-icon">${item.icon}</span><span class="sb-lbl">${item.label}</span>
-    </div>`;
+    return `<div class="sb-item" id="nav-${item.id}" onclick="navigate('${item.id}')"><span class="sb-icon">${item.icon}</span><span class="sb-lbl">${item.label}</span></div>`;
   }).join('');
 }
 
-// ── NAVIGATION ──────────────────────────────────────────────────
-let currentPage='';
+// ── NAVIGATION ─────────────────────────────────
 function navigate(page){
   document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
-  const ni=document.getElementById(`nav-${page}`);
-  if(ni)ni.classList.add('active');
-  const titles={
+  const ni = document.getElementById(`nav-${page}`);
+  if(ni) ni.classList.add('active');
+  const titles = {
     'dash-admin':'Admin Dashboard','pg-inventory':'Pipe Inventory','pg-engineers':'Site Engineers',
     'pg-assignments':'Assignments','pg-dprs':'DPR Records','pg-targets':'Targets','pg-reports':'Reports',
-    'dash-eng':'My Dashboard','eng-pipes':'My Pipes','eng-dpr':'Submit DPR','eng-targets':'My Targets','eng-reports':'My Reports',
-    'dash-viewer':'Analytics Overview','view-engineers':'Engineer Analytics','view-dprs':'DPR Records','view-stock':'Stock Levels','view-charts':'Performance Charts',
+    'dash-eng':'My Dashboard','eng-pipes':'My Pipes','eng-dpr':'Submit DPR',
+    'eng-targets':'My Targets','eng-reports':'My Reports',
+    'dash-viewer':'Analytics Overview','view-engineers':'Engineer Analytics',
+    'view-dprs':'DPR Records','view-stock':'Stock Levels','view-charts':'Performance Charts',
   };
-  document.getElementById('tb-title').textContent=titles[page]||page;
-  currentPage=page;
-  const ca=document.getElementById('content-area');
-  ca.innerHTML='';
-  const pages={
+  document.getElementById('tb-title').textContent = titles[page] || page;
+  currentPage = page;
+  const ca = document.getElementById('content-area');
+  ca.innerHTML = '';
+  const pages = {
     'dash-admin':renderAdminDash,'pg-inventory':renderInventoryPage,'pg-engineers':renderEngineersPage,
     'pg-assignments':renderAssignmentsPage,'pg-dprs':renderAllDprsPage,'pg-targets':renderTargetsPage,
     'pg-reports':renderReportsPage,
     'dash-eng':renderEngDash,'eng-pipes':renderEngPipes,'eng-dpr':renderEngDprForm,
     'eng-targets':renderEngTargets,'eng-reports':renderEngReportsPage,
-    'dash-viewer':renderViewerDash,'view-engineers':renderViewerEngineers,'view-dprs':renderViewerDprs,
-    'view-stock':renderViewerStock,'view-charts':renderViewerCharts,
+    'dash-viewer':renderViewerDash,'view-engineers':renderViewerEngineers,
+    'view-dprs':renderViewerDprs,'view-stock':renderViewerStock,'view-charts':renderViewerCharts,
   };
-  if(pages[page])pages[page](ca);
-  if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-ov').classList.add('gone')}
+  if(pages[page]) pages[page](ca);
+  if(window.innerWidth<=768){
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sb-ov').classList.add('gone');
+  }
 }
 
-// ── SIDEBAR TOGGLE ──────────────────────────────────────────────
+// ── SIDEBAR TOGGLE ─────────────────────────────
 function toggleSidebar(){
-  const sb=document.getElementById('sidebar');
-  const mw=document.getElementById('main-wrap');
-  const ov=document.getElementById('sb-ov');
+  const sb = document.getElementById('sidebar');
+  const mw = document.getElementById('main-wrap');
+  const ov = document.getElementById('sb-ov');
   if(window.innerWidth<=768){
     sb.classList.toggle('open');
     ov.classList.toggle('gone');
-  }else{
-    sidebarOpen=!sidebarOpen;
+  } else {
+    sidebarOpen = !sidebarOpen;
     if(sidebarOpen){sb.classList.remove('closed');mw.classList.remove('full')}
     else{sb.classList.add('closed');mw.classList.add('full')}
   }
@@ -771,142 +684,160 @@ function closeSidebar(){
   document.getElementById('sb-ov').classList.add('gone');
 }
 
-// ── THEME ───────────────────────────────────────────────────────
+// ── THEME ──────────────────────────────────────
+function applyTheme(){
+  const t = LS.g('sef_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  document.getElementById('theme-btn').textContent = t==='dark' ? '🌙' : '☀️';
+}
 function toggleTheme(){
-  const html=document.documentElement;
-  const isDark=html.getAttribute('data-theme')==='dark';
-  html.setAttribute('data-theme',isDark?'light':'dark');
-  document.getElementById('theme-btn').textContent=isDark?'🌙':'☀️';
-  LS.s('sef_theme',isDark?'light':'dark');
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme')==='dark';
+  const next = isDark ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.getElementById('theme-btn').textContent = next==='dark' ? '🌙' : '☀️';
+  LS.s('sef_theme', next);
 }
-(()=>{const t=LS.g('sef_theme');if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('theme-btn').textContent=t==='dark'?'🌙':'☀️'}})();
+// Apply theme immediately on load
+(()=>{const t=LS.g('sef_theme');if(t){document.documentElement.setAttribute('data-theme',t)}})();
 
-// ── TOAST ────────────────────────────────────────────────────────
-function toast(msg,type='info'){
-  const icons={ok:'✅',err:'❌',warn:'⚠️',info:'ℹ️'};
-  const el=document.createElement('div');
-  el.className=`toast ${type}`;
-  el.innerHTML=`<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+// ── TOAST ──────────────────────────────────────
+function toast(msg, type='info'){
+  const icons = {ok:'✅',err:'❌',warn:'⚠️',info:'ℹ️'};
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
   document.getElementById('toast-wrap').appendChild(el);
-  setTimeout(()=>{el.style.opacity='0';el.style.transform='translateX(40px)';el.style.transition='all .4s';setTimeout(()=>el.remove(),400)},3500);
+  setTimeout(()=>{
+    el.style.opacity='0'; el.style.transform='translateX(40px)'; el.style.transition='all .4s';
+    setTimeout(()=>el.remove(),400);
+  }, 3500);
 }
 
-// ── MODAL ────────────────────────────────────────────────────────
-let modalConfirmFn=null;
-function openModal(title,bodyHTML,footHTML,opts={}){
-  document.getElementById('modal-title').textContent=title;
-  document.getElementById('modal-body').innerHTML=bodyHTML;
-  document.getElementById('modal-foot').innerHTML=footHTML||'';
-  const box=document.getElementById('modal-box');
-  box.className='modal'+(opts.wide?' wide':'')+(opts.xwide?' xwide':'');
+// ── MODAL ──────────────────────────────────────
+function openModal(title, bodyHTML, footHTML, opts={}){
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').innerHTML = bodyHTML;
+  document.getElementById('modal-foot').innerHTML = footHTML||'';
+  const box = document.getElementById('modal-box');
+  box.className = 'modal'+(opts.wide?' wide':'')+(opts.xwide?' xwide':'');
   document.getElementById('modal-ov').classList.remove('gone');
 }
-function closeModal(){document.getElementById('modal-ov').classList.add('gone')}
-document.getElementById('modal-ov').addEventListener('click',e=>{if(e.target===document.getElementById('modal-ov'))closeModal()});
-
-let deleteCallback = null;
+function closeModal(){
+  document.getElementById('modal-ov').classList.add('gone');
+}
+document.getElementById('modal-ov').addEventListener('click',e=>{
+  if(e.target===document.getElementById('modal-ov')) closeModal();
+});
 
 function confirmDel(msg, fn){
   deleteCallback = fn;
-
-  openModal(
-    'Confirm Delete',
+  openModal('Confirm Delete',
     `<p style="font-size:14px;color:var(--text1)">${msg}</p>`,
     `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
      <button class="btn btn-danger" onclick="runDelete()">🗑️ Delete</button>`
   );
 }
-
 function runDelete(){
-  if(deleteCallback){
-    deleteCallback();
-    deleteCallback = null;
-  }
+  if(deleteCallback){ deleteCallback(); deleteCallback=null; }
   closeModal();
 }
 
-// ── NOTIFICATIONS ─────────────────────────────────────────────
+// ── NOTIFICATIONS ──────────────────────────────
 function checkLowStock(){
-  const inv=D.inventory();
-  const lowItems=inv.filter(p=>D.availQty(p.id)<50);
-  const dot=document.getElementById('n-dot');
-  dot.style.display=lowItems.length?'block':'none';
+  const lowItems = D.inventory().filter(p=>D.availQty(p.id)<50);
+  const dot = document.getElementById('n-dot');
+  if(dot) dot.style.display = lowItems.length ? 'block' : 'none';
 }
 function toggleNotif(){
-  const panel=document.getElementById('notif-panel');
+  const panel = document.getElementById('notif-panel');
   panel.classList.toggle('gone');
-  if(!panel.classList.contains('gone'))buildNotifs();
+  if(!panel.classList.contains('gone')) buildNotifs();
 }
 function buildNotifs(){
-  const inv=D.inventory();
-  const dprs=D.dprs();
-  let html='';
+  const inv = D.inventory();
+  const dprs = D.dprs();
+  let html = '';
   inv.forEach(p=>{
-    const av=D.availQty(p.id);
-    if(av<50){
-      html+=`<div class="np-item"><span class="np-icon">⚠️</span><div><div class="np-text"><b>${p.pipeType} ${p.diameter}</b> low stock — ${av} pipes available</div><div class="np-time">Inventory Alert</div></div></div>`;
-    }
+    const av = D.availQty(p.id);
+    if(av<50) html+=`<div class="np-item"><span class="np-icon">⚠️</span><div><div class="np-text"><b>${p.pipeType} ${p.diameter}</b> low stock — ${av} available</div><div class="np-time">Inventory Alert</div></div></div>`;
   });
-  const today=new Date().toISOString().split('T')[0];
-  const todayDprs=dprs.filter(d=>d.date===today);
-  if(todayDprs.length){
-    html+=`<div class="np-item"><span class="np-icon">✅</span><div><div class="np-text">${todayDprs.length} DPR(s) submitted today</div><div class="np-time">Today</div></div></div>`;
-  }
-  if(!html)html='<div class="np-item"><span class="np-icon">✅</span><div><div class="np-text">All systems normal</div><div class="np-time">Now</div></div></div>';
-  document.getElementById('np-list').innerHTML=html;
+  const today_str = today();
+  const todayDprs = dprs.filter(d=>d.date===today_str);
+  if(todayDprs.length) html+=`<div class="np-item"><span class="np-icon">✅</span><div><div class="np-text">${todayDprs.length} DPR(s) submitted today</div><div class="np-time">Today</div></div></div>`;
+  if(!html) html='<div class="np-item"><span class="np-icon">✅</span><div><div class="np-text">All systems normal</div><div class="np-time">Now</div></div></div>';
+  document.getElementById('np-list').innerHTML = html;
 }
 document.addEventListener('click',e=>{
-  const p=document.getElementById('notif-panel');
-  if(!p.classList.contains('gone')&&!p.contains(e.target)&&!e.target.closest('.tb-btn'))p.classList.add('gone');
+  const p = document.getElementById('notif-panel');
+  if(p && !p.classList.contains('gone') && !p.contains(e.target) && !e.target.closest('.tb-btn')) p.classList.add('gone');
 });
 
-// ── GLOBAL SEARCH ────────────────────────────────────────────────
+// ── GLOBAL SEARCH ──────────────────────────────
 function globalSearch(q){
-  if(!q||q.length<2)return;
-  const engs=D.engineers().filter(e=>e.name.toLowerCase().includes(q.toLowerCase()));
-  if(engs.length){navigate(CU.role==='admin'?'pg-engineers':'dash-eng')}
+  if(!q||q.length<2) return;
+  const engs = D.engineers().filter(e=>e.name.toLowerCase().includes(q.toLowerCase()));
+  if(engs.length) navigate(CU.role==='admin'?'pg-engineers':'dash-eng');
 }
 
-// ── DATE / FORMAT HELPERS ────────────────────────────────────────
-const today=()=>new Date().toISOString().split('T')[0];
-const thisMonth=()=>new Date().toISOString().slice(0,7);
-function fmtDate(d){if(!d)return'–';const dt=new Date(d+'T00:00:00');return dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}
+// ── DATE / FORMAT HELPERS ──────────────────────
+const today = ()=>new Date().toISOString().split('T')[0];
+const thisMonth = ()=>new Date().toISOString().slice(0,7);
+function fmtDate(d){
+  if(!d) return '–';
+  const dt = new Date(d+'T00:00:00');
+  return dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+}
 function greeting(){const h=new Date().getHours();return h<12?'Good Morning':h<17?'Good Afternoon':'Good Evening'}
 
-// ── CHART FACTORY ────────────────────────────────────────────────
-function mkChart(id,type,data,opts={}){
+// ── CHART FACTORY ──────────────────────────────
+function mkChart(id, type, data, opts={}){
   if(CI[id]){try{CI[id].destroy()}catch{}}
-  const ctx=document.getElementById(id);
-  if(!ctx)return;
-  const tColor=getComputedStyle(document.documentElement).getPropertyValue('--text2').trim();
-  const gColor='rgba(108,126,248,0.12)';
-  CI[id]=new Chart(ctx,{type,data,options:{
-    responsive:true,maintainAspectRatio:true,
+  const ctx = document.getElementById(id);
+  if(!ctx) return;
+  const tColor = getComputedStyle(document.documentElement).getPropertyValue('--text2').trim()||'#7a7fa8';
+  const gColor = 'rgba(108,126,248,0.12)';
+  CI[id] = new Chart(ctx,{type,data,options:{
+    responsive:true, maintainAspectRatio:true,
     plugins:{
       legend:{labels:{color:tColor,font:{family:"'DM Sans'",size:12}}},
       tooltip:{backgroundColor:'rgba(12,14,26,.95)',borderColor:'rgba(108,126,248,.3)',borderWidth:1,titleColor:'#f0f2ff',bodyColor:'#b8bde8'}
     },
-    scales:type!=='pie'&&type!=='doughnut'&&type!=='radar'?{
+    scales: type!=='pie'&&type!=='doughnut'&&type!=='radar' ? {
       x:{grid:{color:gColor},ticks:{color:tColor,font:{size:11}}},
       y:{grid:{color:gColor},ticks:{color:tColor,font:{size:11}}}
-    }:{},
+    } : {},
     ...opts
   }});
 }
 
-// ── STOCK HELPERS ────────────────────────────────────────────────
-function stockStatus(avail,total){
-  const pct=avail/total;
-  if(pct>0.4)return{cls:'si-high',label:'Normal',prog:'prog-teal',pct:Math.round(pct*100)};
-  if(pct>0.15)return{cls:'si-med',label:'Low',prog:'prog-amber',pct:Math.round(pct*100)};
+// ── STOCK HELPERS ──────────────────────────────
+function stockStatus(avail, total){
+  const pct = total>0 ? avail/total : 0;
+  if(pct>0.4) return{cls:'si-high',label:'Normal',prog:'prog-teal',pct:Math.round(pct*100)};
+  if(pct>0.15) return{cls:'si-med',label:'Low',prog:'prog-amber',pct:Math.round(pct*100)};
   return{cls:'si-low',label:'Critical',prog:'prog-rose',pct:Math.round(pct*100)};
 }
 
-// ╔══════════════════════════════════════════════════════════════╗
+// Helper widgets
+function sc(cls,icon,val,label,sub,clickFn){
+  return`<div class="stat-card ${cls}" ${clickFn?`onclick="${clickFn.toString().replace(/"/g,"'")}"`:''}><div class="sc-icon">${icon}</div><div class="sc-val">${val}</div><div class="sc-label">${label}</div>${sub?`<div class="sc-sub">${sub}</div>`:''}<span class="sc-bg">${icon}</span>${clickFn?'<span class="sc-arrow">→</span>':''}</div>`;
+}
+function scNav(cls,icon,val,label,sub,page){
+  return`<div class="stat-card ${cls}" onclick="navigate('${page}')"><div class="sc-icon">${icon}</div><div class="sc-val">${val}</div><div class="sc-label">${label}</div>${sub?`<div class="sc-sub">${sub}</div>`:''}<span class="sc-bg">${icon}</span><span class="sc-arrow">→</span></div>`;
+}
+function emini(lbl,val,color){
+  return`<div style="text-align:center;background:var(--surface2);padding:8px;border-radius:8px"><div style="font-family:var(--font-h);font-size:18px;font-weight:700;color:${color}">${val}</div><div style="font-size:10px;color:var(--text3)">${lbl}</div></div>`;
+}
+function ddetail(label,val,color){
+  return`<div style="background:var(--surface2);padding:10px;border-radius:8px;text-align:center"><div style="font-family:var(--font-h);font-size:20px;font-weight:700;color:${color}">${val}</div><div style="font-size:10px;color:var(--text3)">${label}</div></div>`;
+}
+
+// ══════════════════════════════════════════════
 //  ADMIN DASHBOARD
-// ╚══════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════
 function renderAdminDash(ca){
-  const engs=D.engineers();const inv=D.inventory();const asns=D.assignments();const dprs=D.dprs();
+  const engs=D.engineers(); const inv=D.inventory(); const asns=D.assignments(); const dprs=D.dprs();
   const totalStock=inv.reduce((s,p)=>s+p.quantity,0);
   const totalAssigned=asns.reduce((s,a)=>s+a.quantity,0);
   const totalUsed=dprs.reduce((s,d)=>s+d.pipesUsed,0);
@@ -918,21 +849,19 @@ function renderAdminDash(ca){
   const mthMeters=mthDprs.reduce((s,d)=>s+d.meterLaid,0);
   const lowStock=inv.filter(p=>D.availQty(p.id)<50).length;
 
-  ca.innerHTML=`<div class="pg on" id="pg-admin-dash">
+  ca.innerHTML=`<div class="pg on">
   <div class="pg-head-row pg-head">
-    <div><h2 class="pg-head">${greeting()}, Admin 👋</h2><p style="color:var(--text2);font-size:13px">${new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</p></div>
+    <div><h2>${greeting()}, Admin 👋</h2><p style="color:var(--text2);font-size:13px">${new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</p></div>
     ${lowStock?`<span class="badge b-rose">⚠️ ${lowStock} Low Stock Alert${lowStock>1?'s':''}</span>`:''}
   </div>
-
   <div class="stat-grid">
-    ${sc('c-indigo','📦',totalStock,'Total Pipe Stock','All inventory',()=>navigate('pg-inventory'))}
-    ${sc('c-amber','🔗',totalAssigned,'Pipes Assigned','Distributed to engineers',()=>navigate('pg-assignments'))}
-    ${sc('c-teal','📊',totalUsed,'Pipes Used (All Time)','Across all DPRs',()=>navigate('pg-dprs'))}
-    ${sc('c-sky','📏',totalMeters.toFixed(0)+'m','Total Meters Laid','Cumulative',()=>navigate('pg-reports'))}
-    ${sc('c-green','👷',activeEngs,'Active Engineers',`of ${engs.length} total`,()=>navigate('pg-engineers'))}
-    ${sc('c-rose','📋',mthDprs.length,'This Month DPRs',`${mthPipes} pipes | ${mthMeters}m`,()=>navigate('pg-dprs'))}
+    ${scNav('c-indigo','📦',totalStock,'Total Pipe Stock','All inventory','pg-inventory')}
+    ${scNav('c-amber','🔗',totalAssigned,'Pipes Assigned','Distributed','pg-assignments')}
+    ${scNav('c-teal','📊',totalUsed,'Pipes Used (All Time)','Across all DPRs','pg-dprs')}
+    ${scNav('c-sky','📏',totalMeters.toFixed(0)+'m','Total Meters Laid','Cumulative','pg-reports')}
+    ${scNav('c-green','👷',activeEngs,'Active Engineers',`of ${engs.length} total`,'pg-engineers')}
+    ${scNav('c-rose','📋',mthDprs.length,'This Month DPRs',`${mthPipes} pipes | ${mthMeters}m`,'pg-dprs')}
   </div>
-
   <div class="g2 mb22">
     <div class="card">
       <div class="card-h"><h3>📈 Monthly Usage</h3><span class="badge b-indigo">${mth}</span></div>
@@ -943,216 +872,90 @@ function renderAdminDash(ca){
       <div class="card-b"><div class="chart-box"><canvas id="ch-pie" height="220"></canvas></div></div>
     </div>
   </div>
-
   <div class="g2 mb22">
     <div class="card">
-      <div class="card-h"><h3>📦 Inventory Breakdown</h3><button class="btn btn-ghost btn-sm" onclick="navigate('pg-inventory')">View All →</button></div>
-      <div class="card-b" id="inv-mini"></div>
+      <div class="card-h"><h3>📦 Inventory Summary</h3><button class="btn btn-ghost btn-sm" onclick="navigate('pg-inventory')">View All →</button></div>
+      <div class="card-b">
+        ${inv.slice(0,4).map(p=>{const av=D.availQty(p.id);const st=stockStatus(av,p.quantity);return`<div class="mb12"><div class="flex justify-between mb8"><span class="si-row ${st.cls}"><div class="si-dot"></div><span style="font-size:12.5px;font-weight:600">${p.pipeType} ${p.diameter}</span></span><span class="mono" style="font-size:11px;color:var(--text2)">${av} left</span></div><div class="prog-wrap"><div class="prog-bar ${st.prog}" style="width:${st.pct}%"></div></div></div>`;}).join('')}
+      </div>
     </div>
     <div class="card">
-      <div class="card-h"><h3>👷 Engineer Summary</h3><button class="btn btn-ghost btn-sm" onclick="navigate('pg-engineers')">View All →</button></div>
-      <div class="card-b" id="eng-mini"></div>
+      <div class="card-h"><h3>👷 Engineer Overview</h3><button class="btn btn-ghost btn-sm" onclick="navigate('pg-engineers')">View All →</button></div>
+      <div class="card-b">
+        ${engs.slice(0,4).map(e=>{const used=D.engUsed(e.id);const meters=D.engMeters(e.id);return`<div class="flex items-center gap8 mb12"><div style="width:32px;height:32px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff;flex-shrink:0">${e.name[0]}</div><div style="flex:1"><div style="font-size:12.5px;font-weight:600">${e.name}</div><div style="font-size:10.5px;color:var(--text3)">${used} pipes · ${meters.toFixed(0)}m</div></div><span class="badge ${e.status==='active'?'b-teal':'b-rose'}">${e.status}</span></div>`;}).join('')}
+      </div>
     </div>
-  </div>
-
-  <div class="card">
-    <div class="card-h"><h3>⚠️ Stock Alerts</h3></div>
-    <div class="card-b" id="stock-alerts"></div>
   </div>
   </div>`;
 
-  // Inventory mini
-  const invMini=document.getElementById('inv-mini');
-  invMini.innerHTML=inv.map(p=>{
-    const av=D.availQty(p.id);const st=stockStatus(av,p.quantity);
-    return `<div class="mb12">
-      <div class="flex items-center justify-between mb8">
-        <div class="flex items-center gap8"><span class="si-row ${st.cls}"><span class="si-dot"></span></span><span style="font-size:13px;font-weight:600">${p.pipeType} ${p.diameter} <span style="color:var(--text3)">(${p.material})</span></span></div>
-        <span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${st.label}</span>
-      </div>
-      <div class="flex justify-between" style="font-size:11px;color:var(--text3);margin-bottom:4px"><span>Available: ${av}</span><span>Total: ${p.quantity}</span></div>
-      <div class="prog-wrap"><div class="prog-bar ${st.prog}" style="width:${st.pct}%"></div></div>
-    </div>`;
-  }).join('')||'<div class="empty"><div class="ei">📦</div><p>No inventory</p></div>';
-
-  // Engineer mini
-  const engMini=document.getElementById('eng-mini');
-  engMini.innerHTML=engs.slice(0,4).map(e=>{
-    const used=D.engUsed(e.id);const meters=D.engMeters(e.id);
-    return `<div class="flex items-center gap12 mb12" onclick="openEngDetailModal('${e.id}')" style="cursor:pointer;padding:8px;border-radius:10px;transition:.15s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
-      <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0">${e.name[0]}</div>
-      <div style="flex:1">
-        <div style="font-weight:600;font-size:13px">${e.name}</div>
-        <div style="font-size:11px;color:var(--text3)">${e.location}</div>
-      </div>
-      <div style="text-align:right"><div style="font-family:var(--font-h);font-size:16px;font-weight:700;color:var(--indigo2)">${used}</div><div style="font-size:10px;color:var(--text3)">pipes</div></div>
-      <span class="badge ${e.status==='active'?'b-teal':'b-rose'}">${e.status}</span>
-    </div>`;
-  }).join('')||'<div class="empty"><div class="ei">👷</div><p>No engineers</p></div>';
-
-  // Stock alerts
-  const sa=document.getElementById('stock-alerts');
-  const low=inv.filter(p=>D.availQty(p.id)<50);
-  sa.innerHTML=low.length?low.map(p=>{
-    const av=D.availQty(p.id);const st=stockStatus(av,p.quantity);
-    return `<div class="flex items-center gap12 mb12 highlight-box">
-      <span class="si-row ${st.cls}"><span class="si-dot"></span></span>
-      <div style="flex:1"><div style="font-weight:600;font-size:13px">${p.pipeType} ${p.diameter} (${p.material})</div>
-      <div style="font-size:11px;color:var(--text3)">Only ${av} units remaining of ${p.quantity}</div></div>
-      <span class="badge b-rose">${st.pct}% left</span>
-    </div>`;
-  }).join(''):'<div class="empty"><div class="ei">✅</div><h3>All Clear</h3><p>Stock levels healthy</p></div>';
-
-  // Charts
   setTimeout(()=>{
-    // Monthly usage
-    const months=[];const mData=[];const mMeters=[];
+    // Monthly usage chart
+    const months=[]; const mUsed=[]; const mMeters=[];
     for(let i=5;i>=0;i--){
-      const d=new Date();d.setMonth(d.getMonth()-i);
+      const d=new Date(); d.setMonth(d.getMonth()-i);
       const ms=d.toISOString().slice(0,7);
       months.push(d.toLocaleString('en-IN',{month:'short',year:'2-digit'}));
-      const mDprs=dprs.filter(x=>x.date.startsWith(ms));
-      mData.push(mDprs.reduce((s,d)=>s+d.pipesUsed,0));
-      mMeters.push(mDprs.reduce((s,d)=>s+d.meterLaid,0));
+      const mD=dprs.filter(x=>x.date.startsWith(ms));
+      mUsed.push(mD.reduce((s,d)=>s+d.pipesUsed,0));
+      mMeters.push(mD.reduce((s,d)=>s+d.meterLaid,0));
     }
     mkChart('ch-monthly','bar',{
       labels:months,
       datasets:[
-        {label:'Pipes Used',data:mData,backgroundColor:'rgba(108,126,248,.7)',borderColor:'#6c7ef8',borderWidth:2,borderRadius:6},
-        {label:'Meters Laid',data:mMeters,backgroundColor:'rgba(29,233,182,.5)',borderColor:'#1de9b6',borderWidth:2,borderRadius:6}
+        {label:'Pipes Used',data:mUsed,backgroundColor:'rgba(108,126,248,.7)',borderRadius:6},
+        {label:'Meters Laid',data:mMeters,backgroundColor:'rgba(29,233,182,.6)',borderRadius:6}
       ]
     });
-    // Pie by pipe type
-    const types={};
-    inv.forEach(p=>{types[p.pipeType]=(types[p.pipeType]||0)+p.quantity});
+    // Stock pie
+    const typeMap={};
+    inv.forEach(p=>{typeMap[p.pipeType]=(typeMap[p.pipeType]||0)+D.availQty(p.id)});
     mkChart('ch-pie','doughnut',{
-      labels:Object.keys(types),
-      datasets:[{data:Object.values(types),backgroundColor:['rgba(108,126,248,.8)','rgba(245,166,35,.8)','rgba(29,233,182,.7)','rgba(255,79,123,.7)'],borderWidth:2,borderColor:'var(--bg2)'}]
-    },{cutout:'65%'});
+      labels:Object.keys(typeMap),
+      datasets:[{data:Object.values(typeMap),backgroundColor:['rgba(108,126,248,.8)','rgba(245,166,35,.8)','rgba(29,233,182,.7)'],borderWidth:2,borderColor:'var(--bg2)'}]
+    },{cutout:'55%'});
   },60);
 }
 
-function sc(color,icon,val,label,sub,fn){
-  return `<div class="stat-card ${color}" onclick="${fn?`(${fn.toString()})()`:''}">
-    <div class="sc-icon">${icon}</div>
-    <div class="sc-val">${val}</div>
-    <div class="sc-label">${label}</div>
-    <div class="sc-sub">${sub}</div>
-    <div class="sc-bg">${icon}</div>
-    <div class="sc-arrow">→</div>
-  </div>`;
-}
-
-// ── ENGINEER DETAIL MODAL ────────────────────────────────────────
-function openEngDetailModal(engId){
-  const eng=D.engineer(engId);if(!eng)return;
-  const asns=D.engAssignments(engId);
-  const dprs=D.engDprs(engId);
-  const used=D.engUsed(engId);
-  const meters=D.engMeters(engId);
-  const mth=thisMonth();
-  const mthDprs=dprs.filter(d=>d.date.startsWith(mth));
-  let body=`
-    <div class="flex items-center gap12 mb16">
-      <div style="width:52px;height:52px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff">${eng.name[0]}</div>
-      <div><div style="font-family:var(--font-h);font-size:19px;font-weight:700">${eng.name}</div>
-      <div class="mono" style="font-size:11px;color:var(--text3)">${eng.empId} · ${eng.phone}</div>
-      <div style="font-size:12px;color:var(--text2)">${eng.location}</div></div>
-      <span class="badge ${eng.status==='active'?'b-teal':'b-rose'}" style="margin-left:auto">${eng.status}</span>
-    </div>
-    <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px">
-      ${sc('c-teal','🔩',used,'Pipes Used','',null)}
-      ${sc('c-indigo','📏',meters.toFixed(0)+'m','Meters Laid','',null)}
-      ${sc('c-amber','📋',dprs.length,'Total DPRs','',null)}
-    </div>
-    <h4 style="font-family:var(--font-h);margin-bottom:10px">Assigned Inventory</h4>
-    <div class="t-wrap mb16">
-    <table><thead><tr><th>Pipe</th><th>Qty Assigned</th><th>Date</th></tr></thead><tbody>
-    ${asns.map(a=>{const p=D.pipe(a.pipeId);return`<tr><td>${p?`${p.pipeType} ${p.diameter}`:'–'}</td><td>${a.quantity}</td><td>${fmtDate(a.dateAssigned)}</td></tr>`}).join('')||'<tr><td colspan="3" style="text-align:center;color:var(--text3)">No assignments</td></tr>'}
-    </tbody></table></div>
-    <h4 style="font-family:var(--font-h);margin-bottom:10px">Recent DPRs</h4>
-    <div class="t-wrap">
-    <table><thead><tr><th>Date</th><th>Pipe</th><th>Used</th><th>Meters</th><th>Joints</th></tr></thead><tbody>
-    ${dprs.slice(-5).reverse().map(d=>`<tr><td class="mono">${fmtDate(d.date)}</td><td>${d.pipeType} ${d.diameter}</td><td class="mono">${d.pipesUsed}</td><td class="mono">${d.meterLaid}m</td><td>${d.totalJoints}</td></tr>`).join('')||'<tr><td colspan="5" style="text-align:center;color:var(--text3)">No DPRs</td></tr>'}
-    </tbody></table></div>`;
-  openModal(`Engineer: ${eng.name}`,body,`<button class="btn btn-ghost" onclick="closeModal()">Close</button>`,{wide:true});
-}
-
-// ╔══════════════════════════════════════════════════════════════╗
+// ══════════════════════════════════════════════
 //  INVENTORY PAGE
-// ╚══════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════
 function renderInventoryPage(ca){
+  const inv = D.inventory();
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head-row pg-head">
-    <div><h2>📦 Pipe Inventory</h2><p>Manage pipe stock by type and diameter</p></div>
+    <div><h2>📦 Pipe Inventory</h2><p>Manage pipe stock levels</p></div>
     <div class="flex gap8">
       <button class="btn btn-ghost" onclick="exportInventoryCsv()">⬇️ Export CSV</button>
       <button class="btn btn-pri" onclick="openAddPipeModal()">+ Add Pipe</button>
     </div>
   </div>
   <div class="filter-bar">
-    <input type="text" placeholder="🔍 Search…" id="inv-search" oninput="filterInventoryTable()"/>
-    <select id="inv-f-type" onchange="filterInventoryTable()"><option value="">All Types</option><option>SAI</option><option>SUEZ</option></select>
-    <select id="inv-f-diam" onchange="filterInventoryTable()"><option value="">All Diameters</option></select>
+    <input type="text" placeholder="🔍 Search pipes…" id="inv-search" oninput="filterInvTable()"/>
+    <select id="inv-f-type" onchange="filterInvTable()"><option value="">All Types</option><option>SAI</option><option>SUEZ</option></select>
   </div>
-  <!-- Summary Cards -->
-  <div id="inv-summary-cards" class="mb22"></div>
   <div class="card">
-    <div class="card-h"><h3>All Inventory</h3><span class="badge b-indigo" id="inv-count"></span></div>
-    <div class="card-b"><div class="t-wrap"><table id="inv-table">
-      <thead><tr><th>#</th><th>Pipe Type</th><th>Diameter</th><th>Material</th><th>Total Qty</th><th>Assigned</th><th>Available</th><th>Status</th><th>Date Added</th><th>Actions</th></tr></thead>
-      <tbody id="inv-tbody"></tbody>
-    </table></div></div>
+    <div class="card-h"><h3>Inventory Records</h3><span class="badge b-indigo" id="inv-count"></span></div>
+    <div class="card-b"><div class="t-wrap">
+      <table><thead><tr><th>#</th><th>Type</th><th>Diameter</th><th>Material</th><th>Total</th><th>Assigned</th><th>Available</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+      <tbody id="inv-tbody"></tbody></table>
+    </div></div>
   </div>
   </div>`;
-
-  // Fill diameter dropdown
-  const inv=D.inventory();
-  const diams=[...new Set(inv.map(p=>p.diameter))];
-  const sel=document.getElementById('inv-f-diam');
-  diams.forEach(d=>{const o=document.createElement('option');o.value=d;o.textContent=d;sel.appendChild(o)});
-
-  // Summary by diameter
-  const grouped={};
-  inv.forEach(p=>{
-    const k=`${p.diameter}`;
-    if(!grouped[k])grouped[k]={qty:0,avail:0,types:new Set()};
-    grouped[k].qty+=p.quantity;grouped[k].avail+=D.availQty(p.id);grouped[k].types.add(p.pipeType);
-  });
-  document.getElementById('inv-summary-cards').innerHTML=`<div class="stat-grid">${
-    Object.entries(grouped).map(([diam,data])=>{
-      const st=stockStatus(data.avail,data.qty);
-      return sc(`c-${st.cls==='si-high'?'teal':st.cls==='si-med'?'amber':'rose'}`,
-        '🔩',data.avail,`${diam} Available`,`Total: ${data.qty} | Types: ${[...data.types].join(',')}`,
-        null
-      );
-    }).join('')
-  }</div>`;
-
-  filterInventoryTable();
+  filterInvTable();
 }
-
-function filterInventoryTable(){
+function filterInvTable(){
   const inv=D.inventory();
   const q=(document.getElementById('inv-search')?.value||'').toLowerCase();
   const ft=document.getElementById('inv-f-type')?.value||'';
-  const fd=document.getElementById('inv-f-diam')?.value||'';
-  const filtered=inv.filter(p=>{
-    const av=D.availQty(p.id);
-    const m=`${p.pipeType} ${p.diameter} ${p.material}`.toLowerCase();
-    return(!q||m.includes(q))&&(!ft||p.pipeType===ft)&&(!fd||p.diameter===fd);
-  });
-  const el=document.getElementById('inv-count');
-  if(el)el.textContent=`${filtered.length} items`;
-  const tbody=document.getElementById('inv-tbody');
-  if(!tbody)return;
+  const filtered=inv.filter(p=>(!q||(p.pipeType+p.diameter+p.material).toLowerCase().includes(q))&&(!ft||p.pipeType===ft));
+  const el=document.getElementById('inv-count'); if(el)el.textContent=`${filtered.length} items`;
+  const tbody=document.getElementById('inv-tbody'); if(!tbody)return;
   tbody.innerHTML=filtered.map((p,i)=>{
-    const av=D.availQty(p.id);const st=stockStatus(av,p.quantity);
-    return `<tr>
+    const av=D.availQty(p.id); const st=stockStatus(av,p.quantity);
+    return`<tr>
       <td class="mono" style="color:var(--text3)">${i+1}</td>
       <td><span class="badge ${p.pipeType==='SAI'?'b-indigo':'b-amber'}">${p.pipeType}</span></td>
-      <td><b>${p.diameter}</b></td>
-      <td>${p.material}</td>
+      <td><b>${p.diameter}</b></td><td>${p.material}</td>
       <td class="mono fw7">${p.quantity}</td>
       <td class="mono" style="color:var(--amber2)">${D.assignedQty(p.id)}</td>
       <td class="mono"><span style="color:${st.cls==='si-high'?'var(--teal)':st.cls==='si-med'?'var(--amber)':'var(--rose)'};font-weight:700">${av}</span></td>
@@ -1165,11 +968,9 @@ function filterInventoryTable(){
     </tr>`;
   }).join('')||`<tr><td colspan="10"><div class="empty"><div class="ei">📦</div><h3>No inventory found</h3></div></td></tr>`;
 }
-
 function openAddPipeModal(editId=null){
-  const p=editId?D.pipe(editId):{};
-  const title=editId?'Edit Pipe':'Add Pipe';
-  const body=`
+  const p = editId ? D.pipe(editId) : {};
+  openModal(editId?'Edit Pipe':'Add Pipe',`
     <div class="fg-row c2">
       <div class="fg"><label>Pipe Type</label><select id="p-type"><option ${p.pipeType==='SAI'?'selected':''}>SAI</option><option ${p.pipeType==='SUEZ'?'selected':''}>SUEZ</option></select></div>
       <div class="fg"><label>Diameter</label><input id="p-diam" value="${p.diameter||''}" placeholder="e.g. 80mm"/></div>
@@ -1181,14 +982,12 @@ function openAddPipeModal(editId=null){
       <div class="fg"><label>Quantity</label><input type="number" id="p-qty" min="0" value="${p.quantity||''}" placeholder="0"/></div>
     </div>
     <div class="fg"><label>Date Added</label><input type="date" id="p-date" value="${p.dateAdded||today()}"/></div>
-    <div class="fg"><label>Notes</label><textarea id="p-notes">${p.notes||''}</textarea></div>`;
-  openModal(title,body,`
-    <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-    <button class="btn btn-pri" onclick="savePipe('${editId||''}')">💾 Save</button>`
+    <div class="fg"><label>Notes</label><textarea id="p-notes">${p.notes||''}</textarea></div>`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+     <button class="btn btn-pri" onclick="savePipe('${editId||''}')">💾 Save</button>`
   );
 }
 function openEditPipeModal(id){openAddPipeModal(id)}
-
 function savePipe(editId){
   const pipeType=document.getElementById('p-type').value;
   const diameter=document.getElementById('p-diam').value.trim();
@@ -1196,31 +995,30 @@ function savePipe(editId){
   const quantity=parseInt(document.getElementById('p-qty').value)||0;
   const dateAdded=document.getElementById('p-date').value;
   const notes=document.getElementById('p-notes').value.trim();
-  if(!diameter)return toast('Enter pipe diameter','err');
-  if(quantity<=0)return toast('Quantity must be > 0','err');
+  if(!diameter) return toast('Enter pipe diameter','err');
+  if(quantity<=0) return toast('Quantity must be > 0','err');
   const inv=D.inventory();
   if(editId){
     const idx=inv.findIndex(p=>p.id===editId);
-    if(idx!==-1)inv[idx]={...inv[idx],pipeType,diameter,material,quantity,dateAdded,notes};
+    if(idx!==-1) inv[idx]={...inv[idx],pipeType,diameter,material,quantity,dateAdded,notes};
     toast('Pipe updated','ok');
-  }else{
+  } else {
     inv.push({id:uid(),pipeType,diameter,material,quantity,dateAdded,notes});
     toast('Pipe added','ok');
   }
-  D.saveInventory(inv);closeModal();
+  D.saveInventory(inv); closeModal();
   renderInventoryPage(document.getElementById('content-area'));
 }
-
 function deletePipe(id){
-  const p=D.pipe(id);if(!p)return;
+  const p=D.pipe(id); if(!p) return;
   if(D.assignedQty(id)>0){toast('Cannot delete — pipes assigned to engineers','err');return}
   confirmDel(`Delete ${p.pipeType} ${p.diameter} (${p.material})?`,()=>{
-    D.saveInventory(D.inventory().filter(p=>p.id!==id));
+    D.saveInventory(D.inventory().filter(x=>x.id!==id));
     toast('Pipe deleted','ok');
     renderInventoryPage(document.getElementById('content-area'));
+    checkLowStock();
   });
 }
-
 function exportInventoryCsv(){
   const inv=D.inventory();
   const rows=[['Pipe Type','Diameter','Material','Total Qty','Assigned','Available','Date Added','Notes']];
@@ -1228,14 +1026,13 @@ function exportInventoryCsv(){
   downloadCsv(rows,'sef_inventory.csv');
 }
 
-// ╔══════════════════════════════════════════════════════════════╗
+// ══════════════════════════════════════════════
 //  ENGINEERS PAGE
-// ╚══════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════
 function renderEngineersPage(ca){
-  const engs=D.engineers();
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head-row pg-head">
-    <div><h2>👷 Site Engineers</h2><p>Manage and track all site engineers</p></div>
+    <div><h2>👷 Site Engineers</h2><p>Manage all engineers</p></div>
     <button class="btn btn-pri" onclick="openAddEngModal()">+ Add Engineer</button>
   </div>
   <div class="filter-bar">
@@ -1246,19 +1043,16 @@ function renderEngineersPage(ca){
   </div>`;
   filterEngTable();
 }
-
 function filterEngTable(){
   const engs=D.engineers();
   const q=(document.getElementById('eng-search')?.value||'').toLowerCase();
   const fs=document.getElementById('eng-f-status')?.value||'';
   const filtered=engs.filter(e=>(!q||(e.name+e.empId+e.location).toLowerCase().includes(q))&&(!fs||e.status===fs));
-  const grid=document.getElementById('eng-grid');
-  if(!grid)return;
+  const grid=document.getElementById('eng-grid'); if(!grid)return;
   grid.innerHTML=filtered.map(e=>{
-    const used=D.engUsed(e.id);const meters=D.engMeters(e.id);const dprs=D.engDprs(e.id).length;
-    const asns=D.engAssignments(e.id);
-    return `<div class="eng-card ${e.status==='active'?'ac':'in'}" onclick="openEngDetailModal('${e.id}')">
-      <div class="flex items-center gap12 mb16">
+    const used=D.engUsed(e.id); const meters=D.engMeters(e.id); const dprs=D.engDprs(e.id).length;
+    return`<div class="eng-card ${e.status==='active'?'ac':'in'}">
+      <div class="flex items-center gap12 mb16" onclick="openEngDetailModal('${e.id}')" style="cursor:pointer">
         <div style="width:46px;height:46px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;color:#fff;flex-shrink:0">${e.name[0]}</div>
         <div style="flex:1"><div style="font-family:var(--font-h);font-size:15px;font-weight:700">${e.name}</div>
         <div class="mono" style="font-size:10px;color:var(--text3)">${e.empId}</div>
@@ -1271,7 +1065,7 @@ function filterEngTable(){
         ${emini('DPRs',dprs,'var(--amber2)')}
       </div>
       <div style="font-size:11px;color:var(--text3);margin-bottom:12px">📅 Joined: ${fmtDate(e.joinDate)}</div>
-      <div class="flex gap8" onclick="event.stopPropagation()">
+      <div class="flex gap8">
         <button class="btn btn-ghost btn-sm" onclick="openEditEngModal('${e.id}')">✏️ Edit</button>
         <button class="btn btn-danger btn-sm" onclick="deleteEngineer('${e.id}')">🗑️</button>
         <button class="btn btn-success btn-sm" onclick="exportEngCsv('${e.id}')">⬇️</button>
@@ -1279,30 +1073,28 @@ function filterEngTable(){
     </div>`;
   }).join('')||`<div class="empty" style="grid-column:1/-1"><div class="ei">👷</div><h3>No engineers</h3></div>`;
 }
-function emini(lbl,val,color){return`<div style="text-align:center;background:var(--surface2);padding:8px;border-radius:8px"><div style="font-family:var(--font-h);font-size:18px;font-weight:700;color:${color}">${val}</div><div style="font-size:10px;color:var(--text3)">${lbl}</div></div>`}
-
 function openAddEngModal(editId=null){
-  const e=editId?D.engineer(editId):{};
+  const e = editId ? D.engineer(editId) : {};
+  if(editId && !e) return toast('Engineer not found','err');
   openModal(editId?'Edit Engineer':'Add Engineer',`
     <div class="fg-row c2">
-      <div class="fg"><label>Full Name</label><input id="en-name" value="${e.name||''}" placeholder="e.g. Akhil Kumar"/></div>
-      <div class="fg"><label>Employee ID</label><input id="en-empid" value="${e.empId||''}" placeholder="ENG-001"/></div>
+      <div class="fg"><label>Full Name</label><input id="en-name" value="${e?.name||''}" placeholder="e.g. Akhil Kumar"/></div>
+      <div class="fg"><label>Employee ID</label><input id="en-empid" value="${e?.empId||''}" placeholder="ENG-001"/></div>
     </div>
     <div class="fg-row c2">
-      <div class="fg"><label>Phone</label><input id="en-phone" value="${e.phone||''}" placeholder="+91 XXXXX XXXXX"/></div>
-      <div class="fg"><label>Location / Site</label><input id="en-loc" value="${e.location||''}" placeholder="Sector 5, Baddi"/></div>
+      <div class="fg"><label>Phone</label><input id="en-phone" value="${e?.phone||''}" placeholder="+91 XXXXX XXXXX"/></div>
+      <div class="fg"><label>Location / Site</label><input id="en-loc" value="${e?.location||''}" placeholder="Sector 5, Baddi"/></div>
     </div>
     <div class="fg-row c2">
-      <div class="fg"><label>Status</label><select id="en-status"><option value="active" ${e.status==='active'?'selected':''}>Active</option><option value="inactive" ${e.status==='inactive'?'selected':''}>Inactive</option></select></div>
-      <div class="fg"><label>Join Date</label><input type="date" id="en-join" value="${e.joinDate||today()}"/></div>
+      <div class="fg"><label>Status</label><select id="en-status"><option value="active" ${e?.status==='active'?'selected':''}>Active</option><option value="inactive" ${e?.status==='inactive'?'selected':''}>Inactive</option></select></div>
+      <div class="fg"><label>Join Date</label><input type="date" id="en-join" value="${e?.joinDate||today()}"/></div>
     </div>
-    <div class="fg"><label>Notes</label><textarea id="en-notes">${e.notes||''}</textarea></div>`,
+    <div class="fg"><label>Notes</label><textarea id="en-notes">${e?.notes||''}</textarea></div>`,
     `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
      <button class="btn btn-pri" onclick="saveEngineer('${editId||''}')">💾 Save</button>`
   );
 }
 function openEditEngModal(id){openAddEngModal(id)}
-
 function saveEngineer(editId){
   const name=document.getElementById('en-name').value.trim();
   const empId=document.getElementById('en-empid').value.trim();
@@ -1311,29 +1103,62 @@ function saveEngineer(editId){
   const status=document.getElementById('en-status').value;
   const joinDate=document.getElementById('en-join').value;
   const notes=document.getElementById('en-notes').value.trim();
-  if(!name)return toast('Enter engineer name','err');
-  if(!empId)return toast('Enter employee ID','err');
+  if(!name) return toast('Enter engineer name','err');
+  if(!empId) return toast('Enter employee ID','err');
   const engs=D.engineers();
-  if(editId){const idx=engs.findIndex(e=>e.id===editId);if(idx!==-1)engs[idx]={...engs[idx],name,empId,phone,location,status,joinDate,notes};toast('Engineer updated','ok');}
-  else{engs.push({id:uid(),name,empId,phone,location,status,joinDate,notes});toast('Engineer added','ok');}
-  D.saveEngineers(engs);closeModal();renderEngineersPage(document.getElementById('content-area'));
+  if(editId){
+    const idx=engs.findIndex(e=>e.id===editId);
+    if(idx!==-1) engs[idx]={...engs[idx],name,empId,phone,location,status,joinDate,notes};
+    toast('Engineer updated','ok');
+  } else {
+    engs.push({id:uid(),name,empId,phone,location,status,joinDate,notes});
+    toast('Engineer added','ok');
+  }
+  D.saveEngineers(engs); closeModal();
+  renderEngineersPage(document.getElementById('content-area'));
 }
 function deleteEngineer(id){
-  const e=D.engineer(id);if(!e)return;
-  confirmDel(`Delete engineer "${e.name}"? Assignments/DPRs will remain.`,()=>{
-    D.saveEngineers(D.engineers().filter(e=>e.id!==id));
+  const e=D.engineer(id); if(!e) return;
+  confirmDel(`Delete engineer "${e.name}"?`,()=>{
+    D.saveEngineers(D.engineers().filter(x=>x.id!==id));
     toast('Engineer deleted','ok');
     renderEngineersPage(document.getElementById('content-area'));
   });
 }
+function openEngDetailModal(id){
+  const e=D.engineer(id); if(!e) return;
+  const used=D.engUsed(id); const meters=D.engMeters(id);
+  const dprs=D.engDprs(id); const asns=D.engAssignments(id);
+  openModal(`👷 ${e.name}`,`
+    <div class="highlight-box">
+      <div class="flex items-center gap12"><div style="width:48px;height:48px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff">${e.name[0]}</div>
+      <div><div style="font-family:var(--font-h);font-size:16px;font-weight:700">${e.name}</div><div class="mono" style="font-size:11px;color:var(--text3)">${e.empId}</div></div>
+      <span class="badge ${e.status==='active'?'b-teal':'b-rose'}" style="margin-left:auto">${e.status}</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">
+      ${ddetail('Pipes Used',used,'var(--indigo2)')}${ddetail('Meters',meters.toFixed(0)+'m','var(--teal)')}${ddetail('DPRs',dprs.length,'var(--amber2)')}
+    </div>
+    <div style="font-size:12px;color:var(--text2)"><b>📍</b> ${e.location} &nbsp;|&nbsp; <b>📞</b> ${e.phone} &nbsp;|&nbsp; <b>📅</b> ${fmtDate(e.joinDate)}</div>
+    ${e.notes?`<div style="margin-top:12px;font-size:12px;color:var(--text3)">📝 ${e.notes}</div>`:''}`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Close</button>
+     <button class="btn btn-pri" onclick="closeModal();openEditEngModal('${id}')">✏️ Edit</button>`
+  );
+}
+function exportEngCsv(engId){
+  const e=D.engineer(engId); if(!e) return;
+  const dprs=D.engDprs(engId);
+  const rows=[['Date','Pipe Type','Diameter','Pipes Used','Pipes Left','Meters Laid','Joints','Start','End','Fittings','Custom Fields','Notes']];
+  dprs.forEach(d=>rows.push([d.date,d.pipeType,d.diameter,d.pipesUsed,d.pipesLeft,d.meterLaid,d.totalJoints,d.startJunction,d.endJunction,(d.fittings||[]).map(f=>`${f.name}:${f.qty}`).join('; '),(d.customFields||[]).map(cf=>`${cf.fieldName}:${cf.value}`).join('; '),d.notes]));
+  downloadCsv(rows,`sef_${e.name.replace(/\s/g,'_')}.csv`);
+}
 
-// ╔══════════════════════════════════════════════════════════════╗
+// ══════════════════════════════════════════════
 //  ASSIGNMENTS PAGE
-// ╚══════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════
 function renderAssignmentsPage(ca){
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head-row pg-head">
-    <div><h2>🔗 Assignments</h2><p>Assign pipes to engineers and track distribution</p></div>
+    <div><h2>🔗 Assignments</h2><p>Assign pipes to engineers</p></div>
     <button class="btn btn-pri" onclick="openAssignModal()">+ New Assignment</button>
   </div>
   <div class="filter-bar">
@@ -1358,15 +1183,15 @@ function filterAsnTable(){
   const q=(document.getElementById('asn-search')?.value||'').toLowerCase();
   const fe=document.getElementById('asn-f-eng')?.value||'';
   const filtered=asns.filter(a=>{
-    const e=D.engineer(a.engineerId);const p=D.pipe(a.pipeId);
+    const e=D.engineer(a.engineerId); const p=D.pipe(a.pipeId);
     const m=`${e?.name||''} ${p?.diameter||''} ${p?.pipeType||''}`.toLowerCase();
     return(!q||m.includes(q))&&(!fe||a.engineerId===fe);
   });
-  const el=document.getElementById('asn-count');if(el)el.textContent=`${filtered.length} records`;
-  const tbody=document.getElementById('asn-tbody');if(!tbody)return;
+  const el=document.getElementById('asn-count'); if(el)el.textContent=`${filtered.length} records`;
+  const tbody=document.getElementById('asn-tbody'); if(!tbody)return;
   tbody.innerHTML=filtered.map((a,i)=>{
-    const e=D.engineer(a.engineerId);const p=D.pipe(a.pipeId);
-    return `<tr>
+    const e=D.engineer(a.engineerId); const p=D.pipe(a.pipeId);
+    return`<tr>
       <td class="mono" style="color:var(--text3)">${i+1}</td>
       <td><div class="flex items-center gap8">
         <div style="width:28px;height:28px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff">${e?e.name[0]:'?'}</div>
@@ -1383,67 +1208,71 @@ function filterAsnTable(){
     </tr>`;
   }).join('')||`<tr><td colspan="7"><div class="empty"><div class="ei">🔗</div><h3>No assignments</h3></div></td></tr>`;
 }
-
 function openAssignModal(editId=null){
-  const a=editId?D.assignments().find(x=>x.id===editId):{};
-  const inv=D.inventory();
+  const a = editId ? D.assignments().find(x=>x.id===editId) : {};
+  const inv = D.inventory();
   openModal(editId?'Edit Assignment':'New Assignment',`
     <div class="fg"><label>Engineer</label>
-      <select id="as-eng">${D.engineers().map(e=>`<option value="${e.id}" ${a.engineerId===e.id?'selected':''}>${e.name} (${e.empId})</option>`).join('')}</select>
+      <select id="as-eng">${D.engineers().map(e=>`<option value="${e.id}" ${a?.engineerId===e.id?'selected':''}>${e.name} (${e.empId})</option>`).join('')}</select>
     </div>
     <div class="fg"><label>Pipe Inventory</label>
       <select id="as-pipe" onchange="updateAvailDisplay(this.value,'${editId||''}')">
-        ${inv.map(p=>{const av=D.availQty(p.id)+(editId&&a.pipeId===p.id?a.quantity:0);return`<option value="${p.id}" ${a.pipeId===p.id?'selected':''}>${p.pipeType} ${p.diameter} (${p.material}) — Avail: ${av}</option>`}).join('')}
+        ${inv.map(p=>{const av=D.availQty(p.id)+(editId&&a?.pipeId===p.id?(a.quantity||0):0);return`<option value="${p.id}" ${a?.pipeId===p.id?'selected':''}>${p.pipeType} ${p.diameter} (${p.material}) — Avail: ${av}</option>`}).join('')}
       </select>
     </div>
-    <div class="fg"><label>Quantity to Assign</label><input type="number" id="as-qty" min="1" value="${a.quantity||''}" placeholder="0"/></div>
+    <div class="fg"><label>Quantity to Assign</label><input type="number" id="as-qty" min="1" value="${a?.quantity||''}" placeholder="0"/></div>
     <div id="as-avail-info" style="font-size:12px;color:var(--teal);margin-bottom:10px"></div>
-    <div class="fg"><label>Date</label><input type="date" id="as-date" value="${a.dateAssigned||today()}"/></div>
-    <div class="fg"><label>Notes</label><textarea id="as-notes">${a.notes||''}</textarea></div>`,
+    <div class="fg"><label>Date</label><input type="date" id="as-date" value="${a?.dateAssigned||today()}"/></div>
+    <div class="fg"><label>Notes</label><textarea id="as-notes">${a?.notes||''}</textarea></div>`,
     `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
      <button class="btn btn-pri" onclick="saveAssignment('${editId||''}')">💾 Save</button>`
   );
-  setTimeout(()=>{if(a.pipeId)updateAvailDisplay(a.pipeId,editId||'')},0);
+  setTimeout(()=>{if(a?.pipeId)updateAvailDisplay(a.pipeId,editId||'')},0);
 }
 function openEditAssignModal(id){openAssignModal(id)}
-
 function updateAvailDisplay(pipeId,editId){
-  const a=editId?D.assignments().find(x=>x.id===editId):null;
-  const base=D.availQty(pipeId)+(a&&a.pipeId===pipeId?a.quantity:0);
-  const el=document.getElementById('as-avail-info');
-  if(el)el.textContent=`Available stock: ${base} units`;
+  const a = editId ? D.assignments().find(x=>x.id===editId) : null;
+  const base = D.availQty(pipeId)+(a&&a.pipeId===pipeId?a.quantity:0);
+  const el = document.getElementById('as-avail-info');
+  if(el) el.textContent = `Available stock: ${base} units`;
 }
-
 function saveAssignment(editId){
   const engineerId=document.getElementById('as-eng').value;
   const pipeId=document.getElementById('as-pipe').value;
   const quantity=parseInt(document.getElementById('as-qty').value)||0;
   const dateAssigned=document.getElementById('as-date').value;
   const notes=document.getElementById('as-notes').value.trim();
-  if(!engineerId)return toast('Select engineer','err');
-  if(!pipeId)return toast('Select pipe','err');
-  if(quantity<=0)return toast('Quantity must be > 0','err');
+  if(!engineerId) return toast('Select engineer','err');
+  if(!pipeId) return toast('Select pipe','err');
+  if(quantity<=0) return toast('Quantity must be > 0','err');
   const asns=D.assignments();
   const a=editId?asns.find(x=>x.id===editId):null;
   const prevQty=a&&a.pipeId===pipeId?a.quantity:0;
   const avail=D.availQty(pipeId)+prevQty;
   if(quantity>avail){toast(`Only ${avail} units available`,'err');return}
-  if(editId){const idx=asns.findIndex(x=>x.id===editId);if(idx!==-1)asns[idx]={...asns[idx],engineerId,pipeId,quantity,dateAssigned,notes};toast('Assignment updated','ok');}
-  else{asns.push({id:uid(),engineerId,pipeId,quantity,dateAssigned,notes});toast('Pipes assigned','ok');}
-  D.saveAssignments(asns);closeModal();renderAssignmentsPage(document.getElementById('content-area'));
+  if(editId){
+    const idx=asns.findIndex(x=>x.id===editId);
+    if(idx!==-1) asns[idx]={...asns[idx],engineerId,pipeId,quantity,dateAssigned,notes};
+    toast('Assignment updated','ok');
+  } else {
+    asns.push({id:uid(),engineerId,pipeId,quantity,dateAssigned,notes});
+    toast('Pipes assigned','ok');
+  }
+  D.saveAssignments(asns); closeModal();
+  renderAssignmentsPage(document.getElementById('content-area'));
 }
-
 function deleteAssignment(id){
   confirmDel('Delete this assignment? Stock will be returned.',()=>{
     D.saveAssignments(D.assignments().filter(a=>a.id!==id));
     toast('Assignment deleted, stock returned','ok');
     renderAssignmentsPage(document.getElementById('content-area'));
+    checkLowStock();
   });
 }
 
-// ╔══════════════════════════════════════════════════════════════╗
-//  DPR SYSTEM (CORE FEATURE)
-// ╚══════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════
+//  DPR SYSTEM (ADMIN)
+// ══════════════════════════════════════════════
 function renderAllDprsPage(ca){
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head-row pg-head">
@@ -1465,18 +1294,13 @@ function renderAllDprsPage(ca){
   <div class="card">
     <div class="card-h"><h3>DPR Records</h3><span class="badge b-indigo" id="dpr-count"></span></div>
     <div class="card-b"><div class="t-wrap">
-      <table><thead><tr>
-        <th>#</th><th>Date</th><th>Engineer</th><th>Pipe Type</th><th>Diameter</th>
-        <th>Used</th><th>Left</th><th>Meters</th><th>Joints</th>
-        <th>Junctions</th><th>Actions</th>
-      </tr></thead>
-      <tbody id="dpr-tbody"></tbody>
-    </table></div></div>
+      <table><thead><tr><th>#</th><th>Date</th><th>Engineer</th><th>Pipe Type</th><th>Diameter</th><th>Used</th><th>Left</th><th>Meters</th><th>Joints</th><th>Junctions</th><th>Actions</th></tr></thead>
+      <tbody id="dpr-tbody"></tbody></table>
+    </div></div>
   </div>
   </div>`;
   filterDprTable();
 }
-
 function filterDprTable(){
   const dprs=D.dprs();
   const q=(document.getElementById('dpr-search')?.value||'').toLowerCase();
@@ -1488,11 +1312,11 @@ function filterDprTable(){
     const m=`${e?.name||''} ${d.pipeType} ${d.diameter}`.toLowerCase();
     return(!q||m.includes(q))&&(!fe||d.engineerId===fe)&&(!fm||d.date.startsWith(fm))&&(!ft||d.pipeType===ft);
   }).sort((a,b)=>b.date.localeCompare(a.date));
-  const el=document.getElementById('dpr-count');if(el)el.textContent=`${filtered.length} records`;
-  const tbody=document.getElementById('dpr-tbody');if(!tbody)return;
+  const el=document.getElementById('dpr-count'); if(el)el.textContent=`${filtered.length} records`;
+  const tbody=document.getElementById('dpr-tbody'); if(!tbody)return;
   tbody.innerHTML=filtered.map((d,i)=>{
     const e=D.engineer(d.engineerId);
-    return `<tr>
+    return`<tr>
       <td class="mono" style="color:var(--text3)">${i+1}</td>
       <td class="mono">${fmtDate(d.date)}</td>
       <td><div class="flex items-center gap8">
@@ -1505,7 +1329,7 @@ function filterDprTable(){
       <td class="mono" style="color:var(--teal)">${d.pipesLeft}</td>
       <td class="mono" style="color:var(--sky)">${d.meterLaid}m</td>
       <td class="mono">${d.totalJoints}</td>
-      <td style="font-size:11px;color:var(--text2)">${d.startJunction}→${d.endJunction}</td>
+      <td style="font-size:11px;color:var(--text2)">${d.startJunction||''}→${d.endJunction||''}</td>
       <td><div class="t-actions">
         <button class="btn btn-ghost btn-sm btn-icon" onclick="viewDprDetail('${d.id}')" title="View">👁️</button>
         <button class="btn btn-ghost btn-sm btn-icon" onclick="openEditDprModal('${d.id}')" title="Edit">✏️</button>
@@ -1516,14 +1340,14 @@ function filterDprTable(){
 }
 
 function viewDprDetail(id){
-  const d=D.dprs().find(x=>x.id===id);if(!d)return;
+  const d=D.dprs().find(x=>x.id===id); if(!d) return;
   const e=D.engineer(d.engineerId);
-  let fittingsHtml=d.fittings&&d.fittings.length?
-    d.fittings.map(f=>`<div class="flex justify-between" style="padding:5px 0;border-bottom:1px solid var(--border)"><span>${f.name}</span><span class="badge b-indigo">${f.qty}</span></div>`).join('')
-    :'<div style="color:var(--text3);font-size:12px">No fittings</div>';
-  let customHtml=d.customFields&&d.customFields.length?
-    d.customFields.map(cf=>`<div class="flex justify-between" style="padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">${cf.fieldName}</span><span style="font-weight:600">${cf.value}</span></div>`).join('')
-    :'<div style="color:var(--text3);font-size:12px">No custom fields</div>';
+  const fittingsHtml = d.fittings&&d.fittings.length
+    ? d.fittings.map(f=>`<div class="flex justify-between" style="padding:5px 0;border-bottom:1px solid var(--border)"><span>${f.name}</span><span class="badge b-indigo">${f.qty}</span></div>`).join('')
+    : '<div style="color:var(--text3);font-size:12px">No fittings</div>';
+  const customHtml = d.customFields&&d.customFields.length
+    ? d.customFields.map(cf=>`<div class="flex justify-between" style="padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">${cf.fieldName}</span><span style="font-weight:600">${cf.value}</span></div>`).join('')
+    : '<div style="color:var(--text3);font-size:12px">No custom fields</div>';
   openModal(`DPR: ${fmtDate(d.date)}`,`
     <div class="highlight-box mb16">
       <div class="flex items-center gap12 mb12">
@@ -1533,40 +1357,31 @@ function viewDprDetail(id){
       </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">
-      ${ddetail('Pipes Used',d.pipesUsed,'var(--rose)')}
-      ${ddetail('Pipes Left',d.pipesLeft,'var(--teal)')}
-      ${ddetail('Meters Laid',d.meterLaid+'m','var(--sky)')}
-      ${ddetail('Joints',d.totalJoints,'var(--amber2)')}
+      ${ddetail('Pipes Used',d.pipesUsed,'var(--rose)')}${ddetail('Pipes Left',d.pipesLeft,'var(--teal)')}${ddetail('Meters',d.meterLaid+'m','var(--sky)')}${ddetail('Joints',d.totalJoints,'var(--amber2)')}
     </div>
     <div class="flex gap12 mb16">
-      <div class="highlight-box" style="flex:1;text-align:center"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">START</div><div style="font-weight:700">${d.startJunction}</div></div>
+      <div class="highlight-box" style="flex:1;text-align:center"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">START</div><div style="font-weight:700">${d.startJunction||'–'}</div></div>
       <div style="align-self:center;color:var(--text3)">→</div>
-      <div class="highlight-box" style="flex:1;text-align:center"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">END</div><div style="font-weight:700">${d.endJunction}</div></div>
+      <div class="highlight-box" style="flex:1;text-align:center"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">END</div><div style="font-weight:700">${d.endJunction||'–'}</div></div>
     </div>
-    <div class="g2">
-      <div><h4 style="font-family:var(--font-h);font-size:13px;margin-bottom:8px">🔧 Fittings</h4>${fittingsHtml}</div>
-      <div><h4 style="font-family:var(--font-h);font-size:13px;margin-bottom:8px">🏷️ Custom Fields</h4>${customHtml}</div>
-    </div>
+    <div class="g2"><div><h4 style="font-family:var(--font-h);font-size:13px;margin-bottom:8px">🔧 Fittings</h4>${fittingsHtml}</div>
+    <div><h4 style="font-family:var(--font-h);font-size:13px;margin-bottom:8px">🏷️ Custom Fields</h4>${customHtml}</div></div>
     ${d.notes?`<div class="highlight-box mt16"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">NOTES</div><div style="font-size:13px">${d.notes}</div></div>`:''}`,
     `<button class="btn btn-ghost" onclick="closeModal()">Close</button>
-     <button class="btn btn-ghost btn-sm" onclick="closeModal();openEditDprModal('${id}')">✏️ Edit</button>`,
-    {wide:true}
+     <button class="btn btn-ghost btn-sm" onclick="closeModal();openEditDprModal('${id}')">✏️ Edit</button>`,{wide:true}
   );
 }
-function ddetail(label,val,color){return`<div style="background:var(--surface2);padding:10px;border-radius:8px;text-align:center"><div style="font-family:var(--font-h);font-size:20px;font-weight:700;color:${color}">${val}</div><div style="font-size:10px;color:var(--text3)">${label}</div></div>`}
 
-// ── DPR FORM (shared between admin add & engineer submit) ─────
-function buildDprForm(dpr=null,engId=null,engLocked=false){
+// DPR FORM
+function buildDprForm(dpr=null, engId=null, engLocked=false){
   const e=dpr||{};
-  const engOptions=engLocked&&engId
-    ?`<option value="${engId}" selected>${D.engineer(engId)?.name||''}</option>`
-    :D.engineers().map(en=>`<option value="${en.id}" ${e.engineerId===en.id?'selected':''}>${en.name}</option>`).join('');
-
+  const engOptions = engLocked && engId
+    ? `<option value="${engId}" selected>${D.engineer(engId)?.name||''}</option>`
+    : D.engineers().map(en=>`<option value="${en.id}" ${e.engineerId===en.id?'selected':''}>${en.name}</option>`).join('');
   const fittingsDefaults=['Bend','Tee','Valve','Reducer'];
   const existFittings=e.fittings||[];
   const existCustom=e.customFields||[];
-
-  return `
+  return`
     <div class="fg-row c2">
       <div class="fg"><label>Engineer</label><select id="df-eng" ${engLocked?'disabled':''}>${engOptions}</select></div>
       <div class="fg"><label>Date</label><input type="date" id="df-date" value="${e.date||today()}"/></div>
@@ -1587,49 +1402,42 @@ function buildDprForm(dpr=null,engId=null,engLocked=false){
       <div class="fg"><label>Start Junction</label><input id="df-sj" value="${e.startJunction||''}" placeholder="e.g. A1"/></div>
       <div class="fg"><label>End Junction</label><input id="df-ej" value="${e.endJunction||''}" placeholder="e.g. A2"/></div>
     </div>
-
     <hr class="section-divider"/>
     <div style="font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:10px">🔧 Fittings</div>
     <div id="fittings-list">
-      ${fittingsDefaults.map(name=>{
-        const ex=existFittings.find(f=>f.name===name);
-        return`<div class="fitting-row"><input value="${name}" readonly style="background:var(--surface3);cursor:default"/><input type="number" id="fit-${name.toLowerCase()}" min="0" value="${ex?ex.qty:''}" placeholder="Qty"/><span></span></div>`;
-      }).join('')}
+      ${fittingsDefaults.map(name=>{const ex=existFittings.find(f=>f.name===name);return`<div class="fitting-row"><input value="${name}" readonly style="background:var(--surface3);cursor:default"/><input type="number" id="fit-${name.toLowerCase()}" min="0" value="${ex?ex.qty:''}" placeholder="Qty"/><span></span></div>`}).join('')}
       ${existFittings.filter(f=>!fittingsDefaults.includes(f.name)).map((f,i)=>customFittingRow(i,f.name,f.qty)).join('')}
     </div>
     <button class="btn btn-ghost btn-sm mt8" onclick="addCustomFittingRow()" type="button">+ Add Fitting</button>
-
     <hr class="section-divider"/>
     <div style="font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:10px">🏷️ Custom Fields</div>
     <div id="custom-fields-list">
       ${existCustom.map((cf,i)=>customFieldRow(i,cf.fieldName,cf.fieldType,cf.value)).join('')}
     </div>
     <button class="btn btn-ghost btn-sm mt8" onclick="addCustomFieldRow()" type="button">+ Add Custom Field</button>
-
     <div class="fg mt16"><label>Notes</label><textarea id="df-notes">${e.notes||''}</textarea></div>`;
 }
 
-let fitRowCount=4;
 function customFittingRow(idx,name='',qty=''){
   fitRowCount++;
-  return`<div class="fitting-row" id="fr-${fitRowCount}">
-    <input value="${name}" id="fn-${fitRowCount}" placeholder="Fitting name"/>
-    <input type="number" id="fq-${fitRowCount}" min="0" value="${qty}" placeholder="Qty"/>
-    <button type="button" class="del-row-btn" onclick="document.getElementById('fr-${fitRowCount}').remove()">✕</button>
+  const rowId=fitRowCount;
+  return`<div class="fitting-row" id="fr-${rowId}">
+    <input value="${name}" id="fn-${rowId}" placeholder="Fitting name"/>
+    <input type="number" id="fq-${rowId}" min="0" value="${qty}" placeholder="Qty"/>
+    <button type="button" class="del-row-btn" onclick="document.getElementById('fr-${rowId}').remove()">✕</button>
   </div>`;
 }
 function addCustomFittingRow(){
   document.getElementById('fittings-list').insertAdjacentHTML('beforeend',customFittingRow(fitRowCount));
 }
-
-let cfRowCount=0;
 function customFieldRow(idx,name='',type='text',value=''){
   cfRowCount++;
-  return`<div class="custom-field-row" id="cfr-${cfRowCount}">
-    <input id="cfn-${cfRowCount}" value="${name}" placeholder="Field name"/>
-    <select id="cft-${cfRowCount}"><option value="text" ${type==='text'?'selected':''}>Text</option><option value="number" ${type==='number'?'selected':''}>Number</option></select>
-    <input id="cfv-${cfRowCount}" value="${value}" placeholder="Value"/>
-    <button type="button" class="del-row-btn" onclick="document.getElementById('cfr-${cfRowCount}').remove()">✕</button>
+  const rowId=cfRowCount;
+  return`<div class="custom-field-row" id="cfr-${rowId}">
+    <input id="cfn-${rowId}" value="${name}" placeholder="Field name"/>
+    <select id="cft-${rowId}"><option value="text" ${type==='text'?'selected':''}>Text</option><option value="number" ${type==='number'?'selected':''}>Number</option></select>
+    <input id="cfv-${rowId}" value="${value}" placeholder="Value"/>
+    <button type="button" class="del-row-btn" onclick="document.getElementById('cfr-${rowId}').remove()">✕</button>
   </div>`;
 }
 function addCustomFieldRow(){
@@ -1637,33 +1445,30 @@ function addCustomFieldRow(){
 }
 
 function collectDprData(engOverride=null){
-  const engineerId=engOverride||document.getElementById('df-eng')?.value;
-  const date=document.getElementById('df-date').value;
-  const pipeType=document.getElementById('df-ptype').value;
-  const diameter=document.getElementById('df-diam').value;
-  const pipesUsed=parseInt(document.getElementById('df-used').value)||0;
-  const pipesLeft=parseInt(document.getElementById('df-left').value)||0;
-  const meterLaid=parseFloat(document.getElementById('df-meters').value)||0;
-  const totalJoints=parseInt(document.getElementById('df-joints').value)||0;
-  const startJunction=document.getElementById('df-sj').value.trim();
-  const endJunction=document.getElementById('df-ej').value.trim();
-  const notes=document.getElementById('df-notes').value.trim();
-
-  // Collect fittings
+  const engineerId = engOverride || document.getElementById('df-eng')?.value;
+  const date=document.getElementById('df-date')?.value||'';
+  const pipeType=document.getElementById('df-ptype')?.value||'SAI';
+  const diameter=document.getElementById('df-diam')?.value||'';
+  const pipesUsed=parseInt(document.getElementById('df-used')?.value)||0;
+  const pipesLeft=parseInt(document.getElementById('df-left')?.value)||0;
+  const meterLaid=parseFloat(document.getElementById('df-meters')?.value)||0;
+  const totalJoints=parseInt(document.getElementById('df-joints')?.value)||0;
+  const startJunction=document.getElementById('df-sj')?.value.trim()||'';
+  const endJunction=document.getElementById('df-ej')?.value.trim()||'';
+  const notes=document.getElementById('df-notes')?.value.trim()||'';
+  // Fittings
   const fittings=[];
   ['Bend','Tee','Valve','Reducer'].forEach(name=>{
     const el=document.getElementById(`fit-${name.toLowerCase()}`);
     const qty=parseInt(el?.value||0)||0;
-    if(qty>0)fittings.push({name,qty});
+    if(qty>0) fittings.push({name,qty});
   });
-  // Custom fittings
   document.querySelectorAll('[id^="fn-"]').forEach(el=>{
     const rowId=el.id.slice(3);
     const name=el.value.trim();
     const qty=parseInt(document.getElementById(`fq-${rowId}`)?.value||0)||0;
-    if(name&&qty>0)fittings.push({name,qty});
+    if(name&&qty>0) fittings.push({name,qty});
   });
-
   // Custom fields
   const customFields=[];
   document.querySelectorAll('[id^="cfn-"]').forEach(el=>{
@@ -1671,56 +1476,46 @@ function collectDprData(engOverride=null){
     const fieldName=el.value.trim();
     const fieldType=document.getElementById(`cft-${rowId}`)?.value||'text';
     const value=document.getElementById(`cfv-${rowId}`)?.value.trim()||'';
-    if(fieldName)customFields.push({fieldName,fieldType,value});
+    if(fieldName) customFields.push({fieldName,fieldType,value});
   });
-
   return{engineerId,date,pipeType,diameter,pipesUsed,pipesLeft,meterLaid,totalJoints,startJunction,endJunction,fittings,customFields,notes};
 }
 
 function openAdminDprModal(editId=null){
-  const d=editId?D.dprs().find(x=>x.id===editId):null;
-  fitRowCount=4;cfRowCount=0;
-  openModal(editId?'Edit DPR':'Add DPR',buildDprForm(d),
+  const d = editId ? D.dprs().find(x=>x.id===editId) : null;
+  fitRowCount=4; cfRowCount=0;
+  openModal(editId?'Edit DPR':'Add DPR', buildDprForm(d),
     `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
      <button class="btn btn-pri" onclick="saveDprAdmin('${editId||''}')">💾 Save DPR</button>`,
     {wide:true}
   );
 }
 function openEditDprModal(id){openAdminDprModal(id)}
-
 function saveDprAdmin(editId){
   const data=collectDprData();
-  if(!data.engineerId)return toast('Select engineer','err');
+  if(!data.engineerId) return toast('Select engineer','err');
   saveDprCore(data,editId);
 }
-
-function saveDprCore(data,editId=null){
-  if(!data.date)return toast('Select date','err');
-  if(!data.pipeType)return toast('Select pipe type','err');
-  if(!data.diameter)return toast('Select diameter','err');
-  if(data.pipesUsed<0||data.pipesLeft<0||data.meterLaid<0)return toast('No negative values allowed','err');
+function saveDprCore(data, editId=null){
+  if(!data.date) return toast('Select date','err');
+  if(!data.pipeType) return toast('Select pipe type','err');
+  if(!data.diameter) return toast('Select diameter','err');
+  if(data.pipesUsed<0||data.pipesLeft<0||data.meterLaid<0) return toast('No negative values allowed','err');
   const dprs=D.dprs();
-  // Uniqueness check: date + diameter + pipeType per engineer
-  if(!editId){
-    const dup=dprs.find(d=>d.engineerId===data.engineerId&&d.date===data.date&&d.diameter===data.diameter&&d.pipeType===data.pipeType);
-    if(dup){toast('DPR with same Date + Diameter + Pipe Type already exists for this engineer','warn');return}
-  }
   if(editId){
     const idx=dprs.findIndex(d=>d.id===editId);
-    if(idx!==-1)dprs[idx]={...dprs[idx],...data};
+    if(idx!==-1) dprs[idx]={...dprs[idx],...data};
     toast('DPR updated','ok');
-  }else{
+  } else {
     dprs.push({id:uid(),...data});
     toast('DPR submitted successfully','ok');
   }
-  D.saveDprs(dprs);closeModal();
-  // Re-render current page
-  if(currentPage==='pg-dprs')renderAllDprsPage(document.getElementById('content-area'));
-  else if(currentPage==='eng-dpr')renderEngDprForm(document.getElementById('content-area'));
-  else if(currentPage==='dash-eng')renderEngDash(document.getElementById('content-area'));
+  D.saveDprs(dprs); closeModal();
+  if(currentPage==='pg-dprs') renderAllDprsPage(document.getElementById('content-area'));
+  else if(currentPage==='eng-dpr') renderEngDprForm(document.getElementById('content-area'));
+  else if(currentPage==='dash-eng') renderEngDash(document.getElementById('content-area'));
   checkLowStock();
 }
-
 function deleteDpr(id){
   confirmDel('Delete this DPR record?',()=>{
     D.saveDprs(D.dprs().filter(d=>d.id!==id));
@@ -1731,58 +1526,49 @@ function deleteDpr(id){
 function exportDprsCsv(){
   const dprs=D.dprs();
   const rows=[['Date','Engineer','Pipe Type','Diameter','Pipes Used','Pipes Left','Meters Laid','Joints','Start','End','Fittings','Custom Fields','Notes']];
-  dprs.forEach(d=>{
-    const e=D.engineer(d.engineerId);
-    rows.push([d.date,e?.name||'',d.pipeType,d.diameter,d.pipesUsed,d.pipesLeft,d.meterLaid,d.totalJoints,d.startJunction,d.endJunction,
-      (d.fittings||[]).map(f=>`${f.name}:${f.qty}`).join('; '),
-      (d.customFields||[]).map(cf=>`${cf.fieldName}:${cf.value}`).join('; '),
-      d.notes]);
-  });
+  dprs.forEach(d=>{const e=D.engineer(d.engineerId);rows.push([d.date,e?.name||'',d.pipeType,d.diameter,d.pipesUsed,d.pipesLeft,d.meterLaid,d.totalJoints,d.startJunction,d.endJunction,(d.fittings||[]).map(f=>`${f.name}:${f.qty}`).join('; '),(d.customFields||[]).map(cf=>`${cf.fieldName}:${cf.value}`).join('; '),d.notes])});
   downloadCsv(rows,'sef_dprs.csv');
 }
 
-// ╔══════════════════════════════════════════════════════════════╗
+// ══════════════════════════════════════════════
 //  TARGETS
-// ╚══════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════
 function renderTargetsPage(ca){
-  const targets=D.targets();const engs=D.engineers();const dprs=D.dprs();
+  const targets=D.targets(); const engs=D.engineers(); const dprs=D.dprs();
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head-row pg-head">
-    <div><h2>🎯 Targets</h2><p>Set and track monthly performance targets</p></div>
+    <div><h2>🎯 Targets</h2><p>Monthly performance targets</p></div>
     <button class="btn btn-pri" onclick="openTargetModal()">+ Set Target</button>
   </div>
   <div class="g-auto" id="targets-grid"></div>
   </div>`;
   const mth=thisMonth();
-  const grid=document.getElementById('targets-grid');
-  grid.innerHTML=engs.map(e=>{
+  document.getElementById('targets-grid').innerHTML=engs.map(e=>{
     const tgt=targets.find(t=>t.engineerId===e.id&&t.month===mth)||{targetMeters:0,targetPipes:0};
     const mthDprs=dprs.filter(d=>d.engineerId===e.id&&d.date.startsWith(mth));
     const achMeters=mthDprs.reduce((s,d)=>s+d.meterLaid,0);
     const achPipes=mthDprs.reduce((s,d)=>s+d.pipesUsed,0);
     const mPct=tgt.targetMeters?Math.min(100,Math.round(achMeters/tgt.targetMeters*100)):0;
     const pPct=tgt.targetPipes?Math.min(100,Math.round(achPipes/tgt.targetPipes*100)):0;
-    return `<div class="card">
+    return`<div class="card">
       <div class="card-h"><h3>${e.name}</h3><span class="badge b-gray">${mth}</span></div>
       <div class="card-b">
         <div class="mb16">
           <div class="flex justify-between mb8"><span style="font-size:12px;color:var(--text2)">Meters Laid</span><span class="mono" style="font-size:12px">${achMeters}m / ${tgt.targetMeters}m</span></div>
           <div class="prog-wrap"><div class="prog-bar ${mPct>=80?'prog-teal':mPct>=50?'prog-indigo':'prog-amber'}" style="width:${mPct}%"></div></div>
-          <div class="flex justify-between mt8"><span style="font-size:11px;color:var(--text3)">${mPct}% achieved</span></div>
+          <div style="font-size:11px;color:var(--text3);margin-top:4px">${mPct}% achieved</div>
         </div>
         <div class="mb16">
           <div class="flex justify-between mb8"><span style="font-size:12px;color:var(--text2)">Pipes Used</span><span class="mono" style="font-size:12px">${achPipes} / ${tgt.targetPipes}</span></div>
           <div class="prog-wrap"><div class="prog-bar ${pPct>=80?'prog-teal':pPct>=50?'prog-indigo':'prog-rose'}" style="width:${pPct}%"></div></div>
         </div>
-        <button class="btn btn-ghost btn-sm w-full" onclick="openTargetModal('${e.id}')">✏️ Edit Target</button>
+        <button class="btn btn-ghost btn-sm w-full" onclick="openTargetModal('${e.id}')">✏️ Set/Edit Target</button>
       </div>
     </div>`;
   }).join('')||`<div class="empty" style="grid-column:1/-1"><div class="ei">🎯</div><h3>No engineers</h3></div>`;
 }
-
 function openTargetModal(engId=null){
-  const mth=thisMonth();
-  const engs=D.engineers();
+  const mth=thisMonth(); const engs=D.engineers();
   const tgt=engId?D.targets().find(t=>t.engineerId===engId&&t.month===mth):null;
   openModal('Set Monthly Target',`
     <div class="fg"><label>Engineer</label>
@@ -1802,30 +1588,27 @@ function saveTarget(){
   const month=document.getElementById('tg-month').value;
   const targetMeters=parseInt(document.getElementById('tg-meters').value)||0;
   const targetPipes=parseInt(document.getElementById('tg-pipes').value)||0;
-  if(!engineerId||!month)return toast('Fill all fields','err');
+  if(!engineerId||!month) return toast('Fill all fields','err');
   const targets=D.targets();
   const idx=targets.findIndex(t=>t.engineerId===engineerId&&t.month===month);
-  if(idx!==-1)targets[idx]={...targets[idx],targetMeters,targetPipes};
+  if(idx!==-1) targets[idx]={...targets[idx],targetMeters,targetPipes};
   else targets.push({id:uid(),engineerId,month,targetMeters,targetPipes});
-  D.saveTargets(targets);toast('Target saved','ok');closeModal();
+  D.saveTargets(targets); toast('Target saved','ok'); closeModal();
   renderTargetsPage(document.getElementById('content-area'));
 }
 
-// ╔══════════════════════════════════════════════════════════════╗
+// ══════════════════════════════════════════════
 //  REPORTS (ADMIN)
-// ╚══════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════
 function renderReportsPage(ca){
   ca.innerHTML=`<div class="pg on">
-  <div class="pg-head">
-    <h2>📊 Reports & Export</h2>
-    <p>Generate and export comprehensive reports</p>
-  </div>
+  <div class="pg-head"><h2>📊 Reports & Export</h2><p>Generate and export comprehensive reports</p></div>
   <div class="g3 mb22">
     <div class="card" onclick="exportMonthlyReport()" style="cursor:pointer">
       <div class="card-b" style="text-align:center;padding:32px">
         <div style="font-size:48px;margin-bottom:12px">📅</div>
         <h3 style="font-family:var(--font-h);font-size:16px;margin-bottom:8px">Monthly Report</h3>
-        <p style="color:var(--text2);font-size:12px;margin-bottom:16px">Full month data with all DPRs and custom fields</p>
+        <p style="color:var(--text2);font-size:12px;margin-bottom:16px">Full month DPR data with custom fields</p>
         <button class="btn btn-pri">Download CSV ⬇️</button>
       </div>
     </div>
@@ -1849,16 +1632,16 @@ function renderReportsPage(ca){
   <div class="card">
     <div class="card-h"><h3>Per Engineer Export</h3></div>
     <div class="card-b">
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px" id="per-eng-export"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
+        ${D.engineers().map(e=>`<div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r10);padding:16px;text-align:center">
+          <div style="width:40px;height:40px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;margin:0 auto 10px">${e.name[0]}</div>
+          <div style="font-weight:600;margin-bottom:8px;font-size:13px">${e.name}</div>
+          <button class="btn btn-ghost btn-sm w-full" onclick="exportEngCsv('${e.id}')">⬇️ Export</button>
+        </div>`).join('')}
+      </div>
     </div>
   </div>
   </div>`;
-  document.getElementById('per-eng-export').innerHTML=D.engineers().map(e=>`
-    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r10);padding:16px;text-align:center">
-      <div style="width:40px;height:40px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;margin:0 auto 10px">${e.name[0]}</div>
-      <div style="font-weight:600;margin-bottom:8px;font-size:13px">${e.name}</div>
-      <button class="btn btn-ghost btn-sm w-full" onclick="exportEngCsv('${e.id}')">⬇️ Export</button>
-    </div>`).join('');
 }
 function exportMonthlyReport(){
   const mth=thisMonth();
@@ -1867,29 +1650,25 @@ function exportMonthlyReport(){
   dprs.forEach(d=>{const e=D.engineer(d.engineerId);rows.push([d.date,e?.name||'',d.pipeType,d.diameter,d.pipesUsed,d.pipesLeft,d.meterLaid,d.totalJoints,d.startJunction,d.endJunction,(d.fittings||[]).map(f=>`${f.name}:${f.qty}`).join('; '),(d.customFields||[]).map(cf=>`${cf.fieldName}:${cf.value}`).join('; '),d.notes])});
   downloadCsv(rows,`sef_monthly_${mth}.csv`);
 }
-function exportEngCsv(engId){
-  const e=D.engineer(engId);if(!e)return;
-  const dprs=D.engDprs(engId);
-  const rows=[['Date','Pipe Type','Diameter','Pipes Used','Pipes Left','Meters Laid','Joints','Start','End','Fittings','Custom Fields','Notes']];
-  dprs.forEach(d=>rows.push([d.date,d.pipeType,d.diameter,d.pipesUsed,d.pipesLeft,d.meterLaid,d.totalJoints,d.startJunction,d.endJunction,(d.fittings||[]).map(f=>`${f.name}:${f.qty}`).join('; '),(d.customFields||[]).map(cf=>`${cf.fieldName}:${cf.value}`).join('; '),d.notes]));
-  downloadCsv(rows,`sef_${e.name.replace(/\s/g,'_')}.csv`);
-}
 
-// ╔══════════════════════════════════════════════════════════════╗
-//  ENGINEER PORTAL
-// ╚══════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════
+//  ENGINEER PORTAL — uses selectedEngineerId
+// ══════════════════════════════════════════════
 function getMyEngineer(){
-  // Map saiuser to first active engineer for demo; in production map by user ID
-  return D.engineers().find(e=>e.status==='active')||D.engineers()[0];
+  if(selectedEngineerId){
+    const eng = D.engineer(selectedEngineerId);
+    if(eng) return eng;
+  }
+  // Fallback
+  return D.engineers().find(e=>e.status==='active') || D.engineers()[0] || null;
 }
 
 function renderEngDash(ca){
-  const me=getMyEngineer();if(!me){ca.innerHTML='<div class="empty"><div class="ei">⚠️</div><h3>No engineer profile found</h3></div>';return}
-  const asns=D.engAssignments(me.id);
-  const dprs=D.engDprs(me.id);
-  const mth=thisMonth();
-  const mthDprs=dprs.filter(d=>d.date.startsWith(mth));
-  const used=D.engUsed(me.id);const meters=D.engMeters(me.id);
+  const me = getMyEngineer();
+  if(!me){ca.innerHTML='<div class="empty" style="margin-top:60px"><div class="ei">⚠️</div><h3>No engineer profile</h3><p>Contact your admin</p></div>';return}
+  const asns=D.engAssignments(me.id); const dprs=D.engDprs(me.id);
+  const mth=thisMonth(); const mthDprs=dprs.filter(d=>d.date.startsWith(mth));
+  const used=D.engUsed(me.id); const meters=D.engMeters(me.id);
   const mUsed=mthDprs.reduce((s,d)=>s+d.pipesUsed,0);
   const mMeters=mthDprs.reduce((s,d)=>s+d.meterLaid,0);
   const tgt=D.targets().find(t=>t.engineerId===me.id&&t.month===mth)||{targetMeters:0,targetPipes:0};
@@ -1900,10 +1679,10 @@ function renderEngDash(ca){
     <p style="color:var(--text2);font-size:13px">${new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</p>
   </div>
   <div class="stat-grid">
-    ${sc('c-indigo','🔩',used,'Total Pipes Used','All time',()=>navigate('eng-dpr'))}
-    ${sc('c-teal','📏',meters.toFixed(0)+'m','Meters Laid','All time',()=>navigate('eng-reports'))}
-    ${sc('c-amber','📋',dprs.length,'Total DPRs','Submitted',()=>navigate('eng-reports'))}
-    ${sc('c-rose','📅',mthDprs.length,'This Month DPRs',`${mUsed} pipes | ${mMeters}m`,()=>navigate('eng-dpr'))}
+    ${scNav('c-indigo','🔩',used,'Total Pipes Used','All time','eng-dpr')}
+    ${scNav('c-teal','📏',meters.toFixed(0)+'m','Meters Laid','All time','eng-reports')}
+    ${scNav('c-amber','📋',dprs.length,'Total DPRs','Submitted','eng-reports')}
+    ${scNav('c-rose','📅',mthDprs.length,'This Month DPRs',`${mUsed} pipes | ${mMeters}m`,'eng-dpr')}
   </div>
   <div class="g2 mb22">
     <div class="card">
@@ -1934,49 +1713,45 @@ function renderEngDash(ca){
         <td><b>${d.diameter}</b></td>
         <td class="mono" style="color:var(--rose)">${d.pipesUsed}</td>
         <td class="mono" style="color:var(--sky)">${d.meterLaid}m</td>
-        <td style="font-size:11px;color:var(--text2)">${d.startJunction}→${d.endJunction}</td>
+        <td style="font-size:11px;color:var(--text2)">${d.startJunction||''}→${d.endJunction||''}</td>
       </tr>`).join('')||'<tr><td colspan="6" style="text-align:center;color:var(--text3)">No DPRs submitted</td></tr>'}
       </tbody></table>
     </div></div>
   </div>
   </div>`;
-
   // Pipes mini
-  const inv=D.inventory();
-  const el=document.getElementById('eng-my-pipes-mini');
-  el.innerHTML=asns.map(a=>{
-    const p=D.pipe(a.pipeId);if(!p)return'';
-    const used=D.engDprs(me.id).filter(d=>d.diameter===p.diameter&&d.pipeType===p.pipeType).reduce((s,d)=>s+d.pipesUsed,0);
-    const left=a.quantity-used;const pct=Math.round((left/a.quantity)*100)||0;
-    const st=stockStatus(left,a.quantity);
-    return`<div class="mb12">
-      <div class="flex justify-between mb8">
-        <span style="font-weight:600;font-size:13px">${p.pipeType} ${p.diameter}</span>
-        <span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${Math.max(0,left)} left</span>
-      </div>
-      <div class="prog-wrap"><div class="prog-bar ${st.prog}" style="width:${Math.max(0,pct)}%"></div></div>
-    </div>`;
-  }).join('')||'<div class="empty"><div class="ei">🔧</div><p>No pipes assigned</p></div>';
+  const pipesMini=document.getElementById('eng-my-pipes-mini');
+  if(pipesMini){
+    pipesMini.innerHTML=asns.map(a=>{
+      const p=D.pipe(a.pipeId); if(!p) return '';
+      const used2=dprs.filter(d=>d.diameter===p.diameter&&d.pipeType===p.pipeType).reduce((s,d)=>s+d.pipesUsed,0);
+      const left=Math.max(0,a.quantity-used2); const pct=a.quantity>0?Math.round((left/a.quantity)*100):0;
+      const st=stockStatus(left,a.quantity);
+      return`<div class="mb12">
+        <div class="flex justify-between mb8"><span style="font-weight:600;font-size:13px">${p.pipeType} ${p.diameter}</span><span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${left} left</span></div>
+        <div class="prog-wrap"><div class="prog-bar ${st.prog}" style="width:${pct}%"></div></div>
+      </div>`;
+    }).join('')||'<div class="empty" style="padding:20px"><div class="ei" style="font-size:32px">🔧</div><p>No pipes assigned</p></div>';
+  }
 }
 
 function renderEngPipes(ca){
   const me=getMyEngineer();
   const asns=D.engAssignments(me?.id||'');
+  const dprs=D.engDprs(me?.id||'');
   ca.innerHTML=`<div class="pg on">
-  <div class="pg-head"><h2>🔧 My Pipes</h2><p>Your assigned pipe inventory and stock levels</p></div>
+  <div class="pg-head"><h2>🔧 My Pipes</h2><p>Your assigned pipe inventory</p></div>
   <div class="g-auto">
     ${asns.map(a=>{
-      const p=D.pipe(a.pipeId);if(!p)return'';
-      const used=D.engDprs(me.id).filter(d=>d.diameter===p.diameter&&d.pipeType===p.pipeType).reduce((s,d)=>s+d.pipesUsed,0);
-      const left=a.quantity-used;const pct=Math.max(0,Math.round((left/a.quantity)*100));
+      const p=D.pipe(a.pipeId); if(!p) return '';
+      const used=dprs.filter(d=>d.diameter===p.diameter&&d.pipeType===p.pipeType).reduce((s,d)=>s+d.pipesUsed,0);
+      const left=Math.max(0,a.quantity-used); const pct=a.quantity>0?Math.round((left/a.quantity)*100):0;
       const st=stockStatus(left,a.quantity);
       return`<div class="card">
         <div class="card-h"><h3>${p.pipeType} ${p.diameter}</h3><span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${st.label}</span></div>
         <div class="card-b">
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
-            ${emini('Assigned',a.quantity,'var(--indigo2)')}
-            ${emini('Used',used,'var(--rose)')}
-            ${emini('Remaining',Math.max(0,left),'var(--teal)')}
+            ${emini('Assigned',a.quantity,'var(--indigo2)')}${emini('Used',used,'var(--rose)')}${emini('Remaining',left,'var(--teal)')}
           </div>
           <div class="prog-wrap"><div class="prog-bar ${st.prog}" style="width:${pct}%"></div></div>
           <div class="flex justify-between mt8" style="font-size:11px;color:var(--text3)">
@@ -1991,13 +1766,13 @@ function renderEngPipes(ca){
 
 function renderEngDprForm(ca){
   const me=getMyEngineer();
-  fitRowCount=4;cfRowCount=0;
+  fitRowCount=4; cfRowCount=0;
   ca.innerHTML=`<div class="pg on">
-  <div class="pg-head"><h2>📝 Submit DPR</h2><p>Daily Progress Report submission</p></div>
+  <div class="pg-head"><h2>📝 Submit DPR</h2><p>Daily Progress Report — multiple entries allowed per day</p></div>
   <div class="card">
-    <div class="card-h"><h3>New DPR Entry</h3><span class="badge b-amber">Unique: Date + Diameter + Type per day</span></div>
+    <div class="card-h"><h3>New DPR Entry</h3></div>
     <div class="card-b">
-      ${buildDprForm(null,me?.id,true)}
+      ${buildDprForm(null, me?.id, true)}
       <div class="form-actions">
         <button class="btn btn-ghost" onclick="navigate('dash-eng')">Cancel</button>
         <button class="btn btn-pri" onclick="submitEngDpr()">📤 Submit DPR</button>
@@ -2005,9 +1780,11 @@ function renderEngDprForm(ca){
     </div>
   </div>
   </div>`;
-  if(me)document.getElementById('df-eng').value=me.id;
+  if(me) {
+    const sel=document.getElementById('df-eng');
+    if(sel) sel.value=me.id;
+  }
 }
-
 function submitEngDpr(){
   const me=getMyEngineer();
   const data=collectDprData(me?.id);
@@ -2021,7 +1798,7 @@ function renderEngTargets(ca){
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head"><h2>🎯 My Targets</h2></div>
   <div class="g-auto">
-    ${targets.map(tgt=>{
+    ${targets.length?targets.map(tgt=>{
       const mthDprs=dprs.filter(d=>d.date.startsWith(tgt.month));
       const achMeters=mthDprs.reduce((s,d)=>s+d.meterLaid,0);
       const achPipes=mthDprs.reduce((s,d)=>s+d.pipesUsed,0);
@@ -2040,7 +1817,7 @@ function renderEngTargets(ca){
           </div>
         </div>
       </div>`;
-    }).join('')||'<div class="empty" style="grid-column:1/-1"><div class="ei">🎯</div><h3>No targets set</h3><p>Ask admin to set your targets</p></div>'}
+    }).join(''):'<div class="empty" style="grid-column:1/-1"><div class="ei">🎯</div><h3>No targets set</h3><p>Ask your admin to set monthly targets</p></div>'}
   </div>
   </div>`;
 }
@@ -2073,7 +1850,7 @@ function filterEngReport(){
   const dprs=D.engDprs(me?.id||'');
   const fm=document.getElementById('er-month')?.value||'';
   const filtered=dprs.filter(d=>!fm||d.date.startsWith(fm)).sort((a,b)=>b.date.localeCompare(a.date));
-  const tbody=document.getElementById('er-tbody');if(!tbody)return;
+  const tbody=document.getElementById('er-tbody'); if(!tbody)return;
   tbody.innerHTML=filtered.map(d=>`<tr>
     <td class="mono">${fmtDate(d.date)}</td>
     <td><span class="badge ${d.pipeType==='SAI'?'b-indigo':'b-amber'}">${d.pipeType}</span></td>
@@ -2082,16 +1859,16 @@ function filterEngReport(){
     <td class="mono" style="color:var(--teal)">${d.pipesLeft}</td>
     <td class="mono" style="color:var(--sky)">${d.meterLaid}m</td>
     <td class="mono">${d.totalJoints}</td>
-    <td style="font-size:11px;color:var(--text2)">${d.startJunction}→${d.endJunction}</td>
+    <td style="font-size:11px;color:var(--text2)">${d.startJunction||''}→${d.endJunction||''}</td>
     <td><button class="btn btn-ghost btn-sm btn-icon" onclick="viewDprDetail('${d.id}')">👁️</button></td>
   </tr>`).join('')||'<tr><td colspan="9" style="text-align:center;color:var(--text3)">No records</td></tr>';
 }
 
-// ╔══════════════════════════════════════════════════════════════╗
+// ══════════════════════════════════════════════
 //  VIEWER PORTAL
-// ╚══════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════
 function renderViewerDash(ca){
-  const engs=D.engineers();const dprs=D.dprs();const inv=D.inventory();const asns=D.assignments();
+  const engs=D.engineers(); const dprs=D.dprs(); const inv=D.inventory();
   const mth=thisMonth();
   const mthDprs=dprs.filter(d=>d.date.startsWith(mth));
   const totalStock=inv.reduce((s,p)=>s+p.quantity,0);
@@ -2101,16 +1878,15 @@ function renderViewerDash(ca){
 
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head-row pg-head">
-    <div><h2>📊 Analytics Overview</h2><p>Read-only view of all pipeline operations</p></div>
-    <input type="month" id="v-month" value="${mth}" onchange="refreshViewerDash()" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r10);padding:8px 13px;color:var(--text0);font-family:var(--font-b)"/>
+    <div><h2>👁️ Analytics Overview</h2><p>Hello Viewer 👁️ — Read-only access</p></div>
   </div>
   <div class="stat-grid">
-    ${sc('c-indigo','📦',totalStock,'Total Stock','All pipe inventory',()=>navigate('view-stock'))}
-    ${sc('c-teal','🔩',totalAvail,'Available Stock','Unassigned',()=>navigate('view-stock'))}
-    ${sc('c-amber','📋',mthDprs.length,'DPRs This Month',`${mth}`,()=>navigate('view-dprs'))}
-    ${sc('c-sky','📏',totalMeters.toFixed(0)+'m','Total Meters Laid','All time',()=>navigate('view-charts'))}
-    ${sc('c-green','👷',engs.filter(e=>e.status==='active').length,'Active Engineers','',()=>navigate('view-engineers'))}
-    ${sc('c-rose','🔩',totalUsed,'Total Pipes Used','All time',()=>navigate('view-dprs'))}
+    ${scNav('c-indigo','📦',totalStock,'Total Stock','All pipe inventory','view-stock')}
+    ${scNav('c-teal','🔩',totalAvail,'Available Stock','Unassigned','view-stock')}
+    ${scNav('c-amber','📋',mthDprs.length,'DPRs This Month',mth,'view-dprs')}
+    ${scNav('c-sky','📏',totalMeters.toFixed(0)+'m','Total Meters Laid','All time','view-charts')}
+    ${scNav('c-green','👷',engs.filter(e=>e.status==='active').length,'Active Engineers','','view-engineers')}
+    ${scNav('c-rose','🔩',totalUsed,'Total Pipes Used','All time','view-dprs')}
   </div>
   <div class="g2 mb22">
     <div class="chart-card"><h3>📈 Monthly Pipes Used</h3><div class="chart-box"><canvas id="vch1" height="200"></canvas></div></div>
@@ -2121,58 +1897,39 @@ function renderViewerDash(ca){
     <div class="card-h"><h3>📋 This Month's DPR Summary</h3><span class="badge b-indigo">${mth}</span></div>
     <div class="card-b"><div class="t-wrap">
       <table><thead><tr><th>Date</th><th>Engineer</th><th>Type</th><th>Diameter</th><th>Used</th><th>Meters</th><th>Joints</th><th>Route</th></tr></thead>
-      <tbody>${mthDprs.sort((a,b)=>b.date.localeCompare(a.date)).map(d=>{
-        const e=D.engineer(d.engineerId);
-        return`<tr>
-          <td class="mono">${fmtDate(d.date)}</td>
-          <td><div class="flex items-center gap8"><div style="width:22px;height:22px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:9px;color:#fff">${e?e.name[0]:'?'}</div>${e?e.name:'–'}</div></td>
-          <td><span class="badge ${d.pipeType==='SAI'?'b-indigo':'b-amber'}">${d.pipeType}</span></td>
-          <td>${d.diameter}</td>
-          <td class="mono" style="color:var(--rose)">${d.pipesUsed}</td>
-          <td class="mono" style="color:var(--sky)">${d.meterLaid}m</td>
-          <td class="mono">${d.totalJoints}</td>
-          <td style="font-size:11px;color:var(--text2)">${d.startJunction}→${d.endJunction}</td>
-        </tr>`;
-      }).join('')||'<tr><td colspan="8" style="text-align:center;color:var(--text3)">No DPRs this month</td></tr>'}
+      <tbody>${mthDprs.sort((a,b)=>b.date.localeCompare(a.date)).map(d=>{const e=D.engineer(d.engineerId);return`<tr>
+        <td class="mono">${fmtDate(d.date)}</td>
+        <td><div class="flex items-center gap8"><div style="width:22px;height:22px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:9px;color:#fff">${e?e.name[0]:'?'}</div>${e?e.name:'–'}</div></td>
+        <td><span class="badge ${d.pipeType==='SAI'?'b-indigo':'b-amber'}">${d.pipeType}</span></td>
+        <td>${d.diameter}</td>
+        <td class="mono" style="color:var(--rose)">${d.pipesUsed}</td>
+        <td class="mono" style="color:var(--sky)">${d.meterLaid}m</td>
+        <td class="mono">${d.totalJoints}</td>
+        <td style="font-size:11px;color:var(--text2)">${d.startJunction||''}→${d.endJunction||''}</td>
+      </tr>`}).join('')||'<tr><td colspan="8" style="text-align:center;color:var(--text3)">No DPRs this month</td></tr>'}
       </tbody></table>
     </div></div>
   </div>
   </div>`;
 
   setTimeout(()=>{
-    // Monthly usage trend
-    const months=[];const mUsed=[];const mMeters=[];
+    const months=[]; const mUsed=[]; const mMeters=[];
     for(let i=5;i>=0;i--){
-      const d=new Date();d.setMonth(d.getMonth()-i);
+      const d=new Date(); d.setMonth(d.getMonth()-i);
       const ms=d.toISOString().slice(0,7);
       months.push(d.toLocaleString('en-IN',{month:'short',year:'2-digit'}));
       const mD=dprs.filter(x=>x.date.startsWith(ms));
       mUsed.push(mD.reduce((s,d)=>s+d.pipesUsed,0));
       mMeters.push(mD.reduce((s,d)=>s+d.meterLaid,0));
     }
-    mkChart('vch1','line',{
-      labels:months,
-      datasets:[{label:'Pipes Used',data:mUsed,borderColor:'#6c7ef8',backgroundColor:'rgba(108,126,248,.12)',fill:true,tension:.4,pointBackgroundColor:'#6c7ef8'}]
-    });
-    // Per-engineer pipes used
-    const engNames=engs.map(e=>e.name);
-    const engPipes=engs.map(e=>D.engUsed(e.id));
-    const engMeters=engs.map(e=>D.engMeters(e.id));
-    mkChart('vch2','bar',{
-      labels:engNames,
-      datasets:[
-        {label:'Pipes Used',data:engPipes,backgroundColor:'rgba(108,126,248,.7)',borderRadius:6},
-        {label:'Meters Laid',data:engMeters,backgroundColor:'rgba(29,233,182,.6)',borderRadius:6}
-      ]
-    });
-    // Meters over time
-    mkChart('vch3','line',{
-      labels:months,
-      datasets:[{label:'Meters Laid',data:mMeters,borderColor:'#1de9b6',backgroundColor:'rgba(29,233,182,.1)',fill:true,tension:.4,pointBackgroundColor:'#1de9b6'}]
-    });
+    mkChart('vch1','line',{labels:months,datasets:[{label:'Pipes Used',data:mUsed,borderColor:'#6c7ef8',backgroundColor:'rgba(108,126,248,.12)',fill:true,tension:.4,pointBackgroundColor:'#6c7ef8'}]});
+    mkChart('vch2','bar',{labels:engs.map(e=>e.name.split(' ')[0]),datasets:[
+      {label:'Pipes Used',data:engs.map(e=>D.engUsed(e.id)),backgroundColor:'rgba(108,126,248,.7)',borderRadius:6},
+      {label:'Meters',data:engs.map(e=>D.engMeters(e.id)),backgroundColor:'rgba(29,233,182,.6)',borderRadius:6}
+    ]});
+    mkChart('vch3','line',{labels:months,datasets:[{label:'Meters Laid',data:mMeters,borderColor:'#1de9b6',backgroundColor:'rgba(29,233,182,.1)',fill:true,tension:.4,pointBackgroundColor:'#1de9b6'}]});
   },60);
 }
-function refreshViewerDash(){renderViewerDash(document.getElementById('content-area'))}
 
 function renderViewerEngineers(ca){
   const engs=D.engineers();
@@ -2180,7 +1937,7 @@ function renderViewerEngineers(ca){
   <div class="pg-head"><h2>👷 Engineer Analytics</h2></div>
   <div class="g-auto">
     ${engs.map(e=>{
-      const used=D.engUsed(e.id);const meters=D.engMeters(e.id);const dprs=D.engDprs(e.id).length;
+      const used=D.engUsed(e.id); const meters=D.engMeters(e.id); const dprs=D.engDprs(e.id).length;
       return`<div class="eng-card ${e.status==='active'?'ac':'in'}" onclick="openEngDetailModal('${e.id}')">
         <div class="flex items-center gap12 mb14">
           <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff">${e.name[0]}</div>
@@ -2189,9 +1946,7 @@ function renderViewerEngineers(ca){
           <span class="badge ${e.status==='active'?'b-teal':'b-rose'}">${e.status}</span>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-          ${emini('Pipes',used,'var(--indigo2)')}
-          ${emini('Meters',meters.toFixed(0)+'m','var(--teal)')}
-          ${emini('DPRs',dprs,'var(--amber2)')}
+          ${emini('Pipes',used,'var(--indigo2)')}${emini('Meters',meters.toFixed(0)+'m','var(--teal)')}${emini('DPRs',dprs,'var(--amber2)')}
         </div>
       </div>`;
     }).join('')||`<div class="empty" style="grid-column:1/-1"><div class="ei">👷</div><h3>No engineers</h3></div>`}
@@ -2211,7 +1966,9 @@ function renderViewerDprs(ca){
     <input type="month" id="vdpr-f-month" onchange="filterVDprTable()" value="${thisMonth()}" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r10);padding:8px 13px;color:var(--text0)"/>
   </div>
   <div class="card">
-    <div class="card-h"><h3>DPR Records</h3><span class="badge b-indigo" id="vdpr-count"></span></div>
+    <div class="card-h"><h3>DPR Records</h3><span class="badge b-indigo" id="vdpr-count"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportDprsCsv()">⬇️ Export CSV</button>
+    </div>
     <div class="card-b"><div class="t-wrap">
       <table><thead><tr><th>Date</th><th>Engineer</th><th>Type</th><th>Diameter</th><th>Used</th><th>Meters</th><th>Joints</th><th>Route</th><th>Detail</th></tr></thead>
       <tbody id="vdpr-tbody"></tbody></table>
@@ -2230,8 +1987,8 @@ function filterVDprTable(){
     const m=`${e?.name||''} ${d.pipeType} ${d.diameter}`.toLowerCase();
     return(!q||m.includes(q))&&(!fe||d.engineerId===fe)&&(!fm||d.date.startsWith(fm));
   }).sort((a,b)=>b.date.localeCompare(a.date));
-  const el=document.getElementById('vdpr-count');if(el)el.textContent=`${filtered.length}`;
-  const tbody=document.getElementById('vdpr-tbody');if(!tbody)return;
+  const el=document.getElementById('vdpr-count'); if(el)el.textContent=`${filtered.length}`;
+  const tbody=document.getElementById('vdpr-tbody'); if(!tbody)return;
   tbody.innerHTML=filtered.map(d=>{
     const e=D.engineer(d.engineerId);
     return`<tr>
@@ -2242,7 +1999,7 @@ function filterVDprTable(){
       <td class="mono" style="color:var(--rose)">${d.pipesUsed}</td>
       <td class="mono" style="color:var(--sky)">${d.meterLaid}m</td>
       <td class="mono">${d.totalJoints}</td>
-      <td style="font-size:11px;color:var(--text2)">${d.startJunction}→${d.endJunction}</td>
+      <td style="font-size:11px;color:var(--text2)">${d.startJunction||''}→${d.endJunction||''}</td>
       <td><button class="btn btn-ghost btn-sm btn-icon" onclick="viewDprDetail('${d.id}')">👁️</button></td>
     </tr>`;
   }).join('')||'<tr><td colspan="9" style="text-align:center;color:var(--text3)">No records</td></tr>';
@@ -2251,32 +2008,28 @@ function filterVDprTable(){
 function renderViewerStock(ca){
   const inv=D.inventory();
   ca.innerHTML=`<div class="pg on">
-  <div class="pg-head"><h2>📦 Stock Levels</h2></div>
+  <div class="pg-head-row pg-head">
+    <div><h2>📦 Stock Levels</h2></div>
+    <button class="btn btn-ghost" onclick="exportInventoryCsv()">⬇️ Export CSV</button>
+  </div>
   <div class="stat-grid mb22">
-    ${sc('c-indigo','📦',inv.reduce((s,p)=>s+p.quantity,0),'Total Stock','',null)}
-    ${sc('c-amber','🔗',inv.reduce((s,p)=>s+D.assignedQty(p.id),0),'Assigned','',null)}
-    ${sc('c-teal','✅',inv.reduce((s,p)=>s+D.availQty(p.id),0),'Available','',null)}
-    ${sc('c-rose','⚠️',inv.filter(p=>D.availQty(p.id)<50).length,'Low Stock','Below 50 units',null)}
+    ${scNav('c-indigo','📦',inv.reduce((s,p)=>s+p.quantity,0),'Total Stock','','view-stock')}
+    ${scNav('c-amber','🔗',inv.reduce((s,p)=>s+D.assignedQty(p.id),0),'Assigned','','view-stock')}
+    ${scNav('c-teal','✅',inv.reduce((s,p)=>s+D.availQty(p.id),0),'Available','','view-stock')}
+    ${scNav('c-rose','⚠️',inv.filter(p=>D.availQty(p.id)<50).length,'Low Stock','Below 50 units','view-stock')}
   </div>
   <div class="g-auto">
     ${inv.map(p=>{
-      const av=D.availQty(p.id);const st=stockStatus(av,p.quantity);
+      const av=D.availQty(p.id); const st=stockStatus(av,p.quantity);
       return`<div class="card">
-        <div class="card-h">
-          <h3>${p.pipeType} ${p.diameter}</h3>
-          <span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${st.label}</span>
-        </div>
+        <div class="card-h"><h3>${p.pipeType} ${p.diameter}</h3><span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${st.label}</span></div>
         <div class="card-b">
           <div style="font-size:12px;color:var(--text2);margin-bottom:12px">${p.material}</div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
-            ${emini('Total',p.quantity,'var(--indigo2)')}
-            ${emini('Assigned',D.assignedQty(p.id),'var(--amber2)')}
-            ${emini('Available',av,st.cls==='si-high'?'var(--teal)':st.cls==='si-med'?'var(--amber)':'var(--rose)')}
+            ${emini('Total',p.quantity,'var(--indigo2)')}${emini('Assigned',D.assignedQty(p.id),'var(--amber2)')}${emini('Available',av,st.cls==='si-high'?'var(--teal)':st.cls==='si-med'?'var(--amber)':'var(--rose)')}
           </div>
           <div class="prog-wrap"><div class="prog-bar ${st.prog}" style="width:${st.pct}%"></div></div>
-          <div class="flex justify-between mt8" style="font-size:10px;color:var(--text3)">
-            <span>Date: ${fmtDate(p.dateAdded)}</span><span>${st.pct}% remaining</span>
-          </div>
+          <div style="font-size:10px;color:var(--text3);margin-top:6px;text-align:right">${st.pct}% remaining</div>
         </div>
       </div>`;
     }).join('')||'<div class="empty" style="grid-column:1/-1"><div class="ei">📦</div><h3>No inventory</h3></div>'}
@@ -2285,7 +2038,7 @@ function renderViewerStock(ca){
 }
 
 function renderViewerCharts(ca){
-  const engs=D.engineers();const dprs=D.dprs();const inv=D.inventory();
+  const engs=D.engineers(); const dprs=D.dprs(); const inv=D.inventory();
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head"><h2>📈 Performance Charts</h2></div>
   <div class="g2 mb22">
@@ -2298,102 +2051,38 @@ function renderViewerCharts(ca){
   </div>
   </div>`;
   setTimeout(()=>{
-    // Pipe usage by engineer (pie)
     mkChart('vc-pie','doughnut',{
       labels:engs.map(e=>e.name),
       datasets:[{data:engs.map(e=>D.engUsed(e.id)),backgroundColor:['rgba(108,126,248,.8)','rgba(29,233,182,.7)','rgba(245,166,35,.8)','rgba(255,79,123,.7)'],borderWidth:2,borderColor:'var(--bg2)'}]
     },{cutout:'55%'});
-    // Monthly meters
-    const months=[];const mData=[];
+    const months=[]; const mData=[];
     for(let i=5;i>=0;i--){const d=new Date();d.setMonth(d.getMonth()-i);const ms=d.toISOString().slice(0,7);months.push(d.toLocaleString('en-IN',{month:'short',year:'2-digit'}));mData.push(dprs.filter(x=>x.date.startsWith(ms)).reduce((s,d)=>s+d.meterLaid,0))}
     mkChart('vc-line','line',{labels:months,datasets:[{label:'Meters Laid',data:mData,borderColor:'#f5a623',backgroundColor:'rgba(245,166,35,.1)',fill:true,tension:.4,pointBackgroundColor:'#f5a623'}]});
-    // Stock by type
     const types={};inv.forEach(p=>{types[p.pipeType]=(types[p.pipeType]||0)+D.availQty(p.id)});
     mkChart('vc-stock','bar',{labels:Object.keys(types),datasets:[{label:'Available',data:Object.values(types),backgroundColor:['rgba(108,126,248,.7)','rgba(245,166,35,.7)'],borderRadius:6}]});
-    // DPRs per engineer
-    mkChart('vc-dpr','bar',{
-      labels:engs.map(e=>e.name.split(' ')[0]),
-      datasets:[{label:'DPRs',data:engs.map(e=>D.engDprs(e.id).length),backgroundColor:'rgba(29,233,182,.65)',borderRadius:6}]
-    });
+    mkChart('vc-dpr','bar',{labels:engs.map(e=>e.name.split(' ')[0]),datasets:[{label:'DPRs',data:engs.map(e=>D.engDprs(e.id).length),backgroundColor:'rgba(29,233,182,.65)',borderRadius:6}]});
   },60);
 }
 
-// ╔══════════════════════════════════════════════════════════════╗
-//  CSV EXPORT UTILITY
-// ╚══════════════════════════════════════════════════════════════╝
-function downloadCsv(rows,filename){
+// ══════════════════════════════════════════════
+//  CSV EXPORT
+// ══════════════════════════════════════════════
+function downloadCsv(rows, filename){
   const csv=rows.map(r=>r.map(cell=>`"${String(cell||'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download=filename;a.click();
+  const a=document.createElement('a'); a.href=url; a.download=filename; a.click();
   URL.revokeObjectURL(url);
   toast(`Downloaded: ${filename}`,'ok');
 }
 
-// ── INIT ─────────────────────────────────────────────────────
+// ── KEYBOARD SHORTCUTS ──────────────────────
+document.getElementById('li-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+document.getElementById('li-id').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('li-pass').focus()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+// ── INIT ────────────────────────────────────
 checkSession();
 </script>
 </body>
 </html>
-function renderEngineerSelection(){
-  const ca = document.getElementById('content-area');
-  const engineers = D.engineers();
-
-  ca.innerHTML = `
-    <div class="pg on">
-      <h2 style="margin-bottom:20px">👷 Select Your Name</h2>
-      <div class="g-auto">
-        ${engineers.map(e => `
-          <div class="card" onclick="selectEngineer('${e.id}')" style="cursor:pointer;text-align:center">
-            <h3>${e.name}</h3>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `;
-}
-function selectEngineer(id){
-  selectedEngineerId = id;
-  localStorage.setItem('selectedEngineerId', id);
-  navigate('dash-eng');
-}
-function logout(){
-  localStorage.removeItem('CU');
-  localStorage.removeItem('selectedEngineerId');
-  location.reload();
-}
-if (CU.role === 'engineer') {
-  const selected = localStorage.getItem('selectedEngineerId');
-
-  if (!selected) {
-    renderEngineerSelection();
-    return;
-  } else {
-    navigate('dash-eng');
-  }
-} else if (CU.role === 'admin') {
-  navigate('dash-admin');
-} else {
-  navigate('dash-viewer');
-}
-function selectEngineer(id){
-  localStorage.setItem('selectedEngineerId', id);
-  navigate('dash-eng');
-}
-function renderEngineerSelection(){
-  const engs = D.engineers();
-  const ca = document.getElementById('content-area');
-
-  ca.innerHTML = `
-    <div class="pg on">
-      <h2>Select Your Name</h2>
-      <div class="grid">
-        ${engs.map(e => `
-          <div class="card" onclick="selectEngineer('${e.id}')">
-            <h3>${e.name}</h3>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `;
-}
