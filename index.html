@@ -57,8 +57,6 @@ a{color:inherit;text-decoration:none}
 .mesh-orb:nth-child(2){width:400px;height:400px;background:rgba(245,166,35,.04);top:30%;right:-80px;animation-delay:-7s}
 .mesh-orb:nth-child(3){width:350px;height:350px;background:rgba(29,233,182,.03);bottom:-100px;left:30%;animation-delay:-13s}
 @keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.05)}66%{transform:translate(-20px,30px) scale(.97)}}
-
-/* ── LOGIN ── */
 #login-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:var(--bg0);transition:opacity .5s,visibility .5s}
 #login-screen.gone{opacity:0;visibility:hidden;pointer-events:none}
 .login-shell{position:relative;width:460px;max-width:95vw}
@@ -83,8 +81,6 @@ a{color:inherit;text-decoration:none}
 .btn-login:hover{transform:translateY(-2px);box-shadow:var(--indigo-glow),var(--shadow-xl)}
 .btn-login:hover::before{opacity:1}
 .login-err{color:var(--rose);font-size:13px;text-align:center;margin-top:12px;min-height:16px}
-
-/* ── ENGINEER SELECTION OVERLAY ── */
 #eng-select-screen{position:fixed;inset:0;z-index:9998;display:none;align-items:center;justify-content:center;background:var(--bg0)}
 #eng-select-screen.show{display:flex}
 .eng-sel-card{background:var(--glass);backdrop-filter:blur(28px);border:1px solid var(--border2);border-radius:var(--r28);padding:40px 44px;width:520px;max-width:95vw;box-shadow:var(--shadow-xl)}
@@ -95,8 +91,6 @@ a{color:inherit;text-decoration:none}
 .eng-sel-btn:hover{border-color:var(--indigo);background:var(--indigo-dim);transform:translateY(-2px);box-shadow:var(--indigo-glow)}
 .eng-sel-btn .esb-name{font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:3px}
 .eng-sel-btn .esb-id{font-size:11px;color:var(--text3);font-family:var(--font-m)}
-
-/* ── APP SHELL ── */
 #app{display:flex;min-height:100vh;position:relative;z-index:1}
 #app.gone{display:none}
 .sidebar{width:var(--fw);min-height:100vh;background:var(--bg1);border-right:1px solid var(--border);position:fixed;left:0;top:0;bottom:0;z-index:200;display:flex;flex-direction:column;transition:transform .32s cubic-bezier(.4,0,.2,1);overflow:hidden}
@@ -262,11 +256,12 @@ td:first-child{font-weight:500}
 .empty{text-align:center;padding:50px 20px;color:var(--text3)}
 .empty .ei{font-size:56px;margin-bottom:12px;opacity:.4}
 .empty h3{font-size:16px;color:var(--text2);margin-bottom:6px}.empty p{font-size:13px}
-.fitting-row{display:grid;grid-template-columns:1fr 80px 32px;gap:8px;align-items:center;margin-bottom:8px}
-.fitting-row input{margin:0}
-.custom-field-row{display:grid;grid-template-columns:1fr 100px 80px 32px;gap:8px;align-items:center;margin-bottom:8px}
+/* IMPROVED FITTING ROW */
+.fitting-row{display:grid;grid-template-columns:140px 1fr 80px 32px;gap:8px;align-items:center;margin-bottom:8px}
+.fitting-row.default-fit{grid-template-columns:140px 1fr 80px}
 .del-row-btn{width:28px;height:28px;background:var(--rose-dim);border:1px solid rgba(255,79,123,.25);color:var(--rose);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:.2s;flex-shrink:0}
 .del-row-btn:hover{background:rgba(255,79,123,.3)}
+.custom-field-row{display:grid;grid-template-columns:1fr 100px 80px 32px;gap:8px;align-items:center;margin-bottom:8px}
 .si-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .si-high .si-dot{background:var(--teal);box-shadow:0 0 6px rgba(29,233,182,.6)}
 .si-med .si-dot{background:var(--amber);box-shadow:0 0 6px rgba(245,166,35,.5)}
@@ -279,6 +274,14 @@ td:first-child{font-weight:500}
 .np-item:hover{background:var(--surface)}
 .np-icon{font-size:17px;flex-shrink:0;margin-top:1px}
 .np-text{font-size:12.5px;line-height:1.5}.np-time{font-size:10.5px;color:var(--text3);margin-top:3px}
+/* PIPE SELECTOR CARD */
+.pipe-sel-card{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r14);padding:16px;margin-bottom:14px}
+.pipe-sel-card .avail-info{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 12px;background:var(--surface3);border-radius:var(--r6);font-size:12px}
+.pipe-sel-card .avail-info.warn{background:var(--amber-dim);color:var(--amber2)}
+.pipe-sel-card .avail-info.danger{background:var(--rose-dim);color:var(--rose)}
+/* MONTHLY BALANCE TABLE */
+.balance-table th{background:var(--surface2)}
+.balance-table tr.total-row{background:var(--indigo-dim);font-weight:700}
 .flex{display:flex}.items-center{align-items:center}.gap8{gap:8px}.gap12{gap:12px}.gap16{gap:16px}
 .justify-between{justify-content:space-between}.fw-wrap{flex-wrap:wrap}
 .mono{font-family:var(--font-m)}.fw7{font-weight:700}.fs12{font-size:12px}.fs11{font-size:11px}
@@ -336,7 +339,7 @@ td:first-child{font-weight:500}
     <div style="font-size:36px;margin-bottom:14px">👷</div>
     <h2>Who Are You?</h2>
     <p>Select your name to continue to your portal</p>
-    <div class="eng-sel-grid" id="eng-sel-grid"><!-- filled dynamically --></div>
+    <div class="eng-sel-grid" id="eng-sel-grid"></div>
     <button class="btn btn-ghost w-full" onclick="doLogout()">← Back to Login</button>
   </div>
 </div>
@@ -389,7 +392,9 @@ td:first-child{font-weight:500}
 
 <script>
 /* ═══════════════════════════════════════════════
-   SEF PDMS v4.0 – FULLY FIXED
+   SEF PDMS v5.0 – ENTERPRISE EDITION
+   Feature Fixes: Pipe Linking, Fittings, Junctions,
+   Monthly Balance, Real-time Sync
 ═══════════════════════════════════════════════ */
 
 // ── CREDENTIALS ───────────────────────────────
@@ -401,11 +406,10 @@ const CREDS = {
 
 // ── STATE ──────────────────────────────────────
 let CU = null;
-let selectedEngineerId = null; // set after selection screen
+let selectedEngineerId = null;
 let CI = {};
 let sidebarOpen = window.innerWidth > 768;
 let deleteCallback = null;
-let fitRowCount = 4;
 let cfRowCount = 0;
 let currentPage = '';
 
@@ -419,7 +423,9 @@ const uid = ()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 
 // ── SEED DATA ──────────────────────────────────
 function seedData(){
-  if(LS.g('sef_seeded')) return;
+  if(LS.g('sef_seeded_v5')) return;
+  // Clear old seed flag to force re-seed with new structure
+  LS.d('sef_seeded');
   LS.s('sef_engineers',[
     {id:'e1',name:'Akhil Kumar',  empId:'ENG-001',phone:'+91 98765 43210',location:'Sector 5, Baddi',status:'active',joinDate:'2025-01-10',notes:'Lead engineer Site A'},
     {id:'e2',name:'Ravi Sharma',  empId:'ENG-002',phone:'+91 91234 56789',location:'Phase 2, Baddi',status:'active',joinDate:'2025-03-15',notes:''},
@@ -433,26 +439,27 @@ function seedData(){
     {id:'p4',pipeType:'SAI', diameter:'80mm', material:'HDPE',quantity:400,dateAdded:'2026-03-12',notes:'Second batch'},
     {id:'p5',pipeType:'SUEZ',diameter:'100mm',material:'PVC', quantity:250,dateAdded:'2026-03-15',notes:''}
   ]);
+  // Assignments now store assignedUsed to track DPR deductions per assignment
   LS.s('sef_assignments',[
-    {id:'a1',engineerId:'e1',pipeId:'p1',quantity:120,dateAssigned:'2026-04-01',notes:'Phase 1 work'},
-    {id:'a2',engineerId:'e2',pipeId:'p2',quantity:80, dateAssigned:'2026-04-01',notes:''},
-    {id:'a3',engineerId:'e1',pipeId:'p3',quantity:50, dateAssigned:'2026-03-20',notes:'Secondary line'},
-    {id:'a4',engineerId:'e3',pipeId:'p4',quantity:200,dateAssigned:'2026-04-02',notes:''},
-    {id:'a5',engineerId:'e2',pipeId:'p5',quantity:30, dateAssigned:'2026-03-28',notes:''}
+    {id:'a1',engineerId:'e1',pipeId:'p1',quantity:120,assignedUsed:25,dateAssigned:'2026-04-01',notes:'Phase 1 work'},
+    {id:'a2',engineerId:'e2',pipeId:'p2',quantity:80, assignedUsed:8, dateAssigned:'2026-04-01',notes:''},
+    {id:'a3',engineerId:'e1',pipeId:'p3',quantity:50, assignedUsed:5, dateAssigned:'2026-03-20',notes:'Secondary line'},
+    {id:'a4',engineerId:'e3',pipeId:'p4',quantity:200,assignedUsed:20,dateAssigned:'2026-04-02',notes:''},
+    {id:'a5',engineerId:'e2',pipeId:'p5',quantity:30, assignedUsed:0, dateAssigned:'2026-03-28',notes:''}
   ]);
   LS.s('sef_dprs',[
-    {id:'d1',engineerId:'e1',date:'2026-04-01',pipeType:'SAI', diameter:'80mm', pipesUsed:10,pipesLeft:110,meterLaid:80, totalJoints:9, startJunction:'A1',endJunction:'A2',fittings:[{name:'Bend',qty:2},{name:'Tee',qty:1}],customFields:[{fieldName:'Soil Type',fieldType:'text',value:'Rocky'}],notes:'Completed section A1-A2'},
-    {id:'d2',engineerId:'e2',date:'2026-04-01',pipeType:'SUEZ',diameter:'100mm',pipesUsed:8, pipesLeft:72, meterLaid:64, totalJoints:7, startJunction:'B1',endJunction:'B2',fittings:[{name:'Valve',qty:1}],customFields:[],notes:''},
-    {id:'d3',engineerId:'e1',date:'2026-04-02',pipeType:'SAI', diameter:'80mm', pipesUsed:15,pipesLeft:95, meterLaid:120,totalJoints:14,startJunction:'A2',endJunction:'A4',fittings:[{name:'Bend',qty:3},{name:'Reducer',qty:1}],customFields:[{fieldName:'Weather',fieldType:'text',value:'Sunny'}],notes:'Good progress'},
-    {id:'d4',engineerId:'e3',date:'2026-04-02',pipeType:'SAI', diameter:'80mm', pipesUsed:20,pipesLeft:180,meterLaid:160,totalJoints:18,startJunction:'C1',endJunction:'C3',fittings:[],customFields:[],notes:'New trench opened'},
-    {id:'d5',engineerId:'e1',date:'2026-04-03',pipeType:'SAI', diameter:'150mm',pipesUsed:5, pipesLeft:45, meterLaid:30, totalJoints:4, startJunction:'A4',endJunction:'A5',fittings:[{name:'Tee',qty:2}],customFields:[],notes:''}
+    {id:'d1',engineerId:'e1',assignmentId:'a1',date:'2026-04-01',pipeType:'SAI', diameter:'80mm', pipesUsed:10,pipesLeft:110,meterLaid:80, totalJoints:9, startJunction:'A1',endJunction:'A2',fittings:[{name:'Bend',qty:2},{name:'Tee',qty:1}],customFields:[{fieldName:'Soil Type',fieldType:'text',value:'Rocky'}],notes:'Completed section A1-A2'},
+    {id:'d2',engineerId:'e2',assignmentId:'a2',date:'2026-04-01',pipeType:'SUEZ',diameter:'100mm',pipesUsed:8, pipesLeft:72, meterLaid:64, totalJoints:7, startJunction:'B1',endJunction:'B2',fittings:[{name:'Valve',qty:1}],customFields:[],notes:''},
+    {id:'d3',engineerId:'e1',assignmentId:'a1',date:'2026-04-02',pipeType:'SAI', diameter:'80mm', pipesUsed:15,pipesLeft:95, meterLaid:120,totalJoints:14,startJunction:'A2',endJunction:'A4',fittings:[{name:'Bend',qty:3},{name:'Reducer',qty:1}],customFields:[{fieldName:'Weather',fieldType:'text',value:'Sunny'}],notes:'Good progress'},
+    {id:'d4',engineerId:'e3',assignmentId:'a4',date:'2026-04-02',pipeType:'SAI', diameter:'80mm', pipesUsed:20,pipesLeft:180,meterLaid:160,totalJoints:18,startJunction:'C1',endJunction:'C3',fittings:[],customFields:[],notes:'New trench opened'},
+    {id:'d5',engineerId:'e1',assignmentId:'a3',date:'2026-04-03',pipeType:'SAI', diameter:'150mm',pipesUsed:5, pipesLeft:45, meterLaid:30, totalJoints:4, startJunction:'A4',endJunction:'A5',fittings:[{name:'Tee',qty:2}],customFields:[],notes:''}
   ]);
   LS.s('sef_targets',[
     {id:'t1',engineerId:'e1',month:'2026-04',targetMeters:500,targetPipes:80},
     {id:'t2',engineerId:'e2',month:'2026-04',targetMeters:400,targetPipes:60},
     {id:'t3',engineerId:'e3',month:'2026-04',targetMeters:600,targetPipes:100}
   ]);
-  LS.s('sef_seeded',true);
+  LS.s('sef_seeded_v5',true);
 }
 
 // ── DATA ACCESSORS ─────────────────────────────
@@ -469,45 +476,83 @@ const D = {
   saveTargets:v=>LS.s('sef_targets',v),
   engineer:(id)=>D.engineers().find(e=>e.id===id)||null,
   pipe:(id)=>D.inventory().find(p=>p.id===id)||null,
+  assignment:(id)=>D.assignments().find(a=>a.id===id)||null,
+  // Total assigned qty from all assignments for a pipe (for inventory tracking)
   assignedQty:(pipeId)=>D.assignments().filter(a=>a.pipeId===pipeId).reduce((s,a)=>s+a.quantity,0),
   availQty:(pipeId)=>{const p=D.pipe(pipeId);return p?p.quantity-D.assignedQty(pipeId):0},
+  // Per-assignment remaining (assigned qty minus used from DPRs for that assignment)
+  assignmentUsed:(assignmentId)=>D.dprs().filter(d=>d.assignmentId===assignmentId).reduce((s,d)=>s+d.pipesUsed,0),
+  assignmentRemaining:(assignmentId)=>{
+    const a=D.assignments().find(x=>x.id===assignmentId);
+    if(!a) return 0;
+    return Math.max(0, a.quantity - D.assignmentUsed(assignmentId));
+  },
+  // Get all active assignments for an engineer with pipe info
+  engActiveAssignments:(engId)=>{
+    return D.assignments().filter(a=>a.engineerId===engId).map(a=>{
+      const p=D.pipe(a.pipeId);
+      const used=D.assignmentUsed(a.id);
+      const remaining=Math.max(0,a.quantity-used);
+      return{...a,pipe:p,used,remaining};
+    }).filter(a=>a.pipe);
+  },
   engAssignments:(engId)=>D.assignments().filter(a=>a.engineerId===engId),
   engDprs:(engId)=>D.dprs().filter(d=>d.engineerId===engId),
   engUsed:(engId)=>D.engDprs(engId).reduce((s,d)=>s+d.pipesUsed,0),
-  engMeters:(engId)=>D.engDprs(engId).reduce((s,d)=>s+d.meterLaid,0)
+  engMeters:(engId)=>D.engDprs(engId).reduce((s,d)=>s+d.meterLaid,0),
+  // Monthly balance data for inventory page
+  monthlyBalance:(month)=>{
+    const inv=D.inventory();
+    const dprs=D.dprs().filter(d=>d.date.startsWith(month));
+    const prevMonth=getPrevMonth(month);
+    const prevDprs=D.dprs().filter(d=>d.date<month+'-01'||d.date.startsWith(prevMonth));
+    return inv.map(p=>{
+      const issuedQty=D.assignedQty(p.pipeId||p.id); // total assigned
+      const usedQty=dprs.filter(d=>d.diameter===p.diameter&&d.pipeType===p.pipeType).reduce((s,d)=>s+d.pipesUsed,0);
+      const allUsed=D.dprs().filter(d=>d.diameter===p.diameter&&d.pipeType===p.pipeType&&d.date<month+'-01').reduce((s,d)=>s+d.pipesUsed,0);
+      const openingBalance=p.quantity-allUsed;
+      const remaining=Math.max(0,openingBalance-usedQty);
+      return{...p,openingBalance:Math.max(0,openingBalance),issuedQty:D.assignedQty(p.id),usedQty,remaining};
+    });
+  }
 };
+
+function getPrevMonth(month){
+  const [y,m]=month.split('-').map(Number);
+  const d=new Date(y,m-2,1);
+  return d.toISOString().slice(0,7);
+}
 
 // ── AUTH ───────────────────────────────────────
 function doLogin(){
-  const id = document.getElementById('li-id').value.trim();
-  const pass = document.getElementById('li-pass').value;
-  const err = document.getElementById('li-err');
-  const cr = CREDS[id];
-  if(cr && cr.pass === pass){
-    CU = {id, role:cr.role, name:cr.name, color:cr.color};
-    LS.s('sef_session', CU);
-    err.textContent = '';
+  const id=document.getElementById('li-id').value.trim();
+  const pass=document.getElementById('li-pass').value;
+  const err=document.getElementById('li-err');
+  const cr=CREDS[id];
+  if(cr && cr.pass===pass){
+    CU={id,role:cr.role,name:cr.name,color:cr.color};
+    LS.s('sef_session',CU);
+    err.textContent='';
     seedData();
-    if(cr.role === 'engineer'){
-      // Show engineer selection screen
+    if(cr.role==='engineer'){
       document.getElementById('login-screen').classList.add('gone');
       showEngineerSelectScreen();
     } else {
       launchApp();
     }
   } else {
-    err.textContent = '⚠️  Invalid credentials. Please try again.';
-    document.getElementById('li-pass').value = '';
+    err.textContent='⚠️  Invalid credentials. Please try again.';
+    document.getElementById('li-pass').value='';
   }
 }
 
 function showEngineerSelectScreen(){
-  const engs = D.engineers().filter(e=>e.status==='active');
-  const grid = document.getElementById('eng-sel-grid');
-  if(engs.length === 0){
-    grid.innerHTML = '<div class="empty"><div class="ei">👷</div><h3>No active engineers found</h3><p>Ask admin to add engineers first</p></div>';
+  const engs=D.engineers().filter(e=>e.status==='active');
+  const grid=document.getElementById('eng-sel-grid');
+  if(engs.length===0){
+    grid.innerHTML='<div class="empty"><div class="ei">👷</div><h3>No active engineers found</h3><p>Ask admin to add engineers first</p></div>';
   } else {
-    grid.innerHTML = engs.map(e=>`
+    grid.innerHTML=engs.map(e=>`
       <button class="eng-sel-btn" onclick="selectEngineerAndLaunch('${e.id}')">
         <div class="esb-name">${e.name}</div>
         <div class="esb-id">${e.empId} · ${e.location}</div>
@@ -517,50 +562,43 @@ function showEngineerSelectScreen(){
 }
 
 function selectEngineerAndLaunch(engId){
-  selectedEngineerId = engId;
-  LS.s('sef_sel_eng', engId);
+  selectedEngineerId=engId;
+  LS.s('sef_sel_eng',engId);
   document.getElementById('eng-select-screen').classList.remove('show');
   launchApp();
 }
 
 function toggleLoginPass(){
-  const i = document.getElementById('li-pass');
-  i.type = i.type === 'password' ? 'text' : 'password';
+  const i=document.getElementById('li-pass');
+  i.type=i.type==='password'?'text':'password';
 }
 
 function doLogout(){
-  LS.d('sef_session');
-  LS.d('sef_sel_eng');
-  CU = null;
-  selectedEngineerId = null;
+  LS.d('sef_session');LS.d('sef_sel_eng');
+  CU=null;selectedEngineerId=null;
   Object.values(CI).forEach(c=>{try{c.destroy()}catch{}});
-  CI = {};
+  CI={};
   document.getElementById('app').classList.add('gone');
   document.getElementById('eng-select-screen').classList.remove('show');
   document.getElementById('login-screen').classList.remove('gone');
-  document.getElementById('li-id').value = '';
-  document.getElementById('li-pass').value = '';
-  document.getElementById('li-err').textContent = '';
+  document.getElementById('li-id').value='';
+  document.getElementById('li-pass').value='';
+  document.getElementById('li-err').textContent='';
 }
 
 function checkSession(){
-  const s = LS.g('sef_session');
+  const s=LS.g('sef_session');
   if(s && CREDS[s.id]){
-    CU = s;
-    seedData();
-    if(s.role === 'engineer'){
-      const stored = LS.g('sef_sel_eng');
+    CU=s;seedData();
+    if(s.role==='engineer'){
+      const stored=LS.g('sef_sel_eng');
       if(stored && D.engineer(stored)){
-        selectedEngineerId = stored;
-        launchApp();
+        selectedEngineerId=stored;launchApp();
       } else {
-        // Need to select engineer again
         document.getElementById('login-screen').classList.add('gone');
         showEngineerSelectScreen();
       }
-    } else {
-      launchApp();
-    }
+    } else {launchApp()}
   }
 }
 
@@ -568,19 +606,12 @@ function checkSession(){
 function launchApp(){
   document.getElementById('login-screen').classList.add('gone');
   document.getElementById('app').classList.remove('gone');
-  buildSidebar();
-  updateSbUser();
-  applyTheme();
-  checkLowStock();
-  if(CU.role === 'admin'){
-    navigate('dash-admin');
-  } else if(CU.role === 'viewer'){
-    navigate('dash-viewer');
-  } else {
-    navigate('dash-eng');
-  }
-  if(window.innerWidth <= 768){
-    sidebarOpen = false;
+  buildSidebar();updateSbUser();applyTheme();checkLowStock();
+  if(CU.role==='admin') navigate('dash-admin');
+  else if(CU.role==='viewer') navigate('dash-viewer');
+  else navigate('dash-eng');
+  if(window.innerWidth<=768){
+    sidebarOpen=false;
     document.getElementById('sidebar').classList.add('closed');
     document.getElementById('main-wrap').classList.add('full');
   } else {
@@ -590,16 +621,17 @@ function launchApp(){
 }
 
 function updateSbUser(){
-  const engName = CU.role==='engineer' ? (D.engineer(selectedEngineerId)?.name || CU.name) : CU.name;
-  document.getElementById('sb-av').textContent = engName[0].toUpperCase();
-  document.getElementById('sb-av').style.background = `linear-gradient(135deg,${CU.color},rgba(108,126,248,.5))`;
-  document.getElementById('sb-av').style.color = '#fff';
-  document.getElementById('sb-uname').textContent = engName;
-  document.getElementById('sb-urole').textContent = CU.role.toUpperCase();
+  const engName=CU.role==='engineer'?(D.engineer(selectedEngineerId)?.name||CU.name):CU.name;
+  const av=document.getElementById('sb-av');
+  av.textContent=engName[0].toUpperCase();
+  av.style.background=`linear-gradient(135deg,${CU.color},rgba(108,126,248,.5))`;
+  av.style.color='#fff';
+  document.getElementById('sb-uname').textContent=engName;
+  document.getElementById('sb-urole').textContent=CU.role.toUpperCase();
 }
 
 // ── SIDEBAR BUILD ──────────────────────────────
-const NAV_ADMIN = [
+const NAV_ADMIN=[
   {sec:'OVERVIEW'},{id:'dash-admin',icon:'⬡',label:'Dashboard'},
   {sec:'MANAGEMENT'},{id:'pg-inventory',icon:'📦',label:'Inventory'},
   {id:'pg-engineers',icon:'👷',label:'Engineers'},
@@ -608,14 +640,14 @@ const NAV_ADMIN = [
   {id:'pg-targets',icon:'🎯',label:'Targets'},
   {sec:'REPORTS'},{id:'pg-reports',icon:'📊',label:'Reports'},
 ];
-const NAV_ENG = [
+const NAV_ENG=[
   {sec:'MY PORTAL'},{id:'dash-eng',icon:'⬡',label:'Overview'},
   {id:'eng-pipes',icon:'🔧',label:'My Pipes'},
   {id:'eng-dpr',icon:'📝',label:'Submit DPR'},
   {id:'eng-targets',icon:'🎯',label:'My Targets'},
   {id:'eng-reports',icon:'📊',label:'My Reports'},
 ];
-const NAV_VIEWER = [
+const NAV_VIEWER=[
   {sec:'ANALYTICS'},{id:'dash-viewer',icon:'⬡',label:'Overview'},
   {id:'view-engineers',icon:'👷',label:'Engineers'},
   {id:'view-dprs',icon:'📋',label:'DPR Records'},
@@ -624,20 +656,20 @@ const NAV_VIEWER = [
 ];
 
 function buildSidebar(){
-  const map = {admin:NAV_ADMIN,engineer:NAV_ENG,viewer:NAV_VIEWER};
-  const items = map[CU.role] || [];
-  document.getElementById('sb-nav').innerHTML = items.map(item=>{
-    if(item.sec) return `<div class="sb-sec-label">${item.sec}</div>`;
-    return `<div class="sb-item" id="nav-${item.id}" onclick="navigate('${item.id}')"><span class="sb-icon">${item.icon}</span><span class="sb-lbl">${item.label}</span></div>`;
+  const map={admin:NAV_ADMIN,engineer:NAV_ENG,viewer:NAV_VIEWER};
+  const items=map[CU.role]||[];
+  document.getElementById('sb-nav').innerHTML=items.map(item=>{
+    if(item.sec) return`<div class="sb-sec-label">${item.sec}</div>`;
+    return`<div class="sb-item" id="nav-${item.id}" onclick="navigate('${item.id}')"><span class="sb-icon">${item.icon}</span><span class="sb-lbl">${item.label}</span></div>`;
   }).join('');
 }
 
 // ── NAVIGATION ─────────────────────────────────
 function navigate(page){
   document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
-  const ni = document.getElementById(`nav-${page}`);
+  const ni=document.getElementById(`nav-${page}`);
   if(ni) ni.classList.add('active');
-  const titles = {
+  const titles={
     'dash-admin':'Admin Dashboard','pg-inventory':'Pipe Inventory','pg-engineers':'Site Engineers',
     'pg-assignments':'Assignments','pg-dprs':'DPR Records','pg-targets':'Targets','pg-reports':'Reports',
     'dash-eng':'My Dashboard','eng-pipes':'My Pipes','eng-dpr':'Submit DPR',
@@ -645,11 +677,11 @@ function navigate(page){
     'dash-viewer':'Analytics Overview','view-engineers':'Engineer Analytics',
     'view-dprs':'DPR Records','view-stock':'Stock Levels','view-charts':'Performance Charts',
   };
-  document.getElementById('tb-title').textContent = titles[page] || page;
-  currentPage = page;
-  const ca = document.getElementById('content-area');
-  ca.innerHTML = '';
-  const pages = {
+  document.getElementById('tb-title').textContent=titles[page]||page;
+  currentPage=page;
+  const ca=document.getElementById('content-area');
+  ca.innerHTML='';
+  const pages={
     'dash-admin':renderAdminDash,'pg-inventory':renderInventoryPage,'pg-engineers':renderEngineersPage,
     'pg-assignments':renderAssignmentsPage,'pg-dprs':renderAllDprsPage,'pg-targets':renderTargetsPage,
     'pg-reports':renderReportsPage,
@@ -667,14 +699,13 @@ function navigate(page){
 
 // ── SIDEBAR TOGGLE ─────────────────────────────
 function toggleSidebar(){
-  const sb = document.getElementById('sidebar');
-  const mw = document.getElementById('main-wrap');
-  const ov = document.getElementById('sb-ov');
+  const sb=document.getElementById('sidebar');
+  const mw=document.getElementById('main-wrap');
+  const ov=document.getElementById('sb-ov');
   if(window.innerWidth<=768){
-    sb.classList.toggle('open');
-    ov.classList.toggle('gone');
+    sb.classList.toggle('open');ov.classList.toggle('gone');
   } else {
-    sidebarOpen = !sidebarOpen;
+    sidebarOpen=!sidebarOpen;
     if(sidebarOpen){sb.classList.remove('closed');mw.classList.remove('full')}
     else{sb.classList.add('closed');mw.classList.add('full')}
   }
@@ -686,143 +717,131 @@ function closeSidebar(){
 
 // ── THEME ──────────────────────────────────────
 function applyTheme(){
-  const t = LS.g('sef_theme') || 'dark';
+  const t=LS.g('sef_theme')||'dark';
   document.documentElement.setAttribute('data-theme',t);
-  document.getElementById('theme-btn').textContent = t==='dark' ? '🌙' : '☀️';
+  document.getElementById('theme-btn').textContent=t==='dark'?'🌙':'☀️';
 }
 function toggleTheme(){
-  const html = document.documentElement;
-  const isDark = html.getAttribute('data-theme')==='dark';
-  const next = isDark ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  document.getElementById('theme-btn').textContent = next==='dark' ? '🌙' : '☀️';
-  LS.s('sef_theme', next);
+  const html=document.documentElement;
+  const isDark=html.getAttribute('data-theme')==='dark';
+  const next=isDark?'light':'dark';
+  html.setAttribute('data-theme',next);
+  document.getElementById('theme-btn').textContent=next==='dark'?'🌙':'☀️';
+  LS.s('sef_theme',next);
 }
-// Apply theme immediately on load
 (()=>{const t=LS.g('sef_theme');if(t){document.documentElement.setAttribute('data-theme',t)}})();
 
 // ── TOAST ──────────────────────────────────────
-function toast(msg, type='info'){
-  const icons = {ok:'✅',err:'❌',warn:'⚠️',info:'ℹ️'};
-  const el = document.createElement('div');
-  el.className = `toast ${type}`;
-  el.innerHTML = `<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+function toast(msg,type='info'){
+  const icons={ok:'✅',err:'❌',warn:'⚠️',info:'ℹ️'};
+  const el=document.createElement('div');
+  el.className=`toast ${type}`;
+  el.innerHTML=`<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
   document.getElementById('toast-wrap').appendChild(el);
   setTimeout(()=>{
-    el.style.opacity='0'; el.style.transform='translateX(40px)'; el.style.transition='all .4s';
+    el.style.opacity='0';el.style.transform='translateX(40px)';el.style.transition='all .4s';
     setTimeout(()=>el.remove(),400);
-  }, 3500);
+  },3500);
 }
 
 // ── MODAL ──────────────────────────────────────
-function openModal(title, bodyHTML, footHTML, opts={}){
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-body').innerHTML = bodyHTML;
-  document.getElementById('modal-foot').innerHTML = footHTML||'';
-  const box = document.getElementById('modal-box');
-  box.className = 'modal'+(opts.wide?' wide':'')+(opts.xwide?' xwide':'');
+function openModal(title,bodyHTML,footHTML,opts={}){
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-body').innerHTML=bodyHTML;
+  document.getElementById('modal-foot').innerHTML=footHTML||'';
+  const box=document.getElementById('modal-box');
+  box.className='modal'+(opts.wide?' wide':'')+(opts.xwide?' xwide':'');
   document.getElementById('modal-ov').classList.remove('gone');
 }
-function closeModal(){
-  document.getElementById('modal-ov').classList.add('gone');
-}
+function closeModal(){document.getElementById('modal-ov').classList.add('gone')}
 document.getElementById('modal-ov').addEventListener('click',e=>{
   if(e.target===document.getElementById('modal-ov')) closeModal();
 });
-
-function confirmDel(msg, fn){
-  deleteCallback = fn;
+function confirmDel(msg,fn){
+  deleteCallback=fn;
   openModal('Confirm Delete',
     `<p style="font-size:14px;color:var(--text1)">${msg}</p>`,
     `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
      <button class="btn btn-danger" onclick="runDelete()">🗑️ Delete</button>`
   );
 }
-function runDelete(){
-  if(deleteCallback){ deleteCallback(); deleteCallback=null; }
-  closeModal();
-}
+function runDelete(){if(deleteCallback){deleteCallback();deleteCallback=null}closeModal()}
 
 // ── NOTIFICATIONS ──────────────────────────────
 function checkLowStock(){
-  const lowItems = D.inventory().filter(p=>D.availQty(p.id)<50);
-  const dot = document.getElementById('n-dot');
-  if(dot) dot.style.display = lowItems.length ? 'block' : 'none';
+  const lowItems=D.inventory().filter(p=>D.availQty(p.id)<50);
+  const dot=document.getElementById('n-dot');
+  if(dot) dot.style.display=lowItems.length?'block':'none';
 }
 function toggleNotif(){
-  const panel = document.getElementById('notif-panel');
+  const panel=document.getElementById('notif-panel');
   panel.classList.toggle('gone');
   if(!panel.classList.contains('gone')) buildNotifs();
 }
 function buildNotifs(){
-  const inv = D.inventory();
-  const dprs = D.dprs();
-  let html = '';
+  const inv=D.inventory(); const dprs=D.dprs();
+  let html='';
   inv.forEach(p=>{
-    const av = D.availQty(p.id);
+    const av=D.availQty(p.id);
     if(av<50) html+=`<div class="np-item"><span class="np-icon">⚠️</span><div><div class="np-text"><b>${p.pipeType} ${p.diameter}</b> low stock — ${av} available</div><div class="np-time">Inventory Alert</div></div></div>`;
   });
-  const today_str = today();
-  const todayDprs = dprs.filter(d=>d.date===today_str);
+  const td=today();
+  const todayDprs=dprs.filter(d=>d.date===td);
   if(todayDprs.length) html+=`<div class="np-item"><span class="np-icon">✅</span><div><div class="np-text">${todayDprs.length} DPR(s) submitted today</div><div class="np-time">Today</div></div></div>`;
   if(!html) html='<div class="np-item"><span class="np-icon">✅</span><div><div class="np-text">All systems normal</div><div class="np-time">Now</div></div></div>';
-  document.getElementById('np-list').innerHTML = html;
+  document.getElementById('np-list').innerHTML=html;
 }
 document.addEventListener('click',e=>{
-  const p = document.getElementById('notif-panel');
-  if(p && !p.classList.contains('gone') && !p.contains(e.target) && !e.target.closest('.tb-btn')) p.classList.add('gone');
+  const p=document.getElementById('notif-panel');
+  if(p&&!p.classList.contains('gone')&&!p.contains(e.target)&&!e.target.closest('.tb-btn')) p.classList.add('gone');
 });
 
 // ── GLOBAL SEARCH ──────────────────────────────
 function globalSearch(q){
   if(!q||q.length<2) return;
-  const engs = D.engineers().filter(e=>e.name.toLowerCase().includes(q.toLowerCase()));
+  const engs=D.engineers().filter(e=>e.name.toLowerCase().includes(q.toLowerCase()));
   if(engs.length) navigate(CU.role==='admin'?'pg-engineers':'dash-eng');
 }
 
-// ── DATE / FORMAT HELPERS ──────────────────────
-const today = ()=>new Date().toISOString().split('T')[0];
-const thisMonth = ()=>new Date().toISOString().slice(0,7);
+// ── DATE HELPERS ──────────────────────────────
+const today=()=>new Date().toISOString().split('T')[0];
+const thisMonth=()=>new Date().toISOString().slice(0,7);
 function fmtDate(d){
-  if(!d) return '–';
-  const dt = new Date(d+'T00:00:00');
+  if(!d) return'–';
+  const dt=new Date(d+'T00:00:00');
   return dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
 }
 function greeting(){const h=new Date().getHours();return h<12?'Good Morning':h<17?'Good Afternoon':'Good Evening'}
 
 // ── CHART FACTORY ──────────────────────────────
-function mkChart(id, type, data, opts={}){
+function mkChart(id,type,data,opts={}){
   if(CI[id]){try{CI[id].destroy()}catch{}}
-  const ctx = document.getElementById(id);
+  const ctx=document.getElementById(id);
   if(!ctx) return;
-  const tColor = getComputedStyle(document.documentElement).getPropertyValue('--text2').trim()||'#7a7fa8';
-  const gColor = 'rgba(108,126,248,0.12)';
-  CI[id] = new Chart(ctx,{type,data,options:{
-    responsive:true, maintainAspectRatio:true,
+  const tColor=getComputedStyle(document.documentElement).getPropertyValue('--text2').trim()||'#7a7fa8';
+  const gColor='rgba(108,126,248,0.12)';
+  CI[id]=new Chart(ctx,{type,data,options:{
+    responsive:true,maintainAspectRatio:true,
     plugins:{
       legend:{labels:{color:tColor,font:{family:"'DM Sans'",size:12}}},
       tooltip:{backgroundColor:'rgba(12,14,26,.95)',borderColor:'rgba(108,126,248,.3)',borderWidth:1,titleColor:'#f0f2ff',bodyColor:'#b8bde8'}
     },
-    scales: type!=='pie'&&type!=='doughnut'&&type!=='radar' ? {
+    scales:type!=='pie'&&type!=='doughnut'&&type!=='radar'?{
       x:{grid:{color:gColor},ticks:{color:tColor,font:{size:11}}},
       y:{grid:{color:gColor},ticks:{color:tColor,font:{size:11}}}
-    } : {},
+    }:{},
     ...opts
   }});
 }
 
 // ── STOCK HELPERS ──────────────────────────────
-function stockStatus(avail, total){
-  const pct = total>0 ? avail/total : 0;
+function stockStatus(avail,total){
+  const pct=total>0?avail/total:0;
   if(pct>0.4) return{cls:'si-high',label:'Normal',prog:'prog-teal',pct:Math.round(pct*100)};
   if(pct>0.15) return{cls:'si-med',label:'Low',prog:'prog-amber',pct:Math.round(pct*100)};
   return{cls:'si-low',label:'Critical',prog:'prog-rose',pct:Math.round(pct*100)};
 }
 
-// Helper widgets
-function sc(cls,icon,val,label,sub,clickFn){
-  return`<div class="stat-card ${cls}" ${clickFn?`onclick="${clickFn.toString().replace(/"/g,"'")}"`:''}><div class="sc-icon">${icon}</div><div class="sc-val">${val}</div><div class="sc-label">${label}</div>${sub?`<div class="sc-sub">${sub}</div>`:''}<span class="sc-bg">${icon}</span>${clickFn?'<span class="sc-arrow">→</span>':''}</div>`;
-}
 function scNav(cls,icon,val,label,sub,page){
   return`<div class="stat-card ${cls}" onclick="navigate('${page}')"><div class="sc-icon">${icon}</div><div class="sc-val">${val}</div><div class="sc-label">${label}</div>${sub?`<div class="sc-sub">${sub}</div>`:''}<span class="sc-bg">${icon}</span><span class="sc-arrow">→</span></div>`;
 }
@@ -837,7 +856,7 @@ function ddetail(label,val,color){
 //  ADMIN DASHBOARD
 // ══════════════════════════════════════════════
 function renderAdminDash(ca){
-  const engs=D.engineers(); const inv=D.inventory(); const asns=D.assignments(); const dprs=D.dprs();
+  const engs=D.engineers();const inv=D.inventory();const asns=D.assignments();const dprs=D.dprs();
   const totalStock=inv.reduce((s,p)=>s+p.quantity,0);
   const totalAssigned=asns.reduce((s,a)=>s+a.quantity,0);
   const totalUsed=dprs.reduce((s,d)=>s+d.pipesUsed,0);
@@ -889,10 +908,9 @@ function renderAdminDash(ca){
   </div>`;
 
   setTimeout(()=>{
-    // Monthly usage chart
-    const months=[]; const mUsed=[]; const mMeters=[];
+    const months=[];const mUsed=[];const mMeters=[];
     for(let i=5;i>=0;i--){
-      const d=new Date(); d.setMonth(d.getMonth()-i);
+      const d=new Date();d.setMonth(d.getMonth()-i);
       const ms=d.toISOString().slice(0,7);
       months.push(d.toLocaleString('en-IN',{month:'short',year:'2-digit'}));
       const mD=dprs.filter(x=>x.date.startsWith(ms));
@@ -906,7 +924,6 @@ function renderAdminDash(ca){
         {label:'Meters Laid',data:mMeters,backgroundColor:'rgba(29,233,182,.6)',borderRadius:6}
       ]
     });
-    // Stock pie
     const typeMap={};
     inv.forEach(p=>{typeMap[p.pipeType]=(typeMap[p.pipeType]||0)+D.availQty(p.id)});
     mkChart('ch-pie','doughnut',{
@@ -917,41 +934,113 @@ function renderAdminDash(ca){
 }
 
 // ══════════════════════════════════════════════
-//  INVENTORY PAGE
+//  INVENTORY PAGE — with Monthly Balance
 // ══════════════════════════════════════════════
 function renderInventoryPage(ca){
-  const inv = D.inventory();
+  const mth=thisMonth();
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head-row pg-head">
-    <div><h2>📦 Pipe Inventory</h2><p>Manage pipe stock levels</p></div>
+    <div><h2>📦 Pipe Inventory</h2><p>Manage pipe stock levels and monthly balance</p></div>
     <div class="flex gap8">
       <button class="btn btn-ghost" onclick="exportInventoryCsv()">⬇️ Export CSV</button>
       <button class="btn btn-pri" onclick="openAddPipeModal()">+ Add Pipe</button>
     </div>
   </div>
-  <div class="filter-bar">
-    <input type="text" placeholder="🔍 Search pipes…" id="inv-search" oninput="filterInvTable()"/>
-    <select id="inv-f-type" onchange="filterInvTable()"><option value="">All Types</option><option>SAI</option><option>SUEZ</option></select>
+  <div class="tab-bar">
+    <button class="tab-btn on" onclick="switchInvTab('stock',this)">📦 Stock Levels</button>
+    <button class="tab-btn" onclick="switchInvTab('balance',this)">📊 Monthly Balance</button>
   </div>
-  <div class="card">
-    <div class="card-h"><h3>Inventory Records</h3><span class="badge b-indigo" id="inv-count"></span></div>
-    <div class="card-b"><div class="t-wrap">
-      <table><thead><tr><th>#</th><th>Type</th><th>Diameter</th><th>Material</th><th>Total</th><th>Assigned</th><th>Available</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
-      <tbody id="inv-tbody"></tbody></table>
-    </div></div>
+  <div id="inv-tab-stock">
+    <div class="filter-bar">
+      <input type="text" placeholder="🔍 Search pipes…" id="inv-search" oninput="filterInvTable()"/>
+      <select id="inv-f-type" onchange="filterInvTable()"><option value="">All Types</option><option>SAI</option><option>SUEZ</option></select>
+    </div>
+    <div class="card">
+      <div class="card-h"><h3>Inventory Records</h3><span class="badge b-indigo" id="inv-count"></span></div>
+      <div class="card-b"><div class="t-wrap">
+        <table><thead><tr><th>#</th><th>Type</th><th>Diameter</th><th>Material</th><th>Total</th><th>Assigned</th><th>Available</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+        <tbody id="inv-tbody"></tbody></table>
+      </div></div>
+    </div>
+  </div>
+  <div id="inv-tab-balance" style="display:none">
+    <div class="filter-bar">
+      <label style="color:var(--text2);font-size:12px;font-weight:600">Month:</label>
+      <input type="month" id="bal-month" value="${mth}" onchange="renderMonthlyBalance()" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r10);padding:8px 13px;color:var(--text0)"/>
+    </div>
+    <div class="card">
+      <div class="card-h"><h3>📊 Monthly Inventory Balance</h3><span class="badge b-amber" id="bal-month-label">${mth}</span></div>
+      <div class="card-b"><div class="t-wrap">
+        <table class="balance-table">
+          <thead><tr>
+            <th>Pipe Type</th><th>Diameter</th><th>Material</th>
+            <th>Opening Balance</th><th>Issued (Assigned)</th><th>Used (DPR)</th>
+            <th>Remaining</th><th>Status</th>
+          </tr></thead>
+          <tbody id="bal-tbody"></tbody>
+        </table>
+      </div></div>
+    </div>
+    <div class="highlight-box mt16" style="font-size:12px;color:var(--text2)">
+      <strong>Formula:</strong> Remaining = Opening Balance − Used (from DPRs this month) &nbsp;|&nbsp;
+      <strong>Opening Balance</strong> = Total inventory minus all prior usage before this month
+    </div>
   </div>
   </div>`;
   filterInvTable();
 }
+
+function switchInvTab(tab,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('inv-tab-stock').style.display=tab==='stock'?'':'none';
+  document.getElementById('inv-tab-balance').style.display=tab==='balance'?'':'none';
+  if(tab==='balance') renderMonthlyBalance();
+}
+
+function renderMonthlyBalance(){
+  const mth=document.getElementById('bal-month')?.value||thisMonth();
+  const lbl=document.getElementById('bal-month-label');
+  if(lbl) lbl.textContent=mth;
+  const balData=D.monthlyBalance(mth);
+  const tbody=document.getElementById('bal-tbody');
+  if(!tbody) return;
+  // Group by pipeType + diameter for totals
+  let totalOpen=0,totalIssued=0,totalUsed=0,totalRemain=0;
+  tbody.innerHTML=balData.map(p=>{
+    totalOpen+=p.openingBalance;totalIssued+=p.issuedQty;totalUsed+=p.usedQty;totalRemain+=p.remaining;
+    const st=stockStatus(p.remaining,p.openingBalance||1);
+    return`<tr>
+      <td><span class="badge ${p.pipeType==='SAI'?'b-indigo':'b-amber'}">${p.pipeType}</span></td>
+      <td><b>${p.diameter}</b></td>
+      <td>${p.material}</td>
+      <td class="mono fw7" style="color:var(--indigo2)">${p.openingBalance}</td>
+      <td class="mono" style="color:var(--amber2)">${p.issuedQty}</td>
+      <td class="mono" style="color:var(--rose)">${p.usedQty}</td>
+      <td class="mono fw7" style="color:${st.cls==='si-high'?'var(--teal)':st.cls==='si-med'?'var(--amber)':'var(--rose)'}">${p.remaining}</td>
+      <td><span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${st.label}</span></td>
+    </tr>`;
+  }).join('');
+  // Total row
+  tbody.innerHTML+=`<tr class="total-row">
+    <td colspan="3" style="font-family:var(--font-h);font-size:12px;letter-spacing:.5px">TOTAL</td>
+    <td class="mono fw7" style="color:var(--indigo2)">${totalOpen}</td>
+    <td class="mono" style="color:var(--amber2)">${totalIssued}</td>
+    <td class="mono" style="color:var(--rose)">${totalUsed}</td>
+    <td class="mono fw7" style="color:var(--teal)">${totalRemain}</td>
+    <td></td>
+  </tr>`;
+}
+
 function filterInvTable(){
   const inv=D.inventory();
   const q=(document.getElementById('inv-search')?.value||'').toLowerCase();
   const ft=document.getElementById('inv-f-type')?.value||'';
   const filtered=inv.filter(p=>(!q||(p.pipeType+p.diameter+p.material).toLowerCase().includes(q))&&(!ft||p.pipeType===ft));
-  const el=document.getElementById('inv-count'); if(el)el.textContent=`${filtered.length} items`;
-  const tbody=document.getElementById('inv-tbody'); if(!tbody)return;
+  const el=document.getElementById('inv-count');if(el)el.textContent=`${filtered.length} items`;
+  const tbody=document.getElementById('inv-tbody');if(!tbody)return;
   tbody.innerHTML=filtered.map((p,i)=>{
-    const av=D.availQty(p.id); const st=stockStatus(av,p.quantity);
+    const av=D.availQty(p.id);const st=stockStatus(av,p.quantity);
     return`<tr>
       <td class="mono" style="color:var(--text3)">${i+1}</td>
       <td><span class="badge ${p.pipeType==='SAI'?'b-indigo':'b-amber'}">${p.pipeType}</span></td>
@@ -969,7 +1058,7 @@ function filterInvTable(){
   }).join('')||`<tr><td colspan="10"><div class="empty"><div class="ei">📦</div><h3>No inventory found</h3></div></td></tr>`;
 }
 function openAddPipeModal(editId=null){
-  const p = editId ? D.pipe(editId) : {};
+  const p=editId?D.pipe(editId):{};
   openModal(editId?'Edit Pipe':'Add Pipe',`
     <div class="fg-row c2">
       <div class="fg"><label>Pipe Type</label><select id="p-type"><option ${p.pipeType==='SAI'?'selected':''}>SAI</option><option ${p.pipeType==='SUEZ'?'selected':''}>SUEZ</option></select></div>
@@ -1006,11 +1095,11 @@ function savePipe(editId){
     inv.push({id:uid(),pipeType,diameter,material,quantity,dateAdded,notes});
     toast('Pipe added','ok');
   }
-  D.saveInventory(inv); closeModal();
+  D.saveInventory(inv);closeModal();
   renderInventoryPage(document.getElementById('content-area'));
 }
 function deletePipe(id){
-  const p=D.pipe(id); if(!p) return;
+  const p=D.pipe(id);if(!p)return;
   if(D.assignedQty(id)>0){toast('Cannot delete — pipes assigned to engineers','err');return}
   confirmDel(`Delete ${p.pipeType} ${p.diameter} (${p.material})?`,()=>{
     D.saveInventory(D.inventory().filter(x=>x.id!==id));
@@ -1048,9 +1137,9 @@ function filterEngTable(){
   const q=(document.getElementById('eng-search')?.value||'').toLowerCase();
   const fs=document.getElementById('eng-f-status')?.value||'';
   const filtered=engs.filter(e=>(!q||(e.name+e.empId+e.location).toLowerCase().includes(q))&&(!fs||e.status===fs));
-  const grid=document.getElementById('eng-grid'); if(!grid)return;
+  const grid=document.getElementById('eng-grid');if(!grid)return;
   grid.innerHTML=filtered.map(e=>{
-    const used=D.engUsed(e.id); const meters=D.engMeters(e.id); const dprs=D.engDprs(e.id).length;
+    const used=D.engUsed(e.id);const meters=D.engMeters(e.id);const dprs=D.engDprs(e.id).length;
     return`<div class="eng-card ${e.status==='active'?'ac':'in'}">
       <div class="flex items-center gap12 mb16" onclick="openEngDetailModal('${e.id}')" style="cursor:pointer">
         <div style="width:46px;height:46px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;color:#fff;flex-shrink:0">${e.name[0]}</div>
@@ -1074,8 +1163,8 @@ function filterEngTable(){
   }).join('')||`<div class="empty" style="grid-column:1/-1"><div class="ei">👷</div><h3>No engineers</h3></div>`;
 }
 function openAddEngModal(editId=null){
-  const e = editId ? D.engineer(editId) : {};
-  if(editId && !e) return toast('Engineer not found','err');
+  const e=editId?D.engineer(editId):{};
+  if(editId&&!e) return toast('Engineer not found','err');
   openModal(editId?'Edit Engineer':'Add Engineer',`
     <div class="fg-row c2">
       <div class="fg"><label>Full Name</label><input id="en-name" value="${e?.name||''}" placeholder="e.g. Akhil Kumar"/></div>
@@ -1114,11 +1203,11 @@ function saveEngineer(editId){
     engs.push({id:uid(),name,empId,phone,location,status,joinDate,notes});
     toast('Engineer added','ok');
   }
-  D.saveEngineers(engs); closeModal();
+  D.saveEngineers(engs);closeModal();
   renderEngineersPage(document.getElementById('content-area'));
 }
 function deleteEngineer(id){
-  const e=D.engineer(id); if(!e) return;
+  const e=D.engineer(id);if(!e)return;
   confirmDel(`Delete engineer "${e.name}"?`,()=>{
     D.saveEngineers(D.engineers().filter(x=>x.id!==id));
     toast('Engineer deleted','ok');
@@ -1126,9 +1215,9 @@ function deleteEngineer(id){
   });
 }
 function openEngDetailModal(id){
-  const e=D.engineer(id); if(!e) return;
-  const used=D.engUsed(id); const meters=D.engMeters(id);
-  const dprs=D.engDprs(id); const asns=D.engAssignments(id);
+  const e=D.engineer(id);if(!e)return;
+  const used=D.engUsed(id);const meters=D.engMeters(id);
+  const dprs=D.engDprs(id);
   openModal(`👷 ${e.name}`,`
     <div class="highlight-box">
       <div class="flex items-center gap12"><div style="width:48px;height:48px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff">${e.name[0]}</div>
@@ -1145,7 +1234,7 @@ function openEngDetailModal(id){
   );
 }
 function exportEngCsv(engId){
-  const e=D.engineer(engId); if(!e) return;
+  const e=D.engineer(engId);if(!e)return;
   const dprs=D.engDprs(engId);
   const rows=[['Date','Pipe Type','Diameter','Pipes Used','Pipes Left','Meters Laid','Joints','Start','End','Fittings','Custom Fields','Notes']];
   dprs.forEach(d=>rows.push([d.date,d.pipeType,d.diameter,d.pipesUsed,d.pipesLeft,d.meterLaid,d.totalJoints,d.startJunction,d.endJunction,(d.fittings||[]).map(f=>`${f.name}:${f.qty}`).join('; '),(d.customFields||[]).map(cf=>`${cf.fieldName}:${cf.value}`).join('; '),d.notes]));
@@ -1171,7 +1260,7 @@ function renderAssignmentsPage(ca){
   <div class="card">
     <div class="card-h"><h3>Assignment Records</h3><span class="badge b-indigo" id="asn-count"></span></div>
     <div class="card-b"><div class="t-wrap">
-      <table><thead><tr><th>#</th><th>Engineer</th><th>Pipe</th><th>Quantity</th><th>Date</th><th>Notes</th><th>Actions</th></tr></thead>
+      <table><thead><tr><th>#</th><th>Engineer</th><th>Pipe</th><th>Assigned</th><th>Used</th><th>Remaining</th><th>Date</th><th>Notes</th><th>Actions</th></tr></thead>
       <tbody id="asn-tbody"></tbody></table>
     </div></div>
   </div>
@@ -1183,14 +1272,17 @@ function filterAsnTable(){
   const q=(document.getElementById('asn-search')?.value||'').toLowerCase();
   const fe=document.getElementById('asn-f-eng')?.value||'';
   const filtered=asns.filter(a=>{
-    const e=D.engineer(a.engineerId); const p=D.pipe(a.pipeId);
+    const e=D.engineer(a.engineerId);const p=D.pipe(a.pipeId);
     const m=`${e?.name||''} ${p?.diameter||''} ${p?.pipeType||''}`.toLowerCase();
     return(!q||m.includes(q))&&(!fe||a.engineerId===fe);
   });
-  const el=document.getElementById('asn-count'); if(el)el.textContent=`${filtered.length} records`;
-  const tbody=document.getElementById('asn-tbody'); if(!tbody)return;
+  const el=document.getElementById('asn-count');if(el)el.textContent=`${filtered.length} records`;
+  const tbody=document.getElementById('asn-tbody');if(!tbody)return;
   tbody.innerHTML=filtered.map((a,i)=>{
-    const e=D.engineer(a.engineerId); const p=D.pipe(a.pipeId);
+    const e=D.engineer(a.engineerId);const p=D.pipe(a.pipeId);
+    const used=D.assignmentUsed(a.id);
+    const remaining=Math.max(0,a.quantity-used);
+    const st=stockStatus(remaining,a.quantity);
     return`<tr>
       <td class="mono" style="color:var(--text3)">${i+1}</td>
       <td><div class="flex items-center gap8">
@@ -1199,6 +1291,8 @@ function filterAsnTable(){
       </div></td>
       <td>${p?`<span class="badge ${p.pipeType==='SAI'?'b-indigo':'b-amber'}">${p.pipeType}</span> ${p.diameter} (${p.material})`:'–'}</td>
       <td class="mono fw7">${a.quantity}</td>
+      <td class="mono" style="color:var(--rose)">${used}</td>
+      <td class="mono"><span style="color:${st.cls==='si-high'?'var(--teal)':st.cls==='si-med'?'var(--amber)':'var(--rose)'};font-weight:700">${remaining}</span></td>
       <td class="mono" style="color:var(--text3)">${fmtDate(a.dateAssigned)}</td>
       <td style="font-size:12px;color:var(--text2)">${a.notes||'–'}</td>
       <td><div class="t-actions">
@@ -1206,11 +1300,11 @@ function filterAsnTable(){
         <button class="btn btn-danger btn-sm btn-icon" onclick="deleteAssignment('${a.id}')" title="Delete">🗑️</button>
       </div></td>
     </tr>`;
-  }).join('')||`<tr><td colspan="7"><div class="empty"><div class="ei">🔗</div><h3>No assignments</h3></div></td></tr>`;
+  }).join('')||`<tr><td colspan="9"><div class="empty"><div class="ei">🔗</div><h3>No assignments</h3></div></td></tr>`;
 }
 function openAssignModal(editId=null){
-  const a = editId ? D.assignments().find(x=>x.id===editId) : {};
-  const inv = D.inventory();
+  const a=editId?D.assignments().find(x=>x.id===editId):{};
+  const inv=D.inventory();
   openModal(editId?'Edit Assignment':'New Assignment',`
     <div class="fg"><label>Engineer</label>
       <select id="as-eng">${D.engineers().map(e=>`<option value="${e.id}" ${a?.engineerId===e.id?'selected':''}>${e.name} (${e.empId})</option>`).join('')}</select>
@@ -1231,10 +1325,10 @@ function openAssignModal(editId=null){
 }
 function openEditAssignModal(id){openAssignModal(id)}
 function updateAvailDisplay(pipeId,editId){
-  const a = editId ? D.assignments().find(x=>x.id===editId) : null;
-  const base = D.availQty(pipeId)+(a&&a.pipeId===pipeId?a.quantity:0);
-  const el = document.getElementById('as-avail-info');
-  if(el) el.textContent = `Available stock: ${base} units`;
+  const a=editId?D.assignments().find(x=>x.id===editId):null;
+  const base=D.availQty(pipeId)+(a&&a.pipeId===pipeId?a.quantity:0);
+  const el=document.getElementById('as-avail-info');
+  if(el) el.textContent=`Available stock: ${base} units`;
 }
 function saveAssignment(editId){
   const engineerId=document.getElementById('as-eng').value;
@@ -1258,10 +1352,12 @@ function saveAssignment(editId){
     asns.push({id:uid(),engineerId,pipeId,quantity,dateAssigned,notes});
     toast('Pipes assigned','ok');
   }
-  D.saveAssignments(asns); closeModal();
+  D.saveAssignments(asns);closeModal();
   renderAssignmentsPage(document.getElementById('content-area'));
 }
 function deleteAssignment(id){
+  const used=D.assignmentUsed(id);
+  if(used>0){toast(`Cannot delete — ${used} pipes already used in DPRs`,'err');return}
   confirmDel('Delete this assignment? Stock will be returned.',()=>{
     D.saveAssignments(D.assignments().filter(a=>a.id!==id));
     toast('Assignment deleted, stock returned','ok');
@@ -1271,7 +1367,7 @@ function deleteAssignment(id){
 }
 
 // ══════════════════════════════════════════════
-//  DPR SYSTEM (ADMIN)
+//  DPR SYSTEM — IMPROVED WITH PIPE LINKING
 // ══════════════════════════════════════════════
 function renderAllDprsPage(ca){
   ca.innerHTML=`<div class="pg on">
@@ -1312,8 +1408,8 @@ function filterDprTable(){
     const m=`${e?.name||''} ${d.pipeType} ${d.diameter}`.toLowerCase();
     return(!q||m.includes(q))&&(!fe||d.engineerId===fe)&&(!fm||d.date.startsWith(fm))&&(!ft||d.pipeType===ft);
   }).sort((a,b)=>b.date.localeCompare(a.date));
-  const el=document.getElementById('dpr-count'); if(el)el.textContent=`${filtered.length} records`;
-  const tbody=document.getElementById('dpr-tbody'); if(!tbody)return;
+  const el=document.getElementById('dpr-count');if(el)el.textContent=`${filtered.length} records`;
+  const tbody=document.getElementById('dpr-tbody');if(!tbody)return;
   tbody.innerHTML=filtered.map((d,i)=>{
     const e=D.engineer(d.engineerId);
     return`<tr>
@@ -1340,14 +1436,14 @@ function filterDprTable(){
 }
 
 function viewDprDetail(id){
-  const d=D.dprs().find(x=>x.id===id); if(!d) return;
+  const d=D.dprs().find(x=>x.id===id);if(!d)return;
   const e=D.engineer(d.engineerId);
-  const fittingsHtml = d.fittings&&d.fittings.length
-    ? d.fittings.map(f=>`<div class="flex justify-between" style="padding:5px 0;border-bottom:1px solid var(--border)"><span>${f.name}</span><span class="badge b-indigo">${f.qty}</span></div>`).join('')
-    : '<div style="color:var(--text3);font-size:12px">No fittings</div>';
-  const customHtml = d.customFields&&d.customFields.length
-    ? d.customFields.map(cf=>`<div class="flex justify-between" style="padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">${cf.fieldName}</span><span style="font-weight:600">${cf.value}</span></div>`).join('')
-    : '<div style="color:var(--text3);font-size:12px">No custom fields</div>';
+  const fittingsHtml=d.fittings&&d.fittings.length
+    ?d.fittings.map(f=>`<div class="flex justify-between" style="padding:5px 0;border-bottom:1px solid var(--border)"><span>${f.name}</span><span class="badge b-indigo">${f.qty}</span></div>`).join('')
+    :'<div style="color:var(--text3);font-size:12px">No fittings</div>';
+  const customHtml=d.customFields&&d.customFields.length
+    ?d.customFields.map(cf=>`<div class="flex justify-between" style="padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">${cf.fieldName}</span><span style="font-weight:600">${cf.value}</span></div>`).join('')
+    :'<div style="color:var(--text3);font-size:12px">No custom fields</div>';
   openModal(`DPR: ${fmtDate(d.date)}`,`
     <div class="highlight-box mb16">
       <div class="flex items-center gap12 mb12">
@@ -1360,9 +1456,9 @@ function viewDprDetail(id){
       ${ddetail('Pipes Used',d.pipesUsed,'var(--rose)')}${ddetail('Pipes Left',d.pipesLeft,'var(--teal)')}${ddetail('Meters',d.meterLaid+'m','var(--sky)')}${ddetail('Joints',d.totalJoints,'var(--amber2)')}
     </div>
     <div class="flex gap12 mb16">
-      <div class="highlight-box" style="flex:1;text-align:center"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">START</div><div style="font-weight:700">${d.startJunction||'–'}</div></div>
-      <div style="align-self:center;color:var(--text3)">→</div>
-      <div class="highlight-box" style="flex:1;text-align:center"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">END</div><div style="font-weight:700">${d.endJunction||'–'}</div></div>
+      <div class="highlight-box" style="flex:1;text-align:center"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">START JUNCTION</div><div style="font-weight:700;font-size:16px">${d.startJunction||'–'}</div></div>
+      <div style="align-self:center;color:var(--text3);font-size:20px">→</div>
+      <div class="highlight-box" style="flex:1;text-align:center"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">END JUNCTION</div><div style="font-weight:700;font-size:16px">${d.endJunction||'–'}</div></div>
     </div>
     <div class="g2"><div><h4 style="font-family:var(--font-h);font-size:13px;margin-bottom:8px">🔧 Fittings</h4>${fittingsHtml}</div>
     <div><h4 style="font-family:var(--font-h);font-size:13px;margin-bottom:8px">🏷️ Custom Fields</h4>${customHtml}</div></div>
@@ -1372,83 +1468,237 @@ function viewDprDetail(id){
   );
 }
 
-// DPR FORM
-function buildDprForm(dpr=null, engId=null, engLocked=false){
-  const e=dpr||{};
-  const engOptions = engLocked && engId
-    ? `<option value="${engId}" selected>${D.engineer(engId)?.name||''}</option>`
-    : D.engineers().map(en=>`<option value="${en.id}" ${e.engineerId===en.id?'selected':''}>${en.name}</option>`).join('');
-  const fittingsDefaults=['Bend','Tee','Valve','Reducer'];
-  const existFittings=e.fittings||[];
-  const existCustom=e.customFields||[];
-  return`
-    <div class="fg-row c2">
-      <div class="fg"><label>Engineer</label><select id="df-eng" ${engLocked?'disabled':''}>${engOptions}</select></div>
-      <div class="fg"><label>Date</label><input type="date" id="df-date" value="${e.date||today()}"/></div>
-    </div>
-    <div class="fg-row c2">
-      <div class="fg"><label>Pipe Type</label><select id="df-ptype"><option ${e.pipeType==='SAI'?'selected':''}>SAI</option><option ${e.pipeType==='SUEZ'?'selected':''}>SUEZ</option></select></div>
-      <div class="fg"><label>Diameter</label><select id="df-diam">
-        ${['80mm','100mm','110mm','150mm','200mm','250mm','315mm'].map(d=>`<option ${e.diameter===d?'selected':''}>${d}</option>`).join('')}
-      </select></div>
-    </div>
-    <div class="fg-row c4">
-      <div class="fg"><label>Pipes Used</label><input type="number" id="df-used" min="0" value="${e.pipesUsed||''}" placeholder="0"/></div>
-      <div class="fg"><label>Pipes Left</label><input type="number" id="df-left" min="0" value="${e.pipesLeft||''}" placeholder="0"/></div>
-      <div class="fg"><label>Meter Laid</label><input type="number" id="df-meters" min="0" step="0.1" value="${e.meterLaid||''}" placeholder="0.0"/></div>
-      <div class="fg"><label>Total Joints</label><input type="number" id="df-joints" min="0" value="${e.totalJoints||''}" placeholder="0"/></div>
-    </div>
-    <div class="fg-row c2">
-      <div class="fg"><label>Start Junction</label><input id="df-sj" value="${e.startJunction||''}" placeholder="e.g. A1"/></div>
-      <div class="fg"><label>End Junction</label><input id="df-ej" value="${e.endJunction||''}" placeholder="e.g. A2"/></div>
-    </div>
-    <hr class="section-divider"/>
-    <div style="font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:10px">🔧 Fittings</div>
-    <div id="fittings-list">
-      ${fittingsDefaults.map(name=>{const ex=existFittings.find(f=>f.name===name);return`<div class="fitting-row"><input value="${name}" readonly style="background:var(--surface3);cursor:default"/><input type="number" id="fit-${name.toLowerCase()}" min="0" value="${ex?ex.qty:''}" placeholder="Qty"/><span></span></div>`}).join('')}
-      ${existFittings.filter(f=>!fittingsDefaults.includes(f.name)).map((f,i)=>customFittingRow(i,f.name,f.qty)).join('')}
-    </div>
-    <button class="btn btn-ghost btn-sm mt8" onclick="addCustomFittingRow()" type="button">+ Add Fitting</button>
-    <hr class="section-divider"/>
-    <div style="font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:10px">🏷️ Custom Fields</div>
-    <div id="custom-fields-list">
-      ${existCustom.map((cf,i)=>customFieldRow(i,cf.fieldName,cf.fieldType,cf.value)).join('')}
-    </div>
-    <button class="btn btn-ghost btn-sm mt8" onclick="addCustomFieldRow()" type="button">+ Add Custom Field</button>
-    <div class="fg mt16"><label>Notes</label><textarea id="df-notes">${e.notes||''}</textarea></div>`;
+// ── FITTINGS SYSTEM (IMPROVED) ─────────────────
+// Standard fittings with dropdown + qty
+const STD_FITTINGS=['Bend','Tee','Valve','Reducer','Coupler','Other'];
+let fittingRowCounter=0;
+
+function buildFittingsSection(existFittings=[]){
+  fittingRowCounter=0;
+  // Build default rows for standard fittings that already have values
+  // Plus allow adding extra rows
+  const existMap={};
+  existFittings.forEach(f=>{existMap[f.name]=(existMap[f.name]||0)+f.qty});
+  // Show all std fittings as rows
+  const stdRows=STD_FITTINGS.map(name=>{
+    fittingRowCounter++;
+    const rId=fittingRowCounter;
+    const qty=existMap[name]||'';
+    return`<div class="fitting-row" id="frow-${rId}">
+      <select id="fn-${rId}" style="background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);padding:10px 13px;color:var(--text0);font-size:13.5px">
+        ${STD_FITTINGS.map(s=>`<option ${s===name?'selected':''}>${s}</option>`).join('')}
+      </select>
+      <div style="font-size:11px;color:var(--text3);align-self:center">Qty:</div>
+      <input type="number" id="fq-${rId}" min="0" value="${qty}" placeholder="0" style="background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);padding:10px 13px;color:var(--text0);font-size:13.5px;width:100%"/>
+      <button type="button" class="del-row-btn" onclick="removeFittingRow(${rId})">✕</button>
+    </div>`;
+  }).join('');
+  // Non-standard fittings as extra rows
+  const extraRows=existFittings.filter(f=>!STD_FITTINGS.includes(f.name)).map(f=>{
+    fittingRowCounter++;
+    const rId=fittingRowCounter;
+    return`<div class="fitting-row" id="frow-${rId}">
+      <select id="fn-${rId}" style="background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);padding:10px 13px;color:var(--text0);font-size:13.5px">
+        ${STD_FITTINGS.map(s=>`<option ${s===f.name?'selected':''}>${s}</option>`).join('')}
+      </select>
+      <div style="font-size:11px;color:var(--text3);align-self:center">Qty:</div>
+      <input type="number" id="fq-${rId}" min="0" value="${f.qty}" placeholder="0" style="background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);padding:10px 13px;color:var(--text0);font-size:13.5px;width:100%"/>
+      <button type="button" class="del-row-btn" onclick="removeFittingRow(${rId})">✕</button>
+    </div>`;
+  }).join('');
+  return`<div id="fittings-list">${stdRows}${extraRows}</div>
+  <button type="button" class="btn btn-ghost btn-sm mt8" onclick="addFittingRow()">+ Add Fitting</button>`;
 }
 
-function customFittingRow(idx,name='',qty=''){
-  fitRowCount++;
-  const rowId=fitRowCount;
-  return`<div class="fitting-row" id="fr-${rowId}">
-    <input value="${name}" id="fn-${rowId}" placeholder="Fitting name"/>
-    <input type="number" id="fq-${rowId}" min="0" value="${qty}" placeholder="Qty"/>
-    <button type="button" class="del-row-btn" onclick="document.getElementById('fr-${rowId}').remove()">✕</button>
+function addFittingRow(){
+  fittingRowCounter++;
+  const rId=fittingRowCounter;
+  const html=`<div class="fitting-row" id="frow-${rId}">
+    <select id="fn-${rId}" style="background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);padding:10px 13px;color:var(--text0);font-size:13.5px">
+      ${STD_FITTINGS.map(s=>`<option>${s}</option>`).join('')}
+    </select>
+    <div style="font-size:11px;color:var(--text3);align-self:center">Qty:</div>
+    <input type="number" id="fq-${rId}" min="0" value="" placeholder="0" style="background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);padding:10px 13px;color:var(--text0);font-size:13.5px;width:100%"/>
+    <button type="button" class="del-row-btn" onclick="removeFittingRow(${rId})">✕</button>
   </div>`;
+  document.getElementById('fittings-list').insertAdjacentHTML('beforeend',html);
 }
-function addCustomFittingRow(){
-  document.getElementById('fittings-list').insertAdjacentHTML('beforeend',customFittingRow(fitRowCount));
+
+function removeFittingRow(rId){
+  const el=document.getElementById(`frow-${rId}`);
+  if(el) el.remove();
 }
-function customFieldRow(idx,name='',type='text',value=''){
+
+function collectFittings(){
+  const fittings=[];
+  const list=document.getElementById('fittings-list');
+  if(!list) return fittings;
+  list.querySelectorAll('[id^="fn-"]').forEach(sel=>{
+    const rId=sel.id.slice(3);
+    const name=sel.value;
+    const qty=parseInt(document.getElementById(`fq-${rId}`)?.value||0)||0;
+    if(qty>0) fittings.push({name,qty});
+  });
+  return fittings;
+}
+
+// ── CUSTOM FIELDS ──────────────────────────────
+function buildCustomFieldsSection(existCustom=[]){
+  cfRowCount=0;
+  return`<div id="custom-fields-list">
+    ${existCustom.map(cf=>customFieldRow(cf.fieldName,cf.fieldType,cf.value)).join('')}
+  </div>
+  <button type="button" class="btn btn-ghost btn-sm mt8" onclick="addCustomFieldRow()">+ Add Custom Field</button>`;
+}
+function customFieldRow(name='',type='text',value=''){
   cfRowCount++;
-  const rowId=cfRowCount;
-  return`<div class="custom-field-row" id="cfr-${rowId}">
-    <input id="cfn-${rowId}" value="${name}" placeholder="Field name"/>
-    <select id="cft-${rowId}"><option value="text" ${type==='text'?'selected':''}>Text</option><option value="number" ${type==='number'?'selected':''}>Number</option></select>
-    <input id="cfv-${rowId}" value="${value}" placeholder="Value"/>
-    <button type="button" class="del-row-btn" onclick="document.getElementById('cfr-${rowId}').remove()">✕</button>
+  const rId=cfRowCount;
+  return`<div class="custom-field-row" id="cfr-${rId}">
+    <input id="cfn-${rId}" value="${name}" placeholder="Field name" style="background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);padding:10px 13px;color:var(--text0);font-size:13.5px;width:100%"/>
+    <select id="cft-${rId}" style="background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);padding:10px 13px;color:var(--text0);font-size:13.5px"><option value="text" ${type==='text'?'selected':''}>Text</option><option value="number" ${type==='number'?'selected':''}>Number</option></select>
+    <input id="cfv-${rId}" value="${value}" placeholder="Value" style="background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:var(--r10);padding:10px 13px;color:var(--text0);font-size:13.5px;width:100%"/>
+    <button type="button" class="del-row-btn" onclick="document.getElementById('cfr-${rId}').remove()">✕</button>
   </div>`;
 }
 function addCustomFieldRow(){
-  document.getElementById('custom-fields-list').insertAdjacentHTML('beforeend',customFieldRow(cfRowCount));
+  document.getElementById('custom-fields-list').insertAdjacentHTML('beforeend',customFieldRow());
+}
+function collectCustomFields(){
+  const cfs=[];
+  document.querySelectorAll('[id^="cfn-"]').forEach(el=>{
+    const rId=el.id.slice(4);
+    const fieldName=el.value.trim();
+    const fieldType=document.getElementById(`cft-${rId}`)?.value||'text';
+    const value=document.getElementById(`cfv-${rId}`)?.value.trim()||'';
+    if(fieldName) cfs.push({fieldName,fieldType,value});
+  });
+  return cfs;
+}
+
+// ── DPR FORM BUILDER (ADMIN - any engineer) ───
+function buildDprForm(dpr=null, engId=null, engLocked=false){
+  const e=dpr||{};
+  const engOptions=engLocked&&engId
+    ?`<option value="${engId}" selected>${D.engineer(engId)?.name||''}</option>`
+    :D.engineers().map(en=>`<option value="${en.id}" ${e.engineerId===en.id?'selected':''}>${en.name}</option>`).join('');
+
+  // For admin form, show full manual entry + pipe assignment dropdown
+  const assignmentDropdown=engId
+    ?buildAssignmentDropdown(engId, e.assignmentId||'', true)
+    :`<div class="fg"><label>Assignment (select engineer first)</label>
+       <select id="df-asn" disabled><option>Select engineer above first</option></select>
+      </div>`;
+
+  return`
+    <div class="fg-row c2">
+      <div class="fg"><label>Engineer</label>
+        <select id="df-eng" ${engLocked?'disabled':''} onchange="onDprEngChange(this.value)">${engOptions}</select>
+      </div>
+      <div class="fg"><label>Date</label><input type="date" id="df-date" value="${e.date||today()}"/></div>
+    </div>
+    <div id="df-asn-wrap">
+      ${buildAssignmentDropdown(engId||(e.engineerId||''), e.assignmentId||'')}
+    </div>
+    <div id="df-pipe-info" class="pipe-sel-card" style="display:${e.assignmentId?'block':'none'}">
+      <div class="flex justify-between items-center mb8">
+        <span style="font-size:12px;font-weight:600;color:var(--text2)">SELECTED PIPE</span>
+        <span id="df-pipe-badge" class="badge b-indigo"></span>
+      </div>
+      <div id="df-avail-info" class="avail-info">📊 Select a pipe assignment to see availability</div>
+    </div>
+    <div class="fg-row c4">
+      <div class="fg"><label>Pipes Used</label><input type="number" id="df-used" min="0" value="${e.pipesUsed||''}" placeholder="0" oninput="updatePipesLeft()"/></div>
+      <div class="fg"><label>Pipes Left <span style="font-size:9px;color:var(--text3)">(auto)</span></label><input type="number" id="df-left" min="0" value="${e.pipesLeft||''}" placeholder="0" readonly style="opacity:.7;cursor:default"/></div>
+      <div class="fg"><label>Meter Laid</label><input type="number" id="df-meters" min="0" step="0.1" value="${e.meterLaid||''}" placeholder="0.0"/></div>
+      <div class="fg"><label>Total Joints</label><input type="number" id="df-joints" min="0" value="${e.totalJoints||''}" placeholder="0"/></div>
+    </div>
+    <hr class="section-divider"/>
+    <div style="font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text1)">📍 Pipe Laid Route <span style="color:var(--rose);font-size:11px">*required</span></div>
+    <div class="fg-row c2">
+      <div class="fg"><label>Start Junction</label><input id="df-sj" value="${e.startJunction||''}" placeholder="e.g. A1 or MH-01"/></div>
+      <div class="fg"><label>End Junction</label><input id="df-ej" value="${e.endJunction||''}" placeholder="e.g. A2 or MH-02"/></div>
+    </div>
+    <hr class="section-divider"/>
+    <div style="font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:10px">🔧 Fittings Used</div>
+    ${buildFittingsSection(e.fittings||[])}
+    <hr class="section-divider"/>
+    <div style="font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:10px">🏷️ Custom Fields</div>
+    ${buildCustomFieldsSection(e.customFields||[])}
+    <div class="fg mt16"><label>Notes</label><textarea id="df-notes">${e.notes||''}</textarea></div>`;
+}
+
+function buildAssignmentDropdown(engId, selectedAsnId='', returnHtml=false){
+  const asns=engId?D.engActiveAssignments(engId):[];
+  const html=`<div class="fg"><label>Assigned Pipe <span style="color:var(--rose);font-size:9px">*required</span></label>
+    <select id="df-asn" onchange="onDprAsnChange(this.value)">
+      <option value="">— Select Assigned Pipe —</option>
+      ${asns.map(a=>`<option value="${a.id}" ${a.id===selectedAsnId?'selected':''}>${a.pipe.pipeType} ${a.pipe.diameter} (${a.pipe.material}) — ${a.remaining} remaining of ${a.quantity}</option>`).join('')}
+    </select>
+  </div>`;
+  if(returnHtml) return html;
+  const wrap=document.getElementById('df-asn-wrap');
+  if(wrap) wrap.innerHTML=html;
+  if(selectedAsnId) setTimeout(()=>onDprAsnChange(selectedAsnId),50);
+}
+
+function onDprEngChange(engId){
+  buildAssignmentDropdown(engId,'');
+  document.getElementById('df-pipe-info').style.display='none';
+  const leftEl=document.getElementById('df-left');
+  if(leftEl) leftEl.value='';
+}
+
+function onDprAsnChange(asnId){
+  const infoBox=document.getElementById('df-pipe-info');
+  const availInfo=document.getElementById('df-avail-info');
+  const badge=document.getElementById('df-pipe-badge');
+  if(!asnId){
+    if(infoBox) infoBox.style.display='none';
+    return;
+  }
+  const a=D.engActiveAssignments(null).find(x=>x.id===asnId)||
+    D.assignments().map(a=>{
+      const p=D.pipe(a.pipeId);const used=D.assignmentUsed(a.id);const remaining=Math.max(0,a.quantity-used);
+      return{...a,pipe:p,used,remaining};
+    }).find(x=>x.id===asnId);
+  if(!a||!a.pipe){
+    if(infoBox) infoBox.style.display='none';
+    return;
+  }
+  if(infoBox) infoBox.style.display='block';
+  if(badge) badge.textContent=`${a.pipe.pipeType} ${a.pipe.diameter}`;
+  if(availInfo){
+    const cls=a.remaining<20?'danger':a.remaining<50?'warn':'';
+    availInfo.className=`avail-info${cls?' '+cls:''}`;
+    availInfo.textContent=`📦 Assigned: ${a.quantity} | Used: ${a.used} | Remaining: ${a.remaining} pipes`;
+  }
+  updatePipesLeft();
+}
+
+function updatePipesLeft(){
+  const asnId=document.getElementById('df-asn')?.value;
+  const usedVal=parseInt(document.getElementById('df-used')?.value)||0;
+  const leftEl=document.getElementById('df-left');
+  if(!leftEl) return;
+  if(!asnId){leftEl.value='';return}
+  const a=D.assignments().find(x=>x.id===asnId);
+  if(!a){leftEl.value='';return}
+  const used=D.assignmentUsed(asnId);
+  const remaining=Math.max(0,a.quantity-used);
+  leftEl.value=Math.max(0,remaining-usedVal);
 }
 
 function collectDprData(engOverride=null){
-  const engineerId = engOverride || document.getElementById('df-eng')?.value;
+  const engineerId=engOverride||document.getElementById('df-eng')?.value;
+  const assignmentId=document.getElementById('df-asn')?.value||'';
   const date=document.getElementById('df-date')?.value||'';
-  const pipeType=document.getElementById('df-ptype')?.value||'SAI';
-  const diameter=document.getElementById('df-diam')?.value||'';
+  // Get pipe info from assignment
+  let pipeType='',diameter='';
+  if(assignmentId){
+    const a=D.assignment(assignmentId);
+    const p=a?D.pipe(a.pipeId):null;
+    if(p){pipeType=p.pipeType;diameter=p.diameter}
+  }
   const pipesUsed=parseInt(document.getElementById('df-used')?.value)||0;
   const pipesLeft=parseInt(document.getElementById('df-left')?.value)||0;
   const meterLaid=parseFloat(document.getElementById('df-meters')?.value)||0;
@@ -1456,39 +1706,20 @@ function collectDprData(engOverride=null){
   const startJunction=document.getElementById('df-sj')?.value.trim()||'';
   const endJunction=document.getElementById('df-ej')?.value.trim()||'';
   const notes=document.getElementById('df-notes')?.value.trim()||'';
-  // Fittings
-  const fittings=[];
-  ['Bend','Tee','Valve','Reducer'].forEach(name=>{
-    const el=document.getElementById(`fit-${name.toLowerCase()}`);
-    const qty=parseInt(el?.value||0)||0;
-    if(qty>0) fittings.push({name,qty});
-  });
-  document.querySelectorAll('[id^="fn-"]').forEach(el=>{
-    const rowId=el.id.slice(3);
-    const name=el.value.trim();
-    const qty=parseInt(document.getElementById(`fq-${rowId}`)?.value||0)||0;
-    if(name&&qty>0) fittings.push({name,qty});
-  });
-  // Custom fields
-  const customFields=[];
-  document.querySelectorAll('[id^="cfn-"]').forEach(el=>{
-    const rowId=el.id.slice(4);
-    const fieldName=el.value.trim();
-    const fieldType=document.getElementById(`cft-${rowId}`)?.value||'text';
-    const value=document.getElementById(`cfv-${rowId}`)?.value.trim()||'';
-    if(fieldName) customFields.push({fieldName,fieldType,value});
-  });
-  return{engineerId,date,pipeType,diameter,pipesUsed,pipesLeft,meterLaid,totalJoints,startJunction,endJunction,fittings,customFields,notes};
+  const fittings=collectFittings();
+  const customFields=collectCustomFields();
+  return{engineerId,assignmentId,date,pipeType,diameter,pipesUsed,pipesLeft,meterLaid,totalJoints,startJunction,endJunction,fittings,customFields,notes};
 }
 
 function openAdminDprModal(editId=null){
-  const d = editId ? D.dprs().find(x=>x.id===editId) : null;
-  fitRowCount=4; cfRowCount=0;
-  openModal(editId?'Edit DPR':'Add DPR', buildDprForm(d),
+  const d=editId?D.dprs().find(x=>x.id===editId):null;
+  fittingRowCounter=0;cfRowCount=0;
+  openModal(editId?'Edit DPR':'Add DPR',buildDprForm(d),
     `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
      <button class="btn btn-pri" onclick="saveDprAdmin('${editId||''}')">💾 Save DPR</button>`,
     {wide:true}
   );
+  if(d?.engineerId) setTimeout(()=>onDprAsnChange(d.assignmentId||''),100);
 }
 function openEditDprModal(id){openAdminDprModal(id)}
 function saveDprAdmin(editId){
@@ -1496,37 +1727,59 @@ function saveDprAdmin(editId){
   if(!data.engineerId) return toast('Select engineer','err');
   saveDprCore(data,editId);
 }
-function saveDprCore(data, editId=null){
+
+function saveDprCore(data,editId=null){
   if(!data.date) return toast('Select date','err');
-  if(!data.pipeType) return toast('Select pipe type','err');
-  if(!data.diameter) return toast('Select diameter','err');
-  if(data.pipesUsed<0||data.pipesLeft<0||data.meterLaid<0) return toast('No negative values allowed','err');
+  if(!data.assignmentId) return toast('Select an assigned pipe','err');
+  if(!data.startJunction) return toast('Enter Start Junction','err');
+  if(!data.endJunction) return toast('Enter End Junction','err');
+  if(data.pipesUsed<0||data.meterLaid<0) return toast('No negative values allowed','err');
+  if(data.pipesUsed===0) return toast('Pipes used cannot be 0','err');
+  // Validate against assignment remaining
+  const a=D.assignment(data.assignmentId);
+  if(!a) return toast('Assignment not found','err');
+  const prevUsedByThisDpr=editId?D.dprs().find(d=>d.id===editId)?.pipesUsed||0:0;
+  const currentUsed=D.assignmentUsed(data.assignmentId)-prevUsedByThisDpr;
+  const available=a.quantity-currentUsed;
+  if(data.pipesUsed>available){
+    toast(`Only ${available} pipes remaining in this assignment`,'err');
+    return;
+  }
   const dprs=D.dprs();
   if(editId){
     const idx=dprs.findIndex(d=>d.id===editId);
     if(idx!==-1) dprs[idx]={...dprs[idx],...data};
-    toast('DPR updated','ok');
+    toast('DPR updated ✔','ok');
   } else {
     dprs.push({id:uid(),...data});
-    toast('DPR submitted successfully','ok');
+    toast('DPR submitted successfully ✔','ok');
   }
-  D.saveDprs(dprs); closeModal();
-  if(currentPage==='pg-dprs') renderAllDprsPage(document.getElementById('content-area'));
-  else if(currentPage==='eng-dpr') renderEngDprForm(document.getElementById('content-area'));
-  else if(currentPage==='dash-eng') renderEngDash(document.getElementById('content-area'));
+  D.saveDprs(dprs);
+  closeModal();
+  // Real-time sync: refresh current page
+  const ca=document.getElementById('content-area');
+  if(currentPage==='pg-dprs') renderAllDprsPage(ca);
+  else if(currentPage==='eng-dpr') renderEngDprForm(ca);
+  else if(currentPage==='dash-eng') renderEngDash(ca);
+  else if(currentPage==='dash-admin') renderAdminDash(ca);
+  else if(currentPage==='eng-pipes') renderEngPipes(ca);
+  else if(currentPage==='eng-reports') renderEngReportsPage(ca);
+  else if(currentPage==='pg-assignments') renderAssignmentsPage(ca);
   checkLowStock();
 }
+
 function deleteDpr(id){
-  confirmDel('Delete this DPR record?',()=>{
+  confirmDel('Delete this DPR record? Usage will be reversed.',()=>{
     D.saveDprs(D.dprs().filter(d=>d.id!==id));
     toast('DPR deleted','ok');
     filterDprTable();
+    checkLowStock();
   });
 }
 function exportDprsCsv(){
   const dprs=D.dprs();
-  const rows=[['Date','Engineer','Pipe Type','Diameter','Pipes Used','Pipes Left','Meters Laid','Joints','Start','End','Fittings','Custom Fields','Notes']];
-  dprs.forEach(d=>{const e=D.engineer(d.engineerId);rows.push([d.date,e?.name||'',d.pipeType,d.diameter,d.pipesUsed,d.pipesLeft,d.meterLaid,d.totalJoints,d.startJunction,d.endJunction,(d.fittings||[]).map(f=>`${f.name}:${f.qty}`).join('; '),(d.customFields||[]).map(cf=>`${cf.fieldName}:${cf.value}`).join('; '),d.notes])});
+  const rows=[['Date','Engineer','Pipe Type','Diameter','Assignment ID','Pipes Used','Pipes Left','Meters Laid','Joints','Start Junction','End Junction','Fittings','Custom Fields','Notes']];
+  dprs.forEach(d=>{const e=D.engineer(d.engineerId);rows.push([d.date,e?.name||'',d.pipeType,d.diameter,d.assignmentId,d.pipesUsed,d.pipesLeft,d.meterLaid,d.totalJoints,d.startJunction,d.endJunction,(d.fittings||[]).map(f=>`${f.name}:${f.qty}`).join('; '),(d.customFields||[]).map(cf=>`${cf.fieldName}:${cf.value}`).join('; '),d.notes])});
   downloadCsv(rows,'sef_dprs.csv');
 }
 
@@ -1534,7 +1787,8 @@ function exportDprsCsv(){
 //  TARGETS
 // ══════════════════════════════════════════════
 function renderTargetsPage(ca){
-  const targets=D.targets(); const engs=D.engineers(); const dprs=D.dprs();
+  const targets=D.targets();const engs=D.engineers();const dprs=D.dprs();
+  const mth=thisMonth();
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head-row pg-head">
     <div><h2>🎯 Targets</h2><p>Monthly performance targets</p></div>
@@ -1542,7 +1796,6 @@ function renderTargetsPage(ca){
   </div>
   <div class="g-auto" id="targets-grid"></div>
   </div>`;
-  const mth=thisMonth();
   document.getElementById('targets-grid').innerHTML=engs.map(e=>{
     const tgt=targets.find(t=>t.engineerId===e.id&&t.month===mth)||{targetMeters:0,targetPipes:0};
     const mthDprs=dprs.filter(d=>d.engineerId===e.id&&d.date.startsWith(mth));
@@ -1568,7 +1821,7 @@ function renderTargetsPage(ca){
   }).join('')||`<div class="empty" style="grid-column:1/-1"><div class="ei">🎯</div><h3>No engineers</h3></div>`;
 }
 function openTargetModal(engId=null){
-  const mth=thisMonth(); const engs=D.engineers();
+  const mth=thisMonth();const engs=D.engineers();
   const tgt=engId?D.targets().find(t=>t.engineerId===engId&&t.month===mth):null;
   openModal('Set Monthly Target',`
     <div class="fg"><label>Engineer</label>
@@ -1593,7 +1846,7 @@ function saveTarget(){
   const idx=targets.findIndex(t=>t.engineerId===engineerId&&t.month===month);
   if(idx!==-1) targets[idx]={...targets[idx],targetMeters,targetPipes};
   else targets.push({id:uid(),engineerId,month,targetMeters,targetPipes});
-  D.saveTargets(targets); toast('Target saved','ok'); closeModal();
+  D.saveTargets(targets);toast('Target saved','ok');closeModal();
   renderTargetsPage(document.getElementById('content-area'));
 }
 
@@ -1646,33 +1899,33 @@ function renderReportsPage(ca){
 function exportMonthlyReport(){
   const mth=thisMonth();
   const dprs=D.dprs().filter(d=>d.date.startsWith(mth));
-  const rows=[['Date','Engineer','Pipe Type','Diameter','Pipes Used','Pipes Left','Meters Laid','Joints','Start','End','Fittings','Custom Fields','Notes']];
-  dprs.forEach(d=>{const e=D.engineer(d.engineerId);rows.push([d.date,e?.name||'',d.pipeType,d.diameter,d.pipesUsed,d.pipesLeft,d.meterLaid,d.totalJoints,d.startJunction,d.endJunction,(d.fittings||[]).map(f=>`${f.name}:${f.qty}`).join('; '),(d.customFields||[]).map(cf=>`${cf.fieldName}:${cf.value}`).join('; '),d.notes])});
+  const rows=[['Date','Engineer','Pipe Type','Diameter','Assignment ID','Pipes Used','Pipes Left','Meters Laid','Joints','Start','End','Fittings','Custom Fields','Notes']];
+  dprs.forEach(d=>{const e=D.engineer(d.engineerId);rows.push([d.date,e?.name||'',d.pipeType,d.diameter,d.assignmentId,d.pipesUsed,d.pipesLeft,d.meterLaid,d.totalJoints,d.startJunction,d.endJunction,(d.fittings||[]).map(f=>`${f.name}:${f.qty}`).join('; '),(d.customFields||[]).map(cf=>`${cf.fieldName}:${cf.value}`).join('; '),d.notes])});
   downloadCsv(rows,`sef_monthly_${mth}.csv`);
 }
 
 // ══════════════════════════════════════════════
-//  ENGINEER PORTAL — uses selectedEngineerId
+//  ENGINEER PORTAL
 // ══════════════════════════════════════════════
 function getMyEngineer(){
   if(selectedEngineerId){
-    const eng = D.engineer(selectedEngineerId);
+    const eng=D.engineer(selectedEngineerId);
     if(eng) return eng;
   }
-  // Fallback
-  return D.engineers().find(e=>e.status==='active') || D.engineers()[0] || null;
+  return D.engineers().find(e=>e.status==='active')||D.engineers()[0]||null;
 }
 
 function renderEngDash(ca){
-  const me = getMyEngineer();
+  const me=getMyEngineer();
   if(!me){ca.innerHTML='<div class="empty" style="margin-top:60px"><div class="ei">⚠️</div><h3>No engineer profile</h3><p>Contact your admin</p></div>';return}
-  const asns=D.engAssignments(me.id); const dprs=D.engDprs(me.id);
-  const mth=thisMonth(); const mthDprs=dprs.filter(d=>d.date.startsWith(mth));
-  const used=D.engUsed(me.id); const meters=D.engMeters(me.id);
+  const asns=D.engAssignments(me.id);const dprs=D.engDprs(me.id);
+  const mth=thisMonth();const mthDprs=dprs.filter(d=>d.date.startsWith(mth));
+  const used=D.engUsed(me.id);const meters=D.engMeters(me.id);
   const mUsed=mthDprs.reduce((s,d)=>s+d.pipesUsed,0);
   const mMeters=mthDprs.reduce((s,d)=>s+d.meterLaid,0);
   const tgt=D.targets().find(t=>t.engineerId===me.id&&t.month===mth)||{targetMeters:0,targetPipes:0};
   const mPct=tgt.targetMeters?Math.min(100,Math.round(mMeters/tgt.targetMeters*100)):0;
+  const activeAsns=D.engActiveAssignments(me.id).filter(a=>a.remaining>0);
 
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head"><h2>${greeting()}, ${me.name} 👷</h2>
@@ -1699,8 +1952,20 @@ function renderEngDash(ca){
       </div>
     </div>
     <div class="card">
-      <div class="card-h"><h3>📦 My Assigned Pipes</h3></div>
-      <div class="card-b" id="eng-my-pipes-mini"></div>
+      <div class="card-h"><h3>📦 My Assigned Pipes</h3><span class="badge b-indigo">${activeAsns.length} active</span></div>
+      <div class="card-b">
+        ${activeAsns.length?activeAsns.map(a=>{
+          const st=stockStatus(a.remaining,a.quantity);
+          return`<div class="mb12">
+            <div class="flex justify-between mb8">
+              <span style="font-weight:600;font-size:13px">${a.pipe.pipeType} ${a.pipe.diameter}</span>
+              <span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${a.remaining} left</span>
+            </div>
+            <div class="prog-wrap"><div class="prog-bar ${st.prog}" style="width:${a.quantity>0?Math.round(a.remaining/a.quantity*100):0}%"></div></div>
+            <div style="font-size:10px;color:var(--text3);margin-top:3px">Assigned: ${a.quantity} | Used: ${a.used}</div>
+          </div>`;
+        }).join(''):'<div class="empty" style="padding:20px"><div class="ei" style="font-size:32px">🔧</div><p>No pipes assigned</p></div>'}
+      </div>
     </div>
   </div>
   <div class="card">
@@ -1719,75 +1984,199 @@ function renderEngDash(ca){
     </div></div>
   </div>
   </div>`;
-  // Pipes mini
-  const pipesMini=document.getElementById('eng-my-pipes-mini');
-  if(pipesMini){
-    pipesMini.innerHTML=asns.map(a=>{
-      const p=D.pipe(a.pipeId); if(!p) return '';
-      const used2=dprs.filter(d=>d.diameter===p.diameter&&d.pipeType===p.pipeType).reduce((s,d)=>s+d.pipesUsed,0);
-      const left=Math.max(0,a.quantity-used2); const pct=a.quantity>0?Math.round((left/a.quantity)*100):0;
-      const st=stockStatus(left,a.quantity);
-      return`<div class="mb12">
-        <div class="flex justify-between mb8"><span style="font-weight:600;font-size:13px">${p.pipeType} ${p.diameter}</span><span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${left} left</span></div>
-        <div class="prog-wrap"><div class="prog-bar ${st.prog}" style="width:${pct}%"></div></div>
-      </div>`;
-    }).join('')||'<div class="empty" style="padding:20px"><div class="ei" style="font-size:32px">🔧</div><p>No pipes assigned</p></div>';
-  }
 }
 
 function renderEngPipes(ca){
   const me=getMyEngineer();
-  const asns=D.engAssignments(me?.id||'');
-  const dprs=D.engDprs(me?.id||'');
+  const asns=D.engActiveAssignments(me?.id||'');
   ca.innerHTML=`<div class="pg on">
-  <div class="pg-head"><h2>🔧 My Pipes</h2><p>Your assigned pipe inventory</p></div>
+  <div class="pg-head"><h2>🔧 My Pipes</h2><p>Your assigned pipe inventory — live balance</p></div>
   <div class="g-auto">
-    ${asns.map(a=>{
-      const p=D.pipe(a.pipeId); if(!p) return '';
-      const used=dprs.filter(d=>d.diameter===p.diameter&&d.pipeType===p.pipeType).reduce((s,d)=>s+d.pipesUsed,0);
-      const left=Math.max(0,a.quantity-used); const pct=a.quantity>0?Math.round((left/a.quantity)*100):0;
-      const st=stockStatus(left,a.quantity);
+    ${asns.length?asns.map(a=>{
+      const st=stockStatus(a.remaining,a.quantity);
+      const pct=a.quantity>0?Math.round(a.remaining/a.quantity*100):0;
       return`<div class="card">
-        <div class="card-h"><h3>${p.pipeType} ${p.diameter}</h3><span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${st.label}</span></div>
+        <div class="card-h">
+          <h3>${a.pipe.pipeType} ${a.pipe.diameter}</h3>
+          <span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${st.label}</span>
+        </div>
         <div class="card-b">
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
-            ${emini('Assigned',a.quantity,'var(--indigo2)')}${emini('Used',used,'var(--rose)')}${emini('Remaining',left,'var(--teal)')}
+            ${emini('Assigned',a.quantity,'var(--indigo2)')}
+            ${emini('Used',a.used,'var(--rose)')}
+            ${emini('Remaining',a.remaining,'var(--teal)')}
           </div>
           <div class="prog-wrap"><div class="prog-bar ${st.prog}" style="width:${pct}%"></div></div>
           <div class="flex justify-between mt8" style="font-size:11px;color:var(--text3)">
-            <span>${p.material}</span><span>Assigned: ${fmtDate(a.dateAssigned)}</span>
+            <span>${a.pipe.material} · ${pct}% remaining</span>
+            <span>Assigned: ${fmtDate(a.dateAssigned)}</span>
           </div>
+          ${a.remaining===0?`<div style="margin-top:10px;padding:8px;background:var(--rose-dim);border-radius:8px;font-size:11px;color:var(--rose);text-align:center">⚠️ All pipes used — contact admin for more</div>`:''}
         </div>
       </div>`;
-    }).join('')||'<div class="empty" style="grid-column:1/-1"><div class="ei">🔧</div><h3>No pipes assigned</h3><p>Contact admin to assign pipes</p></div>'}
+    }).join(''):'<div class="empty" style="grid-column:1/-1"><div class="ei">🔧</div><h3>No pipes assigned</h3><p>Contact admin to assign pipes</p></div>'}
   </div>
   </div>`;
 }
 
+// ── ENGINEER DPR FORM (LINKED TO ASSIGNMENTS) ──
 function renderEngDprForm(ca){
   const me=getMyEngineer();
-  fitRowCount=4; cfRowCount=0;
+  fittingRowCounter=0;cfRowCount=0;
+  const activeAsns=me?D.engActiveAssignments(me.id):[];
+  const hasAssignments=activeAsns.length>0;
+
   ca.innerHTML=`<div class="pg on">
-  <div class="pg-head"><h2>📝 Submit DPR</h2><p>Daily Progress Report — multiple entries allowed per day</p></div>
+  <div class="pg-head"><h2>📝 Submit DPR</h2><p>Daily Progress Report — select from your assigned pipes</p></div>
+  ${!hasAssignments?`<div class="card"><div class="card-b"><div class="empty" style="padding:40px"><div class="ei">🔧</div><h3>No Active Pipe Assignments</h3><p>You have no pipes assigned with remaining balance. Please contact your admin.</p></div></div></div>`:`
   <div class="card">
-    <div class="card-h"><h3>New DPR Entry</h3></div>
+    <div class="card-h"><h3>New DPR Entry</h3><span class="badge b-teal">${me?.name||''}</span></div>
     <div class="card-b">
-      ${buildDprForm(null, me?.id, true)}
+      <div class="fg"><label>Date</label><input type="date" id="df-date" value="${today()}"/></div>
+      
+      <div class="fg"><label>Assigned Pipe <span style="color:var(--rose);font-size:9px">*required</span></label>
+        <select id="df-asn" onchange="onEngDprAsnChange(this.value)">
+          <option value="">— Select Assigned Pipe —</option>
+          ${activeAsns.map(a=>`<option value="${a.id}">${a.pipe.pipeType} ${a.pipe.diameter} (${a.pipe.material}) — ${a.remaining} remaining</option>`).join('')}
+        </select>
+      </div>
+
+      <div id="eng-pipe-info" style="display:none" class="pipe-sel-card mb16">
+        <div class="flex justify-between items-center mb8">
+          <span style="font-size:12px;font-weight:600;color:var(--text2)">PIPE DETAILS</span>
+          <span id="eng-pipe-badge" class="badge b-indigo"></span>
+        </div>
+        <div id="eng-avail-bar" style="margin-bottom:8px"></div>
+        <div id="eng-avail-text" class="avail-info"></div>
+      </div>
+
+      <div class="fg-row c4">
+        <div class="fg"><label>Pipes Used <span style="color:var(--rose);font-size:9px">*</span></label>
+          <input type="number" id="df-used" min="1" placeholder="0" oninput="onEngUsedInput()"/>
+        </div>
+        <div class="fg"><label>Pipes Left <span style="font-size:9px;color:var(--text3)">(auto)</span></label>
+          <input type="number" id="df-left" min="0" placeholder="0" readonly style="opacity:.7;cursor:default"/>
+        </div>
+        <div class="fg"><label>Meter Laid <span style="color:var(--rose);font-size:9px">*</span></label>
+          <input type="number" id="df-meters" min="0" step="0.1" placeholder="0.0"/>
+        </div>
+        <div class="fg"><label>Total Joints</label>
+          <input type="number" id="df-joints" min="0" placeholder="0"/>
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r10);padding:16px;margin-bottom:16px">
+        <div style="font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:10px;color:var(--text1)">📍 Pipe Laid Route <span style="color:var(--rose);font-size:11px">*required</span></div>
+        <div class="fg-row c2">
+          <div class="fg"><label>Start Junction</label><input id="df-sj" placeholder="e.g. A1 or MH-01"/></div>
+          <div class="fg"><label>End Junction</label><input id="df-ej" placeholder="e.g. A2 or MH-02"/></div>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+      <div style="font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:10px">🔧 Fittings Used</div>
+      ${buildFittingsSection([])}
+
+      <hr class="section-divider"/>
+      <div style="font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:10px">🏷️ Custom Fields</div>
+      ${buildCustomFieldsSection([])}
+
+      <div class="fg mt16"><label>Notes</label><textarea id="df-notes" placeholder="Any remarks or observations…"></textarea></div>
       <div class="form-actions">
         <button class="btn btn-ghost" onclick="navigate('dash-eng')">Cancel</button>
         <button class="btn btn-pri" onclick="submitEngDpr()">📤 Submit DPR</button>
       </div>
     </div>
-  </div>
+  </div>`}
   </div>`;
-  if(me) {
-    const sel=document.getElementById('df-eng');
-    if(sel) sel.value=me.id;
+}
+
+function onEngDprAsnChange(asnId){
+  const infoBox=document.getElementById('eng-pipe-info');
+  const availText=document.getElementById('eng-avail-text');
+  const availBar=document.getElementById('eng-avail-bar');
+  const badge=document.getElementById('eng-pipe-badge');
+  const leftEl=document.getElementById('df-left');
+  const usedEl=document.getElementById('df-used');
+  if(!asnId){
+    if(infoBox) infoBox.style.display='none';
+    return;
+  }
+  const me=getMyEngineer();
+  const a=me?D.engActiveAssignments(me.id).find(x=>x.id===asnId):null;
+  if(!a||!a.pipe){if(infoBox)infoBox.style.display='none';return}
+  if(infoBox) infoBox.style.display='block';
+  if(badge) badge.textContent=`${a.pipe.pipeType} ${a.pipe.diameter} · ${a.pipe.material}`;
+  const pct=a.quantity>0?Math.round(a.remaining/a.quantity*100):0;
+  const st=stockStatus(a.remaining,a.quantity);
+  if(availBar) availBar.innerHTML=`<div class="prog-wrap"><div class="prog-bar ${st.prog}" style="width:${pct}%"></div></div>`;
+  if(availText){
+    const cls=a.remaining<20?'danger':a.remaining<50?'warn':'';
+    availText.className=`avail-info${cls?' '+cls:''}`;
+    availText.innerHTML=`📦 <b>Assigned:</b> ${a.quantity} &nbsp;|&nbsp; <b>Used (DPR):</b> ${a.used} &nbsp;|&nbsp; <b>Available:</b> ${a.remaining} pipes`;
+  }
+  if(usedEl) usedEl.value='';
+  if(leftEl) leftEl.value=a.remaining;
+}
+
+function onEngUsedInput(){
+  const asnId=document.getElementById('df-asn')?.value;
+  const usedEl=document.getElementById('df-used');
+  const leftEl=document.getElementById('df-left');
+  if(!asnId||!usedEl||!leftEl) return;
+  const me=getMyEngineer();
+  const a=me?D.engActiveAssignments(me.id).find(x=>x.id===asnId):null;
+  if(!a) return;
+  const used=parseInt(usedEl.value)||0;
+  leftEl.value=Math.max(0,a.remaining-used);
+  // Warn if exceeding
+  if(used>a.remaining){
+    usedEl.style.borderColor='var(--rose)';
+    usedEl.style.boxShadow='0 0 0 2px rgba(255,79,123,.3)';
+  } else {
+    usedEl.style.borderColor='';usedEl.style.boxShadow='';
   }
 }
+
 function submitEngDpr(){
   const me=getMyEngineer();
-  const data=collectDprData(me?.id);
+  const assignmentId=document.getElementById('df-asn')?.value;
+  const date=document.getElementById('df-date')?.value||'';
+  const pipesUsed=parseInt(document.getElementById('df-used')?.value)||0;
+  const pipesLeft=parseInt(document.getElementById('df-left')?.value)||0;
+  const meterLaid=parseFloat(document.getElementById('df-meters')?.value)||0;
+  const totalJoints=parseInt(document.getElementById('df-joints')?.value)||0;
+  const startJunction=document.getElementById('df-sj')?.value.trim()||'';
+  const endJunction=document.getElementById('df-ej')?.value.trim()||'';
+  const notes=document.getElementById('df-notes')?.value.trim()||'';
+  const fittings=collectFittings();
+  const customFields=collectCustomFields();
+
+  if(!assignmentId) return toast('Select an assigned pipe','err');
+  if(!startJunction) return toast('Enter Start Junction','err');
+  if(!endJunction) return toast('Enter End Junction','err');
+  if(pipesUsed<=0) return toast('Pipes used must be > 0','err');
+  if(meterLaid<=0) return toast('Meter laid must be > 0','err');
+
+  const a=D.assignment(assignmentId);
+  if(!a){toast('Assignment not found','err');return}
+  const p=D.pipe(a.pipeId);
+  if(!p){toast('Pipe not found','err');return}
+
+  // Validate
+  const currentUsed=D.assignmentUsed(assignmentId);
+  const available=a.quantity-currentUsed;
+  if(pipesUsed>available){
+    toast(`Only ${available} pipes remaining in this assignment`,'err');
+    return;
+  }
+
+  const data={
+    engineerId:me.id,assignmentId,date,
+    pipeType:p.pipeType,diameter:p.diameter,
+    pipesUsed,pipesLeft,meterLaid,totalJoints,
+    startJunction,endJunction,fittings,customFields,notes
+  };
   saveDprCore(data);
 }
 
@@ -1850,7 +2239,7 @@ function filterEngReport(){
   const dprs=D.engDprs(me?.id||'');
   const fm=document.getElementById('er-month')?.value||'';
   const filtered=dprs.filter(d=>!fm||d.date.startsWith(fm)).sort((a,b)=>b.date.localeCompare(a.date));
-  const tbody=document.getElementById('er-tbody'); if(!tbody)return;
+  const tbody=document.getElementById('er-tbody');if(!tbody)return;
   tbody.innerHTML=filtered.map(d=>`<tr>
     <td class="mono">${fmtDate(d.date)}</td>
     <td><span class="badge ${d.pipeType==='SAI'?'b-indigo':'b-amber'}">${d.pipeType}</span></td>
@@ -1868,7 +2257,7 @@ function filterEngReport(){
 //  VIEWER PORTAL
 // ══════════════════════════════════════════════
 function renderViewerDash(ca){
-  const engs=D.engineers(); const dprs=D.dprs(); const inv=D.inventory();
+  const engs=D.engineers();const dprs=D.dprs();const inv=D.inventory();
   const mth=thisMonth();
   const mthDprs=dprs.filter(d=>d.date.startsWith(mth));
   const totalStock=inv.reduce((s,p)=>s+p.quantity,0);
@@ -1913,9 +2302,9 @@ function renderViewerDash(ca){
   </div>`;
 
   setTimeout(()=>{
-    const months=[]; const mUsed=[]; const mMeters=[];
+    const months=[];const mUsed=[];const mMeters=[];
     for(let i=5;i>=0;i--){
-      const d=new Date(); d.setMonth(d.getMonth()-i);
+      const d=new Date();d.setMonth(d.getMonth()-i);
       const ms=d.toISOString().slice(0,7);
       months.push(d.toLocaleString('en-IN',{month:'short',year:'2-digit'}));
       const mD=dprs.filter(x=>x.date.startsWith(ms));
@@ -1937,7 +2326,7 @@ function renderViewerEngineers(ca){
   <div class="pg-head"><h2>👷 Engineer Analytics</h2></div>
   <div class="g-auto">
     ${engs.map(e=>{
-      const used=D.engUsed(e.id); const meters=D.engMeters(e.id); const dprs=D.engDprs(e.id).length;
+      const used=D.engUsed(e.id);const meters=D.engMeters(e.id);const dprs=D.engDprs(e.id).length;
       return`<div class="eng-card ${e.status==='active'?'ac':'in'}" onclick="openEngDetailModal('${e.id}')">
         <div class="flex items-center gap12 mb14">
           <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--indigo),var(--teal));border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff">${e.name[0]}</div>
@@ -1987,8 +2376,8 @@ function filterVDprTable(){
     const m=`${e?.name||''} ${d.pipeType} ${d.diameter}`.toLowerCase();
     return(!q||m.includes(q))&&(!fe||d.engineerId===fe)&&(!fm||d.date.startsWith(fm));
   }).sort((a,b)=>b.date.localeCompare(a.date));
-  const el=document.getElementById('vdpr-count'); if(el)el.textContent=`${filtered.length}`;
-  const tbody=document.getElementById('vdpr-tbody'); if(!tbody)return;
+  const el=document.getElementById('vdpr-count');if(el)el.textContent=`${filtered.length}`;
+  const tbody=document.getElementById('vdpr-tbody');if(!tbody)return;
   tbody.innerHTML=filtered.map(d=>{
     const e=D.engineer(d.engineerId);
     return`<tr>
@@ -2020,7 +2409,7 @@ function renderViewerStock(ca){
   </div>
   <div class="g-auto">
     ${inv.map(p=>{
-      const av=D.availQty(p.id); const st=stockStatus(av,p.quantity);
+      const av=D.availQty(p.id);const st=stockStatus(av,p.quantity);
       return`<div class="card">
         <div class="card-h"><h3>${p.pipeType} ${p.diameter}</h3><span class="badge ${st.cls==='si-high'?'b-teal':st.cls==='si-med'?'b-amber':'b-rose'}">${st.label}</span></div>
         <div class="card-b">
@@ -2038,7 +2427,7 @@ function renderViewerStock(ca){
 }
 
 function renderViewerCharts(ca){
-  const engs=D.engineers(); const dprs=D.dprs(); const inv=D.inventory();
+  const engs=D.engineers();const dprs=D.dprs();const inv=D.inventory();
   ca.innerHTML=`<div class="pg on">
   <div class="pg-head"><h2>📈 Performance Charts</h2></div>
   <div class="g2 mb22">
@@ -2055,7 +2444,7 @@ function renderViewerCharts(ca){
       labels:engs.map(e=>e.name),
       datasets:[{data:engs.map(e=>D.engUsed(e.id)),backgroundColor:['rgba(108,126,248,.8)','rgba(29,233,182,.7)','rgba(245,166,35,.8)','rgba(255,79,123,.7)'],borderWidth:2,borderColor:'var(--bg2)'}]
     },{cutout:'55%'});
-    const months=[]; const mData=[];
+    const months=[];const mData=[];
     for(let i=5;i>=0;i--){const d=new Date();d.setMonth(d.getMonth()-i);const ms=d.toISOString().slice(0,7);months.push(d.toLocaleString('en-IN',{month:'short',year:'2-digit'}));mData.push(dprs.filter(x=>x.date.startsWith(ms)).reduce((s,d)=>s+d.meterLaid,0))}
     mkChart('vc-line','line',{labels:months,datasets:[{label:'Meters Laid',data:mData,borderColor:'#f5a623',backgroundColor:'rgba(245,166,35,.1)',fill:true,tension:.4,pointBackgroundColor:'#f5a623'}]});
     const types={};inv.forEach(p=>{types[p.pipeType]=(types[p.pipeType]||0)+D.availQty(p.id)});
@@ -2067,11 +2456,11 @@ function renderViewerCharts(ca){
 // ══════════════════════════════════════════════
 //  CSV EXPORT
 // ══════════════════════════════════════════════
-function downloadCsv(rows, filename){
+function downloadCsv(rows,filename){
   const csv=rows.map(r=>r.map(cell=>`"${String(cell||'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement('a'); a.href=url; a.download=filename; a.click();
+  const a=document.createElement('a');a.href=url;a.download=filename;a.click();
   URL.revokeObjectURL(url);
   toast(`Downloaded: ${filename}`,'ok');
 }
